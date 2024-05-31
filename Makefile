@@ -1,40 +1,77 @@
-NAME	:= minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/04/08 20:31:12 by erpiana           #+#    #+#              #
+#    Updated: 2024/05/31 06:13:30 by erpiana          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC		:= cc
+#******************************************************************************#
+#                                   PATH                                       #
+#******************************************************************************#
 
-CFLAGS	:= -Wall -Wextra -Werror -g3
+SRC_P            := srcs/
+LIB_P            := libs/libft/
+INCS             := includes/ $(LIB_P)
+CPPFLAGS         := $(addprefix -I, $(INCS)) -MP
 
-HEADERS	:= -I includes -I libs/libft
+#******************************************************************************#
+#                                  FILES                                       #
+#******************************************************************************#
 
-LIBFT	:= libs/libft/libft.a
+SRCS     += $(addprefix $(SRC_P), free_structs.c main_utils.c minishell.c)
+OBJS     += $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
+NAME     := minishell
+LIBFT    := $(addprefix $(LIB_P), libft.a)
 
-SRC		:= src/minishell.c \
-		   src/main_utils.c \
-		   src/free_structs.c
+#******************************************************************************#
+#                               BASH COMMANDS                                  #
+#******************************************************************************#
 
+RM          := rm -rf
+BUILD       := obj/
 
-OBJ		:= $(SRC:%.c=%.o)
+#******************************************************************************#
+#                                COMPILATION                                   #
+#******************************************************************************#
 
-%.o: %.c 
-	$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS) && printf "Compiling: $(notdir $<)"
+CC       := cc
+CFLAGS   :=  -g3 -Ofast -Wall -Wextra -Werror
 
-all: $(NAME)
+#******************************************************************************#
+#                                  TARGETS                                     #
+#******************************************************************************#
 
-$(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) -lreadline $(OBJ) $(HEADERS) -o $@ -Llibs/libft -lft
+all: $(LIBFT) $(NAME)
 
 $(LIBFT):
-	@make -C libs/libft/ --no-print-directory
+	make -C $(LIB_P)
+
+$(NAME): obj $(OBJS)
+	$(CC) $(OBJS) -lreadline $(LIBFT) -o $@
+	echo "Executável $@ criado com sucesso!"
+
+obj:
+	mkdir -p $(BUILD)
+
+obj/%.o: $(SRC_P)%.c $(INCS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ)
-	make -C libs/libft clean
+	make fclean -C $(LIB_P)
+	$(RM) $(BUILD)
 
 fclean: clean
-	rm -rf $(NAME)
-	make -C libs/libft fclean
+	$(RM) $(NAME)
 
-re:	clean all
+re: fclean all
 
-PHONY: all, clean, fclean, re
+.PHONY: all clean fclean bonus
 
+.DEFAULT_GOAL := all
+
+.SILENT:

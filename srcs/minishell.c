@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/05/29 18:00:07 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/05/31 06:21:32 by erpiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ static t_matrix	*create_mtx(char *str)
 
 static t_matrix	*parse_str(char *str)
 {
-	char		**parse_str;
 	t_matrix	*mtx;
 	t_matrix	*head;
+	char		**parse_str;
 	int			i;
 
-	if (!str)
-		return (NULL);
 	i = 0;
 	mtx = NULL;
+	if (!str)
+		return (NULL);
 	parse_str = ft_split(str, ' ');
 	mtx = create_mtx(parse_str[i]);
 	if (!mtx)
@@ -104,15 +104,13 @@ int	main(void)
 	mini.cmmds = NULL;
 	while (1)
 	{
-		mini.in_ms = readline("minishell");
+		mini.in_ms = readline("minishell> ");
 		if (!mini.in_ms)
-			exit(EXIT_SUCCESS);
-		if (mini.in_ms[0] != '\0')
-		{
-			ft_printf("%s\n", mini.in_ms);
-			mini.cmmds = parse_str(mini.in_ms);
-			print_mtx(mini.cmmds);
-		}
+			break ;
+		if (mini.in_ms[0] == '\0')
+			continue ;
+		mini.cmmds = parse_str(mini.in_ms);
+		print_mtx(mini.cmmds);
 		final_free(&mini);
 	}
 	return (0);

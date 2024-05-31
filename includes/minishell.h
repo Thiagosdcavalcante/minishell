@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/05/29 16:12:54 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/05/31 06:18:56 by erpiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include "libft.h"
+# include "libft.h"
 
 typedef struct s_envs
 {
@@ -34,7 +34,7 @@ typedef struct s_matrix
 	struct s_matrix	*next;
 }	t_matrix;
 
-typedef struct	s_mini
+typedef struct s_mini
 {
 	char		*in_ms;
 	t_envs		*envars;
