@@ -6,20 +6,11 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/19 22:41:53 by erpiana          ###   ########.fr       */
+/*   Updated: 2024/06/20 20:12:43 by erpiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static void	print_envs(t_envs *envs)
-// {
-// 	while (envs)
-// 	{
-// 		ft_printf("ENVKEY: %s - ENVCONTENT: %s\n", envs->envkey, envs->envcontent);
-// 		envs = envs->next;
-// 	}
-// }
 
 static void	print_mtx(t_matrix *mtx)
 {
@@ -91,18 +82,48 @@ static int	check_if_only_spaces(t_mini *mini)
 	return (FALSE);
 }
 
+static int check_quotes_and_double_quotes(char *str)
+{
+	int	i;
+	char	finded_quote;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			finded_quote = str[i];
+			i++;
+			while (str[i] && str[i] != finded_quote)
+			{
+				i++;
+			}
+			if (str[i] == '\0')
+			{
+				printf("Syntax error: quoted unclosed\n");
+				return (FALSE);
+			}
+		}
+		i++;
+	}
+	return (TRUE);
+}
+
 static void	minishell(t_mini *mini)
 {
 	mini->in_ms = readline("minishell> ");
 	if (!mini->in_ms)
 		clear_exit(mini);
-	if_exit(mini);
+	add_history(mini->in_ms);
 	if(check_if_only_spaces(mini) == TRUE)
 	{
 		free(mini->in_ms);
 		return ;
 	}
-	//mini->in_ms = put_space_ms(mini->in_ms);
+	if(check_quotes_and_double_quotes(mini->in_ms) == FALSE)
+		return ;
+	if_exit(mini);
+	mini->in_ms = put_space_ms(mini->in_ms);
 	if (mini->in_ms[0] != '\0')
 		add_item(mini);
 	final_free(mini);
@@ -113,10 +134,9 @@ int	main(void)
 	t_mini	mini;
 
 	mini = (t_mini){0};
-	mini.envars = get_envs(__environ);
-	//print_envs(mini.envars);
+	//mini.envars = get_envs(__environ);
 	while (1)
 		minishell(&mini);
-	free_envs(mini.envars);
+	//free_envs(mini.envars);
 	return (0);
 }
