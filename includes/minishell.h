@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/19 22:21:01 by erpiana          ###   ########.fr       */
+/*   Updated: 2024/06/25 19:36:05 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ t_matrix	*parse_str(char *str);
 
 # define TRUE 1
 # define FALSE 0
+# define EXPORT = "export "
 
 #endif

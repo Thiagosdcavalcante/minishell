@@ -6,20 +6,11 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/19 22:27:33 by erpiana          ###   ########.fr       */
+/*   Updated: 2024/06/25 19:36:12 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static void	print_envs(t_envs *envs)
-// {
-// 	while (envs)
-// 	{
-// 		ft_printf("ENVKEY: %s - ENVCONTENT: %s\n", envs->envkey, envs->envcontent);
-// 		envs = envs->next;
-// 	}
-// }
 
 static void	print_mtx(t_matrix *mtx)
 {
@@ -65,18 +56,74 @@ static void	if_exit(t_mini *mini)
 
 static void	add_item(t_mini *mini)
 {
-	mini->cmmds = parse_str(mini->in_ms);
 	add_history(mini->in_ms);
+	mini->in_ms = put_space_ms(mini->in_ms);
+	mini->cmmds = parse_str(mini->in_ms);
 	print_mtx(mini->cmmds);
+}
+
+static int	check_if_only_spaces(t_mini *mini)
+{
+	int	flag;
+	int	i;
+	
+	i = 0;
+	flag = 0;
+	while (mini->in_ms[i] != '\0')
+	{
+		if (ft_isspace(mini->in_ms[i]) == FALSE)
+		{
+			flag = 1;
+			break ;
+		}
+		i++;
+	}
+	if (flag == 0)
+		return (TRUE);
+	return (FALSE);
+}
+
+static int check_quotes_and_double_quotes(char *str)
+{
+	int	i;
+	char	finded_quote;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			finded_quote = str[i];
+			i++;
+			while (str[i] && str[i] != finded_quote)
+			{
+				i++;
+			}
+			if (str[i] == '\0')
+			{
+				printf("Syntax error: quoted unclosed\n");
+				return (FALSE);
+			}
+		}
+		i++;
+	}
+	return (TRUE);
 }
 
 static void	minishell(t_mini *mini)
 {
-	mini->in_ms = readline("minishell> ");
+	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
 		clear_exit(mini);
+	if(check_if_only_spaces(mini) == TRUE)
+	{
+		add_history(mini->in_ms);
+		free(mini->in_ms);
+		return ;
+	}
+	if(check_quotes_and_double_quotes(mini->in_ms) == FALSE)
+		return ;
 	if_exit(mini);
-	//mini->in_ms = put_space_ms(mini->in_ms);
 	if (mini->in_ms[0] != '\0')
 		add_item(mini);
 	final_free(mini);
@@ -87,10 +134,7 @@ int	main(void)
 	t_mini	mini;
 
 	mini = (t_mini){0};
-	mini.envars = get_envs(__environ);
-	//print_envs(mini.envars);
 	while (1)
 		minishell(&mini);
-	free_envs(mini.envars);
 	return (0);
 }
