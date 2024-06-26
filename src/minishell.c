@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/20 20:12:43 by erpiana          ###   ########.fr       */
+/*   Updated: 2024/06/25 19:36:12 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ static void	if_exit(t_mini *mini)
 
 static void	add_item(t_mini *mini)
 {
-	mini->cmmds = parse_str(mini->in_ms);
 	add_history(mini->in_ms);
+	mini->in_ms = put_space_ms(mini->in_ms);
+	mini->cmmds = parse_str(mini->in_ms);
 	print_mtx(mini->cmmds);
 }
 
@@ -111,19 +112,18 @@ static int check_quotes_and_double_quotes(char *str)
 
 static void	minishell(t_mini *mini)
 {
-	mini->in_ms = readline("minishell> ");
+	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
 		clear_exit(mini);
-	add_history(mini->in_ms);
 	if(check_if_only_spaces(mini) == TRUE)
 	{
+		add_history(mini->in_ms);
 		free(mini->in_ms);
 		return ;
 	}
 	if(check_quotes_and_double_quotes(mini->in_ms) == FALSE)
 		return ;
 	if_exit(mini);
-	mini->in_ms = put_space_ms(mini->in_ms);
 	if (mini->in_ms[0] != '\0')
 		add_item(mini);
 	final_free(mini);
@@ -134,9 +134,7 @@ int	main(void)
 	t_mini	mini;
 
 	mini = (t_mini){0};
-	//mini.envars = get_envs(__environ);
 	while (1)
 		minishell(&mini);
-	//free_envs(mini.envars);
 	return (0);
 }

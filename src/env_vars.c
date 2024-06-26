@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:56:23 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/05 17:23:38 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:46:35 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ static t_envs	*make_env_nodes(char *str)
 	env->envkey = ft_substr(str, 0, equal);
 	env->next = NULL;
 	return (env);
+}
+
+void	add_env_var()
+{
+
 }
 
 t_envs	*get_envs(char **original)
