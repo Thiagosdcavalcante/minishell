@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/25 19:36:12 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:18:53 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static void	print_mtx(t_matrix *mtx)
 {
+	while (mtx->next)
+		mtx = mtx->next;
 	while (mtx)
 	{
-		ft_printf("%s - TOKEN: %d\n", mtx->str, mtx->type);
-		mtx = mtx->next;
+		ft_printf("%p - %p || %s - TOKEN: %d\n", mtx, mtx->prev, mtx->str, mtx->type);
+		mtx = mtx->prev;
 	}
 }
 
@@ -57,6 +59,7 @@ static void	if_exit(t_mini *mini)
 static void	add_item(t_mini *mini)
 {
 	add_history(mini->in_ms);
+	// custom_export(mini->in_ms, mini->envars);
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	print_mtx(mini->cmmds);

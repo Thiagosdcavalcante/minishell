@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:56:02 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/23 22:13:38 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:34:44 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,37 @@ static int	search_type(char *str)
 		return (WORD);
 }
 
+static t_matrix	*define_word(t_matrix *lst)
+{
+	t_matrix	*temp;
+	t_matrix	*temp2;
+	t_matrix	*head;
+
+	head = lst;
+	temp = lst;
+	temp2 = lst->next;
+	if (temp->type == WORD)
+	{
+		temp->type = CMMND;
+		temp = temp->next;
+		temp2 = temp2->next;
+	}
+	while (temp2)
+	{
+		if (temp->type == GREATER || temp->type == LESSER
+			|| temp->type == DOUBLEGREATER || temp->type == DOUBLELESSER)
+			temp2->type = MS_FILE;
+		else if (temp->type == PIPE && temp2->type == WORD)
+			temp2->type = CMMND;
+		else if (temp2->type == WORD
+			|| temp2->type == CMMND || temp2->type == MS_FILE)
+			temp2->type = PARAM;
+		temp = temp->next;
+		temp2 = temp2->next;
+	}
+	return (head);
+}
+
 static t_matrix	*create_mtx(char *str)
 {
 	t_matrix	*ms;
@@ -54,6 +85,7 @@ static t_matrix	*create_mtx(char *str)
 	ms->str = ft_strdup(str);
 	ms->type = search_type(str);
 	ms->next = NULL;
+	ms->prev = NULL;
 	return (ms);
 }
 
@@ -77,9 +109,11 @@ t_matrix	*parse_str(char *str)
 	while (parse_str[i])
 	{
 		mtx->next = create_mtx(parse_str[i]);
+		mtx->next->prev = mtx;
 		mtx = mtx->next;
 		i++;
 	}
 	free_split(parse_str);
-	return (head);
+	return (define_word(head));
+	// return (head);
 }
