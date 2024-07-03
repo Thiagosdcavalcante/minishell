@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/25 19:36:12 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:21:03 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static void	print_mtx(t_matrix *mtx)
 {
+	while (mtx->next)
+		mtx = mtx->next;
 	while (mtx)
 	{
-		ft_printf("%s - TOKEN: %d\n", mtx->str, mtx->type);
-		mtx = mtx->next;
+		ft_printf("%p - %p || %s - TOKEN: %d\n", mtx, mtx->prev, mtx->str, mtx->type);
+		mtx = mtx->prev;
 	}
 }
 

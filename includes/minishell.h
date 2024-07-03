@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/25 19:36:05 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:20:55 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <unistd.h>
 # include "libft.h"
 
+# define TRUE 1
+# define FALSE 0
+# define EXPORT "export"
+
 typedef struct s_envs
 {
 	char			*envkey;
@@ -32,6 +36,7 @@ typedef struct s_matrix
 	char			*str;
 	int				type;
 	struct s_matrix	*next;
+	struct s_matrix	*prev;
 }	t_matrix;
 
 typedef struct s_mini
@@ -49,6 +54,9 @@ typedef enum e_type
 	LESSER,
 	DOUBLEGREATER,
 	DOUBLELESSER,
+	CMMND,
+	MS_FILE,
+	PARAM,
 }	t_type;
 
 char		*put_space_ms(char *str);
@@ -57,14 +65,12 @@ char		**custom_split(char const *s, char c);
 int			aux_parse(char letter);
 int			size_str(char *str);
 int			ft_isspace(char c);
+void		custom_export(char *str, t_envs *envs);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
 void		free_envs(t_envs *envs);
+t_envs		*make_env_nodes(char *str);
 t_envs		*get_envs(char **original);
 t_matrix	*parse_str(char *str);
-
-# define TRUE 1
-# define FALSE 0
-# define EXPORT = "export "
 
 #endif
