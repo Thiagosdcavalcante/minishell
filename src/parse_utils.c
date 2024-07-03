@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:56:02 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/02 19:34:44 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:55:53 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,31 @@ static int	search_type(char *str)
 		return (WORD);
 }
 
+static void	def_pipe(t_matrix **temp_a, t_matrix **temp_b, int pipe, int cmmd)
+{
+	while ((*temp_b))
+	{
+		if ((*temp_b)->type == PIPE && (*temp_a)->type != MS_FILE && cmmd == 0
+			&& (*temp_a)->type != GREATER && (*temp_a)->type != LESSER
+			&& (*temp_a)->type != DOUBLEGREATER && (*temp_a)->type != DOUBLELESSER)
+		{
+			(*temp_b)->type = CMMND;
+			pipe++;
+			cmmd++;
+		}
+		else if ((*temp_a)->type == GREATER || (*temp_a)->type == LESSER
+			|| (*temp_a)->type == DOUBLEGREATER || (*temp_a)->type == DOUBLELESSER)
+			(*temp_b)->type = MS_FILE;
+		else if ((*temp_a)->type == PIPE && (*temp_b)->type == WORD)
+			(*temp_b)->type = CMMND;
+		else if ((*temp_b)->type == WORD
+				|| (*temp_b)->type == CMMND || (*temp_b)->type == MS_FILE)
+			(*temp_b)->type = PARAM;
+		(*temp_a) = (*temp_a)->next;
+		(*temp_b) = (*temp_b)->next;
+	}
+}
+
 static t_matrix	*define_word(t_matrix *lst)
 {
 	t_matrix	*temp;
@@ -53,25 +78,13 @@ static t_matrix	*define_word(t_matrix *lst)
 	head = lst;
 	temp = lst;
 	temp2 = lst->next;
-	if (temp->type == WORD)
+	if (temp->type == WORD && temp && temp2)
 	{
 		temp->type = CMMND;
 		temp = temp->next;
 		temp2 = temp2->next;
 	}
-	while (temp2)
-	{
-		if (temp->type == GREATER || temp->type == LESSER
-			|| temp->type == DOUBLEGREATER || temp->type == DOUBLELESSER)
-			temp2->type = MS_FILE;
-		else if (temp->type == PIPE && temp2->type == WORD)
-			temp2->type = CMMND;
-		else if (temp2->type == WORD
-			|| temp2->type == CMMND || temp2->type == MS_FILE)
-			temp2->type = PARAM;
-		temp = temp->next;
-		temp2 = temp2->next;
-	}
+	def_pipe(&temp, &temp2, 0, 0);
 	return (head);
 }
 
@@ -115,5 +128,4 @@ t_matrix	*parse_str(char *str)
 	}
 	free_split(parse_str);
 	return (define_word(head));
-	// return (head);
 }

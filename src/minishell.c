@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/02 19:18:53 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:21:03 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void	if_exit(t_mini *mini)
 static void	add_item(t_mini *mini)
 {
 	add_history(mini->in_ms);
-	// custom_export(mini->in_ms, mini->envars);
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	print_mtx(mini->cmmds);
