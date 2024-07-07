@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/03 19:20:55 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:33:24 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,27 @@ typedef struct s_envs
 	struct s_envs	*next;
 }	t_envs;
 
-typedef struct s_matrix
+typedef struct s_tokens
 {
 	char			*str;
 	int				type;
-	struct s_matrix	*next;
-	struct s_matrix	*prev;
-}	t_matrix;
+	struct s_tokens	*next;
+	struct s_tokens	*prev;
+}	t_tokens;
+
+typedef struct s_root
+{
+	char			*word;
+	int				type;
+	struct s_root	*left;
+	struct s_root	*right;
+}			t_root;
 
 typedef struct s_mini
 {
 	char		*in_ms;
 	t_envs		*envars;
-	t_matrix	*cmmds;
+	t_tokens	*cmmds;
 }	t_mini;
 
 typedef enum e_type
@@ -65,12 +73,17 @@ char		**custom_split(char const *s, char c);
 int			aux_parse(char letter);
 int			size_str(char *str);
 int			ft_isspace(char c);
+int			reverse_branch(t_tokens *tokens, t_root *root, int type);
+int			reverse(t_tokens *tokens, t_root *root, int type);
+void		create_branch(t_root *root, t_tokens *tokens);
 void		custom_export(char *str, t_envs *envs);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
 void		free_envs(t_envs *envs);
+void		print_tree(t_root *root, int nivel);
 t_envs		*make_env_nodes(char *str);
 t_envs		*get_envs(char **original);
-t_matrix	*parse_str(char *str);
+t_tokens	*parse_str(char *str);
+t_root		*create_tree(t_tokens *tokens);
 
 #endif
