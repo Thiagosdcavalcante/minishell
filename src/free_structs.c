@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:44:18 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/07 14:25:53 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:56:14 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_envs(t_envs *envs)
 	}
 }
 
-static void	clear_matrix(t_tokens *mtx)
+static void	clear_input(t_tokens *mtx)
 {
 	t_tokens	*tmp;
 
@@ -49,12 +49,37 @@ static void	clear_matrix(t_tokens *mtx)
 	}
 }
 
+static void	clear_tree(t_root *tree)
+{
+	t_root	*tmp;
+
+	tmp = NULL;
+	while (tree)
+	{
+		if (!tree->right)
+		{
+			free(tree->word);
+			free(tree);
+			break ;
+		}
+		tmp = tree;
+		tree = tree->right;
+		if (tmp->word)
+			free(tmp->word);
+		if (tmp)
+			free(tmp);
+	}
+}
+
 void	final_free(t_mini *mini)
 {
 	if (mini->in_ms)
 		free(mini->in_ms);
 	if (mini->cmmds)
-		clear_matrix(mini->cmmds);
+		clear_input(mini->cmmds);
+	if (mini->tree)
+		clear_tree(mini->tree);
 	mini->in_ms = NULL;
 	mini->cmmds = NULL;
+	mini->tree = NULL;
 }

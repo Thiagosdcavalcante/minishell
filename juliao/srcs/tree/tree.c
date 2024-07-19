@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/09 17:11:13 by tsantana         ###   ########.fr       */
+/*   Created: 2024/07/02 19:17:55 by ajuliao-          #+#    #+#             */
+/*   Updated: 2024/07/13 14:39:14 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
-int	reverse(t_tokens *tokens)
+int	reverse(t_tokens *tokens, t_root *root, int type)
 {
 	t_tokens	*last_token;
 
@@ -41,8 +41,9 @@ int	reverse_branch(t_tokens *tokens, t_root *root, int type)
 				temp->next = NULL;
 			if (rest)
 				rest->prev = NULL;
-			root->word = temp2->str;
+			root->word = temp2->word;
 			root->type = type;
+			root->fd = -1;
 			root->left = create_tree(tokens);
 			root->right = create_tree(rest);
 			free(temp2);
@@ -75,8 +76,9 @@ void	create_branch(t_root *root, t_tokens *tokens)
 		return ;
 	root->left = NULL;
 	root->right = NULL;
-	root->word = tokens->str;
-	root->type = tokens->type;
+	root->word = tokens->word;
+	root->type = 0;
+	root->fd = -1;
 }
 
 t_root	*create_tree(t_tokens *tokens)
@@ -85,7 +87,7 @@ t_root	*create_tree(t_tokens *tokens)
 
 	if (!tokens)
 		return (NULL);
-	tree = calloc(1, sizeof(t_root));
+	tree = ft_calloc(1, sizeof(t_root));
 	create_branch(tree, tokens);
 	return (tree);
 }

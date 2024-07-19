@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:56:23 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/05 18:13:38 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:56:31 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,28 @@ t_envs	*make_env_nodes(char *str)
 	return (env);
 }
 
+void	get_paths(t_mini *data, t_envs *envs)
+{
+	int		i;
+	char	*temp;
+	t_envs	*envp;
+
+	i = 0;
+	envp = envs;
+	while (ft_strncmp(envp->envkey, "PATH", 5))
+		envp = envp->next;
+	data->paths = ft_split(envp->envcontent, ':');
+	temp = data->paths[0];
+	data->paths[0] = ft_substr(temp, 5, ft_strlen(temp));
+	free(temp);
+	while (data->paths[i] != NULL)
+	{
+		temp = data->paths[i];
+		data->paths[i] = ft_strjoin(temp, "/");
+		free(temp);
+		i++;
+	}
+}
 // void	add_env_var()
 // {
 //

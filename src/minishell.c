@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/07 14:33:27 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:18:27 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ static int	check_quotes_and_double_quotes(char *str)
 
 static void	minishell(t_mini *mini)
 {
+	int	status;
+
+	status = 0;
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
 		clear_exit(mini);
@@ -129,7 +132,11 @@ static void	minishell(t_mini *mini)
 		return ;
 	if_exit(mini);
 	if (mini->in_ms[0] != '\0')
+	{
 		add_item(mini);
+		mini->tree = create_tree(mini->cmmds);
+		status = init_exec(mini, mini->tree);
+	}
 	final_free(mini);
 }
 
@@ -138,6 +145,8 @@ int	main(void)
 	t_mini	mini;
 
 	mini = (t_mini){0};
+	mini.envars = get_envs(__environ);
+	get_paths(&mini, mini.envars);
 	while (1)
 		minishell(&mini);
 	return (0);
