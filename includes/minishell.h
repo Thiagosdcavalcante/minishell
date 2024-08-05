@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/07 14:33:24 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:28:38 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ typedef struct s_tokens
 	struct s_tokens	*prev;
 }	t_tokens;
 
+typedef struct s_tokens_f
+{
+	char				*str;
+	int					type;
+	char				**args;
+	struct s_tokens_f	*next;
+	struct s_tokens_f	*prev;
+}	t_tokens_f;
+
 typedef struct s_root
 {
 	char			*word;
@@ -52,6 +61,7 @@ typedef struct s_mini
 	char		*in_ms;
 	t_envs		*envars;
 	t_tokens	*cmmds;
+	t_tokens_f	*tokens;
 }	t_mini;
 
 typedef enum e_type
@@ -84,6 +94,7 @@ void		print_tree(t_root *root, int nivel);
 t_envs		*make_env_nodes(char *str);
 t_envs		*get_envs(char **original);
 t_tokens	*parse_str(char *str);
+t_tokens_f	*create_exec_tokens(t_tokens *head);
 t_root		*create_tree(t_tokens *tokens);
 
 #endif
