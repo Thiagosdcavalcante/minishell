@@ -44,7 +44,7 @@ static int	search_type(char *str)
 		return (WORD);
 }
 
-static void	def_pipe(t_tokens **temp_a, t_tokens **temp_b, int pipe, int cmmd)
+/*static void	def_pipe(t_tokens **temp_a, t_tokens **temp_b, int pipe, int cmmd)
 {
 	while ((*temp_b))
 	{
@@ -74,6 +74,14 @@ static void	def_pipe(t_tokens **temp_a, t_tokens **temp_b, int pipe, int cmmd)
 			cmmd = 0;
 		}
 	}
+}*/
+
+int	is_file(int type_a, int type_b)
+{
+	if (type_b == WORD && (type_a == DOUBLEGREATER || type_a == DOUBLELESSER
+		|| type_a == LESSER || type_a == GREATER))
+		return (TRUE);
+	return (FALSE);
 }
 
 static t_tokens	*define_word(t_tokens *lst)
@@ -85,13 +93,18 @@ static t_tokens	*define_word(t_tokens *lst)
 	head = lst;
 	temp = lst;
 	temp2 = lst->next;
-	if (temp->type == WORD && temp && temp2)
+	if (temp->prev == NULL)
 	{
-		temp->type = CMMND;
+		temp = temp->next;
+		temp2 = temp->prev;
+	}
+	if (temp->type == WORD && temp && is_file(temp2->type, temp->type))
+	{
+		temp->type = MS_FILE;
 		temp = temp->next;
 		temp2 = temp2->next;
 	}
-	def_pipe(&temp, &temp2, 0, 0);
+	//def_pipe(&temp, &temp2, 0, 0);
 	return (head);
 }
 

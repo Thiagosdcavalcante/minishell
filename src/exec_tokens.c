@@ -66,15 +66,15 @@ static t_tokens	*token_special_char(t_token **head, t_token_f **new_tkn)
 t_tokens_f	*new_exec_token(t_tokens *head)
 {
 	t_tokens_f	*token;
+	int			i;
 
+	i = 0;
 	token = malloc(sizeof(t_tokens_f *));
+	token->args = 
 	token = init_token_f(head, token);
-	if (head->type != CMMND || head->type != WORD || head->type != PARAM)
-		return (add_special_char(head, token));
 	while (head
 		&& !(head->type == WORD || head->type == CMMND || head->type == PARAM))
 	{
-
 		head = head->next;
 	}
 }
@@ -94,6 +94,8 @@ t_tokens_f	*create_exec_tokens(t_tokens *head)
 				exec_t->next = new_exec_token(tkns);
 				exec_t = exec_t->next;
 			}
+			if (head->type != CMMND || head->type != WORD || head->type != PARAM)
+				return (add_special_char(head, token));
 			tkns = tkns->next;
 		}
 	}
