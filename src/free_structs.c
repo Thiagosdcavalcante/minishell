@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:44:18 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/05 18:40:43 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:25:53 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	free_envs(t_envs *envs)
 	}
 }
 
-static void	clear_matrix(t_matrix *mtx)
+static void	clear_matrix(t_tokens *mtx)
 {
-	t_matrix	*tmp;
+	t_tokens	*tmp;
 
 	tmp = NULL;
 	while (mtx)

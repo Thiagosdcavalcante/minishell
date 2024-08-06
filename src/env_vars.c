@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:56:23 by tsantana          #+#    #+#             */
-/*   Updated: 2024/06/26 10:55:01 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:13:38 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ t_envs	*make_env_nodes(char *str)
 	str1 = ft_strchr(str, '=');
 	equal = str1 - str;
 	env = malloc(sizeof(t_envs));
-	env->envcontent	= ft_strdup(++str1);
+	env->envcontent = ft_strdup(++str1);
 	env->envkey = ft_substr(str, 0, equal);
 	env->next = NULL;
 	return (env);
 }
 
-void	add_env_var()
-{
-
-}
+// void	add_env_var()
+// {
+//
+// }
 
 t_envs	*get_envs(char **original)
 {
