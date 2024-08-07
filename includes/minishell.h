@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/05 20:28:38 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:37:27 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,12 @@ typedef struct s_mini
 typedef enum e_type
 {
 	WORD = 0,
+	MS_FILE,
 	PIPE,
 	GREATER,
 	LESSER,
 	DOUBLEGREATER,
 	DOUBLELESSER,
-	CMMND,
-	MS_FILE,
-	PARAM,
 }	t_type;
 
 char		*put_space_ms(char *str);
