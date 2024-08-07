@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/07 13:37:27 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:24:23 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void		print_tree(t_root *root, int nivel);
 t_envs		*make_env_nodes(char *str);
 t_envs		*get_envs(char **original);
 t_tokens	*parse_str(char *str);
-t_tokens_f	*create_exec_tokens(t_tokens *head);
+t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_root		*create_tree(t_tokens *tokens);
 
 #endif
