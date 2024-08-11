@@ -6,51 +6,62 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/07 16:32:04 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/10 23:12:27 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_size_mtx(t_tokens *tkn)
-{
-	t_tokens	*temp;
-	int			size;
-	int			total;
+/* static void	make_args(t_tokens *tkn, t_tokens_f **tokens) */
+/* { */
+/* 	t_tokens	*temp; */
+/* 	int			i; */
+/* 	int			j; */
+/**/
+/* 	temp = tkn; */
+/* 	i = 0; */
+/* 	j = 0; */
+/* 	while (temp && temp->type != PIPE) */
+/* 	{ */
+/* 		if (temp->type == WORD) */
+/* 		{ */
+/* 			(*token)->args[i][j] = &temp->str; */
+/* 			j++; */
+/* 		} */
+/* 		i++; */
+/* 		temp = temp->next; */
+/* 	} */
+/* } */
 
-	temp = tkn;
-	size = 1;
-	total = 0;
-	while (temp)
+static t_tokens_f	*init_tokens_f(t_tokens *tkn)
+{
+	int			size;
+	int			i;
+	t_tokens	*tmp;
+	t_tokens_f	*token;
+
+	tmp = tkn;
+	size = 0;
+	while (tmp && tmp->type != PIPE)
 	{
-		if (temp->type == LESSER)
+		if (tmp->type == WORD)
 			size++;
-		else if (temp->type == GREATER)
-			size++;
-		else if (temp->type == DOUBLEGREATER)
-			size++;
-		else if (temp->type == DOUBLELESSER)
-			size++;
-		else if (temp->type == MS_FILE)
-			size++;
-		else if (temp->type == WORD && total != 0)
-			size++;
-		else if (temp->type == PIPE)
-		{
-			size++;
-			total += size;
-			size = 0;
-		}
-		temp = temp->next;
+		tmp = tmp->next;
 	}
-	return (total);
+	tmp = tkn;
+	token = malloc(sizeof(t_tokens_f));
+	token->str = &tmp->str;
+	token->type = WORD;
+	token->next = NULL;
+	token->prev = NULL;
+	token->args = ft_calloc(size * sizeof(char *));
+	return (token);
 }
 
 t_tokens_f	*exec_tokens(t_tokens *tkn)
 {
-	int	size;
-	int	pipe;
-	int	pointers;
+	t_tokens_f	*token_f;
 
-	size = check_size_mtx(tkn);
+	token_f = init_tokens(tkn);
+	return (token_f);
 }
