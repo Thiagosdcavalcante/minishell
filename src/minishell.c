@@ -6,22 +6,11 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/13 18:51:37 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:20:39 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	print_mtx(t_tokens *mtx)
-{
-	while (mtx->next)
-		mtx = mtx->next;
-	while (mtx)
-	{
-		ft_printf("%p - %p || %s - TOKEN: %d\n", mtx, mtx->prev, mtx->str, mtx->type);
-		mtx = mtx->prev;
-	}
-}
 
 static void	clear_exit(t_mini *mini)
 {
@@ -64,8 +53,6 @@ static void	add_item(t_mini *mini)
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
-	exec_tokens(mini->cmmds);
-	print_mtx(mini->cmmds);
 }
 
 static int	check_if_only_spaces(t_mini *mini)

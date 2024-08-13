@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/13 18:19:48 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:01:26 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_envs		*make_env_nodes(char *str);
 t_envs		*get_envs(char **original);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
-t_tokens_f	*add_special_character(t_tokens *tkn);
+t_tokens_f	*add_special_character(t_tokens **tkn);
 t_root		*create_tree(t_tokens *tokens);
 
 #endif
