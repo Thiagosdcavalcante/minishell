@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/10 23:04:30 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:19:48 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef enum e_type
 char		*put_space_ms(char *str);
 char		**ms_split(char const *s);
 char		**custom_split(char const *s, char c);
+char		**make_word_exec(t_tokens *tkn, int size);
 int			aux_parse(char letter);
 int			size_str(char *str);
 int			ft_isspace(char c);
@@ -93,6 +94,7 @@ t_envs		*make_env_nodes(char *str);
 t_envs		*get_envs(char **original);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
+t_tokens_f	*add_special_character(t_tokens *tkn);
 t_root		*create_tree(t_tokens *tokens);
 
 #endif

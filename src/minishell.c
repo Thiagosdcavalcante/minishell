@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/07 14:30:03 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:51:37 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	add_item(t_mini *mini)
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
+	exec_tokens(mini->cmmds);
 	print_mtx(mini->cmmds);
 }
 
@@ -101,9 +102,7 @@ static int	check_quotes_and_double_quotes(char *str)
 			finded_quote = str[i];
 			i++;
 			while (str[i] && str[i] != finded_quote)
-			{
 				i++;
-			}
 			if (str[i] == '\0')
 			{
 				printf("Syntax error: quoted unclosed\n");
