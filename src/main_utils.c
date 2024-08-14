@@ -6,12 +6,20 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 20:08:25 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/02 19:17:39 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:38:41 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <strings.h>
+
+char	*ft_put_zero(void)
+{
+	static int	nbr;
+
+	nbr++;
+	return (ft_itoa(nbr));
+}
 
 int	aux_parse(char letter)
 {

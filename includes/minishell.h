@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:25:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/13 19:01:26 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:41:01 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <signal.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdlib.h>
-# include <unistd.h>
+# include <errno.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 # include "libft.h"
 
 # define TRUE 1
@@ -48,13 +53,15 @@ typedef struct s_tokens_f
 	struct s_tokens_f	*prev;
 }	t_tokens_f;
 
-typedef struct s_root
+typedef struct s_root_f
 {
-	char			*word;
-	int				type;
-	struct s_root	*left;
-	struct s_root	*right;
-}			t_root;
+	char				*word;
+	int					type;
+	int					fd;
+	char				**args;
+	struct s_root_f	*left;
+	struct s_root_f	*right;
+}			t_root_f;
 
 typedef struct s_mini
 {
@@ -62,6 +69,7 @@ typedef struct s_mini
 	t_envs		*envars;
 	t_tokens	*cmmds;
 	t_tokens_f	*tokens;
+	t_root_f	*tree;
 }	t_mini;
 
 typedef enum e_type
@@ -79,22 +87,20 @@ char		*put_space_ms(char *str);
 char		**ms_split(char const *s);
 char		**custom_split(char const *s, char c);
 char		**make_word_exec(t_tokens *tkn, int size);
+char		*ft_put_zero(void);
 int			aux_parse(char letter);
 int			size_str(char *str);
 int			ft_isspace(char c);
-int			reverse_branch(t_tokens *tokens, t_root *root, int type);
-int			reverse(t_tokens *tokens, t_root *root, int type);
-void		create_branch(t_root *root, t_tokens *tokens);
 void		custom_export(char *str, t_envs *envs);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
 void		free_envs(t_envs *envs);
-void		print_tree(t_root *root, int nivel);
+void		ft_check_heredoc(t_mini *data, t_tokens_f *tokens);
 t_envs		*make_env_nodes(char *str);
 t_envs		*get_envs(char **original);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
-t_root		*create_tree(t_tokens *tokens);
+t_root_f	*create_tree(t_tokens_f *tokens);
 
 #endif

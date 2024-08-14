@@ -6,30 +6,29 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/07 14:32:37 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:21:55 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	reverse(t_tokens *tokens, t_root *root, int type)
+static t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens)
 {
-	t_tokens	*last_token;
-
-	last_token = ft_lstlast_token(tokens);
-	if (tokens == last_token)
-		return (0);
-	return (1);
+	while (tokens && tokens->next)
+	{
+		tokens = tokens->next;
+	}
+	return tokens;
 }
 
-int	reverse_branch(t_tokens *tokens, t_root *root, int type)
+static int	reverse_branch(t_tokens_f *tokens, t_root_f *root, int type)
 {
-	t_tokens	*rest;
-	t_tokens	*last_token;
-	t_tokens	*temp;
-	t_tokens	*temp2;
+	t_tokens_f *rest;
+	t_tokens_f *last_token;
+	t_tokens_f *temp;
+	t_tokens_f *temp2;
 
-	last_token = ft_lstlast_token(tokens);
+	last_token = ft_lstlast_token_f(tokens);
 	temp2 = last_token->prev;
 	while (temp2)
 	{
@@ -41,12 +40,13 @@ int	reverse_branch(t_tokens *tokens, t_root *root, int type)
 				temp->next = NULL;
 			if (rest)
 				rest->prev = NULL;
-			root->word = temp2->word;
+			root->word = strdup(temp2->str);
 			root->type = type;
+			root->args = (tokens->args);
+			root->fd = -1;
 			root->left = create_tree(tokens);
 			root->right = create_tree(rest);
 			free(temp2);
-			temp2 = temp;
 			return (1);
 		}
 		temp2 = temp2->prev;
@@ -54,53 +54,33 @@ int	reverse_branch(t_tokens *tokens, t_root *root, int type)
 	return (0);
 }
 
-void	create_branch(t_root *root, t_tokens *tokens)
+static void	create_branch(t_root_f *root, t_tokens_f *tokens)
 {
-	int	type;
-
-	type = 1;
-	if (reverse_branch(tokens, root, type))
-		return ;
-	type = 2;
-	if (reverse_branch(tokens, root, type))
-		return ;
-	type = 3;
-	if (reverse_branch(tokens, root, type))
-		return ;
-	type = 4;
-	if (reverse_branch(tokens, root, type))
-		return ;
-	type = 5;
-	if (reverse_branch(tokens, root, type))
-		return ;
+	if (reverse_branch(tokens, root, PIPE))
+		return;
+	if (reverse_branch(tokens, root, GREATER))
+		return;
+	if (reverse_branch(tokens, root, LESSER))
+		return;
+	if (reverse_branch(tokens, root, DOUBLEGREATER))
+		return;
+	if (reverse_branch(tokens, root, DOUBLELESSER))
+		return;
 	root->left = NULL;
 	root->right = NULL;
-	root->word = tokens->word;
+	root->word = strdup(tokens->str);
 	root->type = tokens->type;
+	root->fd = -1;
+	root->args = tokens->args;
 }
 
-t_root	*create_tree(t_tokens *tokens)
+t_root_f	*create_tree(t_tokens_f *tokens)
 {
-	t_root	*tree;
+	t_root_f *tree;
 
 	if (!tokens)
 		return (NULL);
-	tree = calloc(1, sizeof(t_root));
+	tree = (t_root_f *)ft_calloc(1, sizeof(t_root_f));
 	create_branch(tree, tokens);
 	return (tree);
-}
-
-void	print_tree(t_root *root, int nivel)
-{
-	int	i;
-
-	if (root)
-	{
-		print_tree(root->right, nivel + 1);
-		printf("\n\n");
-		for(i = 0; i < nivel; i++)
-			printf("\t");
-		printf("%s - %d", root->word, root->type);
-		print_tree(root->left, nivel + 1);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:24:53 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/13 20:20:39 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:21:46 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,26 @@ static void	if_exit(t_mini *mini)
 	}
 }
 
+/* static void print_tree(t_root_f *root, int nivel) { */
+/*     int i; */
+/**/
+/*     if (root) { */
+/*         print_tree(root->right, nivel + 1); */
+/*         printf("\n\n"); */
+/*         for (i = 0; i < nivel; i++) */
+/*             printf("\t"); */
+/*         printf("%s - %d\n", root->word ? root->word : "NULL", root->type); */
+/*         print_tree(root->left, nivel + 1); */
+/*     } */
+/* } */
+
 static void	add_item(t_mini *mini)
 {
 	add_history(mini->in_ms);
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
+	mini->tree = create_tree(mini->tokens);
 }
 
 static int	check_if_only_spaces(t_mini *mini)
