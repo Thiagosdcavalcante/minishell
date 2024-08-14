@@ -6,13 +6,13 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/13 21:27:22 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:22:54 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	unlink_here_doc(t_root_f *operator)
+int	unlink_here_doc(t_root_f *operator)
 {
 	if (operator == NULL)
 		return (0);
@@ -42,7 +42,7 @@ static char	*path_name(void)
 	return (path);
 }
 
-static void heredoc_util(t_data *data, char *line, int file)
+static void heredoc_util(t_mini *data, char *line, int file)
 {
 	char *new_line = full_expansion(data, line);
 	ft_putendl_fd(new_line, file);
@@ -50,7 +50,7 @@ static void heredoc_util(t_data *data, char *line, int file)
 	free(new_line);
 }
 
-static char	*ft_heredoc(t_data *data, t_tokens_f *tokens)
+static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 {
 	t_tokens_f	*cur;
 	int			file;
@@ -65,8 +65,8 @@ static char	*ft_heredoc(t_data *data, t_tokens_f *tokens)
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (ft_strlen(line) == ft_strlen(cur->next->word)
-		&& ft_strncmp(line, cur->next->word, ft_strlen(cur->next->word)) == 0)
+		if (ft_strlen(line) == ft_strlen(cur->next->str)
+		&& ft_strncmp(line, cur->next->str, ft_strlen(cur->next->str)) == 0)
 		{
 			free(line);
 			break; ;
@@ -77,7 +77,7 @@ static char	*ft_heredoc(t_data *data, t_tokens_f *tokens)
 	return (path);
 }
 
-void	ft_check_heredoc(t_data *data, t_tokens_f *tokens)
+void	ft_check_heredoc(t_mini *data, t_tokens_f *tokens)
 {
 	t_tokens_f *current;
 
@@ -86,7 +86,7 @@ void	ft_check_heredoc(t_data *data, t_tokens_f *tokens)
 	{
 		if (current->type == 5)
 		{
-			current->next->word = ft_heredoc(data, current);
+			current->next->str = ft_heredoc(data, current);
 		}
 		current = current->next;
 	}

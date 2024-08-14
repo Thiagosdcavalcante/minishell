@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 20:08:25 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/13 21:38:41 by tsantana         ###   ########.fr       */
+/*   Created: 2024/08/14 14:55:51 by tsantana          #+#    #+#             */
+/*   Updated: 2024/08/14 14:57:02 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <strings.h>
 
 char	*ft_put_zero(void)
 {

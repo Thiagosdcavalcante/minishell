@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   put_space.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 15:46:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/01 19:52:14 by tsantana         ###   ########.fr       */
+/*   Created: 2024/08/14 14:56:36 by tsantana          #+#    #+#             */
+/*   Updated: 2024/08/14 14:56:43 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
 static void	aux_cond(char *str, char *dest, int *i, int *j)

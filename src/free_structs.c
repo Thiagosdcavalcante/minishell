@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpiana <erpiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/18 16:44:18 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/07 14:25:53 by tsantana         ###   ########.fr       */
+/*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
+/*   Updated: 2024/08/14 14:57:08 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
 
 void	free_envs(t_envs *envs)
 {
