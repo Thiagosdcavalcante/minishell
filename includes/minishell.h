@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/14 15:47:36 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:29:32 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,21 @@
 # include <fcntl.h>
 # include "libft.h"
 
-# define TRUE 1
-# define FALSE 0
+// # define TRUE 1
+// # define FALSE 0
 # define EXPORT "export"
 
-typedef struct s_envs
+typedef enum e_bool
 {
-	char			*envkey;
-	char			*envcontent;
-	struct s_envs	*next;
-}	t_envs;
+	FALSE,
+	TRUE,
+}	t_bool;
+
+typedef struct s_env_list
+{
+	char				*content;
+	struct s_env_list	*next;
+}	t_env_list;
 
 typedef struct s_tokens
 {
@@ -65,8 +70,10 @@ typedef struct s_root_f
 
 typedef struct s_mini
 {
+	int			exit;
+	char		**paths;
 	char		*in_ms;
-	t_envs		*envars;
+	t_env_list	*envs;
 	t_tokens	*cmmds;
 	t_tokens_f	*tokens;
 	t_root_f	*tree;
@@ -96,11 +103,12 @@ int			size_str(char *str);
 int			ft_isspace(char c);
 int			unlink_here_doc(t_root_f *operator);
 int			ft_has_n(char **cmd);
+int			ft_exec(t_mini *data, t_root_f *root);
 void		ft_echo(t_mini *data, char **cmd);
-void		custom_export(char *str, t_envs *envs);
+// void		custom_export(char *str, t_env_list *envs);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
-void		free_envs(t_envs *envs);
+// void		free_envs(t_envs *envs);
 void		ft_check_heredoc(t_mini *data, t_tokens_f *tokens);
 void		utils_expansion3(char **result, char *arg, int i);
 void		utils_expansion2(t_mini *data, char **arg, int i, int j, char **result);
@@ -109,11 +117,30 @@ void		ft_unset(t_mini *data, char **cmd);
 void		ft_cd(t_mini *data, char **cmd);
 void		change(t_mini *data, char *path);
 void		ft_update_var(t_mini *data, char *key, char *value);
-t_envs		*make_env_nodes(char *str);
-t_envs		*get_envs(char **original);
+void		ft_env(t_mini *data, char **cmd);
+void		get_envs(t_mini *data);
+void		ft_pipex(t_mini *data, t_root_f *root);
+void		sorted_insert(t_env_list **head, t_env_list *node);
+void		sort_export(t_env_list *envs);
+void		ft_lstadd_back_env(t_env_list **lst, t_env_list *new);
+void		get_paths(t_mini *data);
+void		ffree(t_mini *data);
+void		all_free(t_mini *data);
+void		ft_export(t_mini *data, char **cmd);
+void		ft_exit(t_mini *data, char **cmd);
+void		ft_init_redirect(t_mini *data, t_root_f *root);
+void		ft_execute(t_mini *data, char **cmd);
+void		my_error(t_mini *data, int status, char *msg, char *command);
+void		init_expansion(t_mini *data, char **args);
+void		utils_expansion(t_mini *data, char **arg);
+void		ft_strcpy(char *dst, const char *src);
+void		change(t_mini *data, char *path);
+void		free_tokens_f(t_tokens_f *head);
+void		free_tokens(t_tokens *head);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
 t_root_f	*create_tree(t_tokens_f *tokens);
+t_env_list	*ft_lstnew_env(char *content);
 
 #endif

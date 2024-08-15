@@ -6,11 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 14:45:46 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:29:47 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	ft_update_var(t_mini *data, char *key, char *value)
 {
@@ -41,6 +41,7 @@ char	*get_env(t_mini *data, char *key)
 	t_env_list	*cur;
 
 	cur = data->envs;
+	result = NULL;
 	if (key == NULL || cur == NULL)
 		return (NULL);
 	k = ft_strlen(key);
@@ -56,7 +57,7 @@ char	*get_env(t_mini *data, char *key)
 	return (result);
 }
 
-void	change(t_data *data, char *path)
+void	change(t_mini *data, char *path)
 {
 	char	*old_pwd;
 	char	**arr_pwd;

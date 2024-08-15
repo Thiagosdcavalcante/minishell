@@ -6,11 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 11:02:22 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 14:45:16 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:11:19 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	ft_has_n(char **cmd)
 {

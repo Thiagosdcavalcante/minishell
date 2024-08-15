@@ -6,11 +6,10 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 19:14:26 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/05 18:11:50 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:10:55 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
 static int	ms_count_words(const char *s, const char c)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/13 21:53:31 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:21:46 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*path_name(void)
 	return (path);
 }
 
-static void heredoc_util(t_data *data, char *line, int file)
+static void heredoc_util(t_mini *data, char *line, int file)
 {
 	char *new_line = full_expansion(data, line);
 	ft_putendl_fd(new_line, file);

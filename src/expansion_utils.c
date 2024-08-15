@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 13:52:03 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 14:57:17 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:20:12 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_strcpy(char *dst, const char *src)
+void	ft_strcpy(char *dst, const char *src)
 {
 	if (src && dst)
 	{
@@ -53,16 +53,16 @@ void	utils_expansion3(char **result, char *arg, int i)
 	*result = new_result;
 }
 
-/* void	utils_expansion(t_data *data, char **arg) */
-/* { */
-/* 	char	*temp1; */
-/* 	char	*temp2; */
-/**/
-/* 	temp2 = ft_substr(*arg, 1, ft_strlen(*arg) - 2); */
-/* 	temp1 = full_expansion(data, temp2); */
-/* 	free(*arg); */
-/* 	*arg = ft_calloc(1, ft_strlen(temp1) + 1); */
-/* 	ft_strcpy(*arg, temp1); */
-/* 	free(temp1); */
-/* 	free(temp2); */
-/* } */
+void	utils_expansion(t_mini *data, char **arg)
+{
+	char	*temp1;
+	char	*temp2;
+
+	temp2 = ft_substr(*arg, 1, ft_strlen(*arg) - 2);
+	temp1 = full_expansion(data, temp2);
+	free(*arg);
+	*arg = ft_calloc(1, ft_strlen(temp1) + 1);
+	ft_strcpy(*arg, temp1);
+	free(temp1);
+	free(temp2);
+}

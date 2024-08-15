@@ -6,23 +6,55 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/14 14:57:08 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:30:51 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_envs(t_envs *envs)
-{
-	t_envs	*next;
+/* void	free_envs(t_envs *envs) */
+/* { */
+/* 	t_envs	*next; */
+/**/
+/* 	while (envs) */
+/* 	{ */
+/* 		free(envs->envcontent); */
+/* 		free(envs->envkey); */
+/* 		next = envs->next; */
+/* 		free(envs); */
+/* 		envs = next; */
+/* 	} */
+/* } */
 
-	while (envs)
-	{
-		free(envs->envcontent);
-		free(envs->envkey);
-		next = envs->next;
-		free(envs);
-		envs = next;
+void	free_tokens_f(t_tokens_f *head)
+{
+	t_tokens_f *temp;
+
+	while (head != NULL) {
+		temp = head;
+		head = head->next;
+		if (temp->str)
+			free(temp->str);
+		if (temp->args) {
+			for (int i = 0; temp->args[i] != NULL; i++) {
+				free(temp->args[i]);
+			}
+			free(temp->args);
+		}
+		free(temp);
+	}
+}
+
+void	free_tokens(t_tokens *head)
+{
+	t_tokens *temp;
+
+	while (head != NULL) {
+		temp = head;
+		head = head->next;
+		if (temp->str)
+			free(temp->str);
+		free(temp);
 	}
 }
 

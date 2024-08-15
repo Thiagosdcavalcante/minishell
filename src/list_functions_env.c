@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   list_functions_env.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 20:02:51 by tsantana         ###   ########.fr       */
+/*   Created: 2024/06/08 14:56:24 by ajuliao-          #+#    #+#             */
+/*   Updated: 2024/08/14 21:01:30 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(t_mini *data, char **cmd)
+void	ft_lstadd_back_env(t_env_list **lst, t_env_list *new)
 {
-	char	*pwd;
+	t_env_list	*swap;
 
-	(void)data;
-	if (ft_strncmp(cmd[0], "pwd", 4) == 0)
+	if (!new || !lst)
+		return ;
+	if (*lst == NULL)
 	{
-		pwd = getcwd(NULL, 0);
-		if (pwd == NULL)
-		{
-			perror("pwd");
-			return ;
-		}
-		ft_putendl_fd(pwd, 1);
-		free(pwd);
+		*lst = new;
+		return ;
 	}
+	swap = *lst;
+	while (swap->next)
+		swap = swap->next;
+	swap->next = new;
+}
+
+t_env_list	*ft_lstnew_env(char *content)
+{
+	t_env_list	*new;
+
+	new = (t_env_list *) malloc(sizeof(t_env_list));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = (NULL);
+	return (new);
 }

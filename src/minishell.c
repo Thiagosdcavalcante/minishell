@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/14 15:29:30 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:02:54 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	clear_exit(t_mini *mini)
 {
 	rl_clear_history();
 	final_free(mini);
-	free_envs(mini->envars);
+	/* free_envs(mini->envs); */
 	exit(EXIT_SUCCESS);
 }
 
@@ -139,6 +139,7 @@ int	main(void)
 	t_mini	mini;
 
 	mini = (t_mini){0};
+	get_envs(&mini);
 	while (1)
 		minishell(&mini);
 	return (0);

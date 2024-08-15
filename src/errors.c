@@ -6,14 +6,15 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 23:16:25 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/10 14:47:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:16:01 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	my_error(t_data *data, int status, char *msg, char *command)
+void	my_error(t_mini *data, int status, char *msg, char *command)
 {
+	(void)data;
 	if (status == EACCES)
 		status = 126;
 	// ft_putstr_fd("pipex: ", STDERR_FILENO);

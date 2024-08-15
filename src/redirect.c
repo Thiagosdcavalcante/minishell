@@ -6,12 +6,12 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/07/27 19:29:33 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:02:47 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // ao começar a tokenizar pode se criar já o infile do heredoc
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static void	change_fd(int fd, int change_fd)
 {
@@ -20,7 +20,7 @@ static void	change_fd(int fd, int change_fd)
 	close(fd);
 }
 
-void	ft_redirect(t_data *data, t_root_f *root)
+void	ft_redirect(t_mini *data, t_root_f *root)
 {
 	if (root->left->type > 1)
 		ft_redirect(data, root->left);
@@ -45,7 +45,7 @@ void	ft_redirect(t_data *data, t_root_f *root)
 	return ;
 }
 
-void	ft_init_redirect(t_data *data, t_root_f *root)
+void	ft_init_redirect(t_mini *data, t_root_f *root)
 {
 	int	temp_std[2];
 

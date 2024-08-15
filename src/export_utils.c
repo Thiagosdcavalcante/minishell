@@ -6,11 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:04:25 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/05 14:28:24 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:02:58 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	insertion_sort(t_env_list **head)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:56:40 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 14:46:44 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:38:59 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*expansion(t_mini *data, char *arg)
 	char	*key;
 
 	j = 0;
-	while (arg[j + 1] != ' ' && arg[j + 1] != '"' && arg[j + 1] != '\0' )
+	while (arg[j + 1] != ' ' && arg[j +: 1] != '"' && arg[j + 1] != '\0' )
 		j++;
 	key = ft_substr(arg, 1, j);
 	result = get_env(data, key);
@@ -53,31 +53,31 @@ char	*full_expansion(t_mini *data, char *arg)
 	return (result);
 }
 
-/* void	init_expansion(t_data *data, char **args) */
-/* { */
-/* 	int		i; */
-/* 	int		j; */
-/* 	char	*temp; */
-/**/
-/* 	i = 0; */
-/* 	while (args[++i]) */
-/* 	{ */
-/* 		j = 0; */
-/* 		if (args[i][j] == '\'') */
-/* 		{ */
-/* 			temp = ft_substr(args[i], 1, ft_strlen(args[i]) - 2); */
-/* 			free(args[i]); */
-/* 			args[i] = temp; */
-/* 		} */
-/* 		else if (args[i][j] == '"') */
-/* 			utils_expansion(data, &args[i]); */
-/* 		else if (args[i][j] == '$') */
-/* 		{ */
-/* 			temp = expansion(data, args[i]); */
-/* 			free(args[i]); */
-/* 			args[i] = ft_calloc(1, ft_strlen(temp) + 1); */
-/* 			ft_strcpy(args[i], temp); */
-/* 			free(temp); */
-/* 		} */
-/* 	} */
-/* } */
+void	init_expansion(t_mini *data, char **args)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	while (args[++i])
+	{
+		j = 0;
+		if (args[i][j] == '\'')
+		{
+			temp = ft_substr(args[i], 1, ft_strlen(args[i]) - 2);
+			free(args[i]);
+			args[i] = temp;
+		}
+		else if (args[i][j] == '"')
+			utils_expansion(data, &args[i]);
+		else if (args[i][j] == '$')
+		{
+			temp = expansion(data, args[i]);
+			free(args[i]);
+			args[i] = ft_calloc(1, ft_strlen(temp) + 1);
+			ft_strcpy(args[i], temp);
+			free(temp);
+		}
+	}
+}

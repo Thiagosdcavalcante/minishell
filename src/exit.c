@@ -6,14 +6,15 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/07 19:02:51 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:04:48 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	ft_exit(t_data *data, char **cmd)
+void	ft_exit(t_mini *data, char **cmd)
 {
+	(void)cmd;
 	all_free(data);
 	data->exit = 0;
 }

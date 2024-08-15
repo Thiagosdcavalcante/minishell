@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:04:25 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/05 14:32:24 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:03:05 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-t_bool	ft_search_var(t_data *data, char *key)
+t_bool	ft_search_var(t_mini *data, char *key)
 {
 	t_env_list	*temp;
 
@@ -26,11 +26,11 @@ t_bool	ft_search_var(t_data *data, char *key)
 	return (FALSE);
 }
 
-void	ft_create_env(t_data *data, char *key, char *value)
+void	ft_create_env(t_mini *data, char *key, char *value)
 {
 	char	*content;
 	char	*full_content;
-	char	*final;
+	/* char	*final; */
 
 	content = ft_strjoin(key, "=");
 	full_content = ft_strjoin(content, value);
@@ -61,7 +61,7 @@ void	sorted_insert(t_env_list **head, t_env_list *node)
 	}
 }
 
-void	ft_search_env(t_data *data, char **cmd)
+void	ft_search_env(t_mini *data, char **cmd)
 {
 	char		*key;
 	char		*value;
@@ -90,7 +90,7 @@ void	ft_search_env(t_data *data, char **cmd)
 	}
 }
 
-void	ft_export(t_data *data, char **cmd)
+void	ft_export(t_mini *data, char **cmd)
 {
 	if (cmd[1] == NULL)
 	{

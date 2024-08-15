@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:51 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/14 14:57:02 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:36:47 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ft_put_zero(void)
-{
-	static int	nbr;
-
-	nbr++;
-	return (ft_itoa(nbr));
-}
 
 int	aux_parse(char letter)
 {

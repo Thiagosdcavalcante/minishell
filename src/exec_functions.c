@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 22:59:56 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/10 14:43:43 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:14:06 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	free_paths(t_data *data)
+void	free_paths(t_mini *data)
 {
 	int	i;
 	
@@ -25,7 +25,7 @@ void	free_paths(t_data *data)
 	free(data->paths);
 }
 	
-char	*path_check(t_data *data, char *command)
+char	*path_check(t_mini *data, char *command)
 {
 	int		i;
 	char	*result;
@@ -86,7 +86,7 @@ char	**env_mtx(t_env_list *envs)
 	return (new_envs);
 }
 
-void	ft_execute(t_data *data, char **cmd)
+void	ft_execute(t_mini *data, char **cmd)
 {
 	char	*path;
 	int		len;

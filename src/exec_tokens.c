@@ -6,12 +6,11 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/14 15:47:49 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:13:07 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 char	**make_word_exec(t_tokens *tkn, int size)
 {

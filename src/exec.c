@@ -6,14 +6,14 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/10 14:43:54 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:07:48 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 // t_root para t_root_f
-static void	ft_pipe(t_data *data, t_root_f *root, int *fd, int is_left)
+static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 {
 	if (is_left == 1)
 	{
@@ -31,7 +31,7 @@ static void	ft_pipe(t_data *data, t_root_f *root, int *fd, int is_left)
 	}
 }
 
-void	ft_pipex(t_data *data, t_root_f *root)
+void	ft_pipex(t_mini *data, t_root_f *root)
 {
 	pid_t	pid[2];
 	int		fd[2];
@@ -57,8 +57,9 @@ void	ft_pipex(t_data *data, t_root_f *root)
 	waitpid (pid[1], &status, 0);
 }
 
-int	is_builtins(t_data *data, t_root_f *root)
+static int	is_builtins(t_mini *data, t_root_f *root)
 {
+	(void)data;
 	if (ft_strncmp(root->args[0], "env", 4) == 0)
 		return (1);
 	else if (ft_strncmp(root->args[0], "export", 7) == 0)
@@ -77,7 +78,7 @@ int	is_builtins(t_data *data, t_root_f *root)
 		return (0);
 }
 
-void	exec_builtins(t_data *data, t_root_f *root)
+static void	exec_builtins(t_mini *data, t_root_f *root)
 {
 	if (ft_strncmp(root->args[0], "env", 4) == 0)
 		ft_env(data, root->args);
@@ -95,11 +96,11 @@ void	exec_builtins(t_data *data, t_root_f *root)
 		ft_exit(data, root->args);
 }
 
-int	ft_exec(t_data *data, t_root_f *root)
+int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
 	int		status;
-	char	*teste;
+	/* char	*teste; */
 
 	if (root->type == 1)
 		ft_pipex(data, root);
@@ -121,7 +122,7 @@ int	ft_exec(t_data *data, t_root_f *root)
 	return (1);
 }
 
-int	init_exec(t_data *data, t_root_f *root)
+int	init_exec(t_mini *data, t_root_f *root)
 {
 	return (ft_exec(data, root));
 }
