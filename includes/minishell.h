@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/14 21:29:32 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:28:17 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # include <fcntl.h>
 # include "libft.h"
 
-// # define TRUE 1
-// # define FALSE 0
 # define EXPORT "export"
 
 typedef enum e_bool
