@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 15:28:17 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:01:24 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int			ft_isspace(char c);
 int			unlink_here_doc(t_root_f *operator);
 int			ft_has_n(char **cmd);
 int			ft_exec(t_mini *data, t_root_f *root);
+int			init_exec(t_mini *data, t_root_f *root);
 void		ft_echo(t_mini *data, char **cmd);
 // void		custom_export(char *str, t_env_list *envs);
 void		final_free(t_mini *mini);

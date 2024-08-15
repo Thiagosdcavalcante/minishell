@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 16:34:22 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:17:53 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ static int	check_quotes_and_double_quotes(char *str)
 
 static void	minishell(t_mini *mini)
 {
+	int	status;
+
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
 		clear_exit(mini);
@@ -131,6 +133,9 @@ static void	minishell(t_mini *mini)
 	if_exit(mini);
 	if (mini->in_ms[0] != '\0')
 		add_item(mini);
+	status = init_exec(mini, mini->tree);
+	// if (mini->tree != NULL)
+	// 	unlink_here_doc(mini->tree);
 	final_free(mini);
 }
 
