@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 21:07:48 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:40:15 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// t_root para t_root_f
 static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 {
 	if (is_left == 1)
@@ -100,11 +99,10 @@ int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
 	int		status;
-	/* char	*teste; */
 
-	if (root->type == 1)
+	if (root->type == PIPE)
 		ft_pipex(data, root);
-	else if (root->type > 1)
+	else if (root->type > PIPE)
 		ft_init_redirect(data, root);
 	else if (is_builtins(data, root))
 		exec_builtins(data, root);

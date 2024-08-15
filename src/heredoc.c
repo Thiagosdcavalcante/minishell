@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/14 15:22:54 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:40:24 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	unlink_here_doc(t_root_f *operator)
 {
 	if (operator == NULL)
 		return (0);
-	if (operator->type == 5)
+	if (operator->type == DOUBLELESSER)
 	{
 		if (unlink(operator->right->word) == -1)
 		{
@@ -84,7 +84,7 @@ void	ft_check_heredoc(t_mini *data, t_tokens_f *tokens)
 	current = tokens;
 	while (current)
 	{
-		if (current->type == 5)
+		if (current->type == DOUBLELESSER)
 		{
 			current->next->str = ft_heredoc(data, current);
 		}

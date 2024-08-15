@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 20:02:47 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:33:58 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ static void	change_fd(int fd, int change_fd)
 
 void	ft_redirect(t_mini *data, t_root_f *root)
 {
-	if (root->left->type > 1)
+	if (root->left->type > PIPE)
 		ft_redirect(data, root->left);
-	if (root->type == 2)
+	if (root->type == GREATER)
 	{
 		root->fd = open(root->right->word, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		change_fd(root->fd, STDOUT_FILENO);
 		close(root->fd);
 	}
-	else if (root->type == 3 || root->type == 5)
+	else if (root->type == LESSER || root->type == DOUBLELESSER)
 	{
 		root->fd = open(root->right->word, O_RDONLY, 0);
 		change_fd(root->fd, STDIN_FILENO);
 		close(root->fd);
 	}
-	else if (root->type == 4)
+	else if (root->type == DOUBLEGREATER)
 	{
 		root->fd = open(root->right->word, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		change_fd(root->fd, STDOUT_FILENO);

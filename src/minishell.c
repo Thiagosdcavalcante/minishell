@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 19:17:53 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:37:34 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,17 @@ static void	if_exit(t_mini *mini)
 	}
 }
 
-/* static void print_tree(t_root_f *root, int nivel) { */
-/*     int i; */
-/**/
-/*     if (root) { */
-/*         print_tree(root->right, nivel + 1); */
-/*         printf("\n\n"); */
-/*         for (i = 0; i < nivel; i++) */
-/*             printf("\t"); */
-/*         printf("%s - %d\n", root->word ? root->word : "NULL", root->type); */
-/*         print_tree(root->left, nivel + 1); */
-/*     } */
-/* } */
+// static void print_tree(t_root_f *root, int nivel) {
+//     int i;
+//     if (root) { 
+//         print_tree(root->right, nivel + 1); 
+//         printf("\n\n"); 
+//         for (i = 0; i < nivel; i++) 
+//             printf("\t"); 
+//         printf("%s - %d\n", root->word ? root->word : "NULL", root->type); 
+//         print_tree(root->left, nivel + 1); 
+//     } 
+// } 
 
 static void	add_item(t_mini *mini)
 {
@@ -66,7 +65,9 @@ static void	add_item(t_mini *mini)
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
+	ft_check_heredoc(mini, mini->tokens);
 	mini->tree = create_tree(mini->tokens);
+	// print_tree(mini->tree, 1);
 }
 
 static int	check_if_only_spaces(t_mini *mini)
