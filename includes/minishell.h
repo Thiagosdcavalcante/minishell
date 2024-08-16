@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 20:42:28 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:34:28 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int			unlink_here_doc(t_root_f *operator);
 int			ft_has_n(char **cmd);
 int			ft_exec(t_mini *data, t_root_f *root);
 int			init_exec(t_mini *data, t_root_f *root);
+int			ft_exit(t_mini *data, char **cmd);
 void		ft_echo(t_mini *data, char **cmd);
 // void		custom_export(char *str, t_env_list *envs);
 void		final_free(t_mini *mini);
@@ -126,7 +127,6 @@ void		get_paths(t_mini *data);
 void		ffree(t_mini *data);
 void		all_free(t_mini *data);
 void		ft_export(t_mini *data, char **cmd);
-void		ft_exit(t_mini *data, char **cmd);
 void		ft_init_redirect(t_mini *data, t_root_f *root);
 void		ft_execute(t_mini *data, char **cmd);
 void		my_error(t_mini *data, int status, char *msg, char *command);
@@ -136,7 +136,6 @@ void		ft_strcpy(char *dst, const char *src);
 void		change(t_mini *data, char *path);
 void		free_tokens_f(t_tokens_f *head);
 void		free_tokens(t_tokens *head);
-void		ft_exit(t_mini *data, char **cmd);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);

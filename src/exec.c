@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/15 20:42:32 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:34:31 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,11 @@ static int	is_builtins(t_mini *data, t_root_f *root)
 		return (0);
 }
 
-static void	exec_builtins(t_mini *data, t_root_f *root)
+static int	exec_builtins(t_mini *data, t_root_f *root)
 {
+	int	ret;
+
+	ret = 0;
 	if (ft_strncmp(root->args[0], "env", 4) == 0)
 		ft_env(data, root->args);
 	else if (ft_strncmp(root->args[0], "export", 7) == 0)
@@ -92,7 +95,8 @@ static void	exec_builtins(t_mini *data, t_root_f *root)
 	else if (ft_strncmp(root->args[0], "pwd", 4) == 0)
 		ft_pwd(data, root->args);
 	else if (ft_strncmp(root->args[0], "exit", 5) == 0)
-		ft_exit(data, root->args);
+		ret = ft_exit(data, root->args);
+	return (ret);
 }
 
 int	ft_exec(t_mini *data, t_root_f *root)

@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/15 21:18:25 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:34:21 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(t_mini *data, char **cmd)
+int	ft_exit(t_mini *data, char **cmd)
 {
 	int	i;
 	int	j;
@@ -28,15 +28,13 @@ void	ft_exit(t_mini *data, char **cmd)
 			while (cmd[i][j++])
 			{
 				if (ft_isalpha(cmd[i][j]) > 0)
-				{
-					ret = 2;
-					break;
-				}
+					return (2);
+				j++;
 			}
 		}
 	}
 	rl_clear_history();
 	all_free(data);
 	data->exit = 0;
-	exit(ret);
+	exit(ft_atoi(cmd[1]));
 }

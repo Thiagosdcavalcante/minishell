@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 20:42:20 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:34:26 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ static int	check_if_only_spaces(t_mini *mini)
 	return (FALSE);
 }
 
-static int	check_quotes_and_double_quotes(char *str)
+static t_bool	check_quotes_and_double_quotes(char *str)
 {
 	int		i;
 	char	finded_quote;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i++] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
 		{
@@ -104,31 +104,27 @@ static int	check_quotes_and_double_quotes(char *str)
 			while (str[i] && str[i] != finded_quote)
 				i++;
 			if (str[i] == '\0')
-			{
-				printf("Syntax error: quoted unclosed\n");
-				return (FALSE);
-			}
+				return (printf("Syntax error: quoted unclosed\n"), FALSE);
 		}
-		i++;
 	}
 	return (TRUE);
 }
 
-static void	minishell(t_mini *mini)
+static int	minishell(t_mini *mini)
 {
 	int	status;
 
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
-		ft_exit(mini, NULL);
+		return (ft_exit(mini, NULL));
 	if (check_if_only_spaces(mini) == TRUE)
 	{
 		add_history(mini->in_ms);
 		free(mini->in_ms);
-		return ;
+		return (printf("exit: %s: numeric argument required", mini->paths[2]), 2);
 	}
-	if (check_quotes_and_double_quotes(mini->in_ms) == FALSE)
-		return ;
+	if (!check_quotes_and_double_quotes(mini->in_ms))
+		return (EXIT_FAILURE);
 	/* if_exit(mini); */
 	if (mini->in_ms[0] != '\0')
 		add_item(mini);
@@ -136,15 +132,18 @@ static void	minishell(t_mini *mini)
 	// if (mini->tree != NULL)
 	// 	unlink_here_doc(mini->tree);
 	final_free(mini);
+	return (0);
 }
 
 int	main(void)
 {
-	t_mini	mini;
+	t_mini		mini;
+	static int	ret;
 
+	ret = 0;
 	mini = (t_mini){0};
 	get_envs(&mini);
 	while (1)
-		minishell(&mini);
-	return (0);
+		ret = minishell(&mini);
+	return (ret);
 }
