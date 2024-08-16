@@ -6,46 +6,44 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 19:37:34 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:42:20 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	clear_exit(t_mini *mini)
-{
-	rl_clear_history();
-	final_free(mini);
-	/* free_envs(mini->envs); */
-	exit(EXIT_SUCCESS);
-}
-
-static void	if_exit(t_mini *mini)
-{
-	char	**matrix;
-	int		j;
-
-	j = -1;
-	while (ft_isspace(mini->in_ms[j]))
-		++j;
-	if (ft_memcmp(&mini->in_ms[j], "exit", 4) == 0)
-	{
-		matrix = ft_split(&(mini->in_ms[j]), ' ');
-		j = -1;
-		if (ft_strlen(matrix[0]) == 4)
-		{
-			while (matrix[j] != NULL)
-				++j;
-			if (j <= 2)
-			{
-				free_split(matrix);
-				clear_exit(mini);
-			}
-			printf("exit: too many arguments\n");
-		}
-		free_split(matrix);
-	}
-}
+/* static void	clear_exit(t_mini *mini) */
+/* { */
+/* 	rl_clear_history(); */
+/* 	final_free(mini); */
+/* 	free_envs(mini->envs); */ 
+/* 	exit(EXIT_SUCCESS); */
+/* } */
+/**/
+/* static void	if_exit(t_mini *mini) */
+/* { */
+/* 	char	**matrix; */
+/* 	int		j; */
+/**/
+/* 	j = -1; */
+/* 	if (ft_memcmp(&mini->in_ms[j], "exit", 4) == 0) */
+/* 	{ */
+/* 		matrix = ft_split(&(mini->in_ms[j]), ' '); */
+/* 		j = -1; */
+/* 		if (ft_strlen(matrix[0]) == 4) */
+/* 		{ */
+/* 			while (matrix[j] != NULL) */
+/* 				++j; */
+/* 			if (j <= 2) */
+/* 			{ */
+/* 				free_split(matrix); */
+/* 				clear_exit(mini); */
+/* 			} */
+/* 			printf("exit: too many arguments\n"); */
+/* 		} */
+/* 		free_split(matrix); */
+/* 	} */
+/* } */
 
 // static void print_tree(t_root_f *root, int nivel) {
 //     int i;
@@ -122,7 +120,7 @@ static void	minishell(t_mini *mini)
 
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
-		clear_exit(mini);
+		ft_exit(mini, NULL);
 	if (check_if_only_spaces(mini) == TRUE)
 	{
 		add_history(mini->in_ms);
@@ -131,7 +129,7 @@ static void	minishell(t_mini *mini)
 	}
 	if (check_quotes_and_double_quotes(mini->in_ms) == FALSE)
 		return ;
-	if_exit(mini);
+	/* if_exit(mini); */
 	if (mini->in_ms[0] != '\0')
 		add_item(mini);
 	status = init_exec(mini, mini->tree);

@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 19:01:24 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:42:28 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void		ft_strcpy(char *dst, const char *src);
 void		change(t_mini *data, char *path);
 void		free_tokens_f(t_tokens_f *head);
 void		free_tokens(t_tokens *head);
+void		ft_exit(t_mini *data, char **cmd);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
