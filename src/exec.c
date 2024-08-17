@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/16 18:34:31 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:06:52 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 	}
 	close (fd[0]);
 	close (fd[1]);
+	data->status = 22;
 	waitpid (pid[0], &status, 0);
 	waitpid (pid[1], &status, 0);
 }
@@ -82,20 +83,22 @@ static int	exec_builtins(t_mini *data, t_root_f *root)
 	int	ret;
 
 	ret = 0;
+	init_expansion(data, root->args);
 	if (ft_strncmp(root->args[0], "env", 4) == 0)
-		ft_env(data, root->args);
+		ret = ft_env(data, root->args);
 	else if (ft_strncmp(root->args[0], "export", 7) == 0)
-		ft_export(data, root->args);
+		ret = ft_export(data, root->args);
 	else if (ft_strncmp(root->args[0], "unset", 6) == 0)
 		ft_unset(data, root->args);
 	else if (ft_strncmp(root->args[0], "echo", 5) == 0)
-		ft_echo(data, root->args);
+		ret = ft_echo(data, root->args);
 	else if (ft_strncmp(root->args[0], "cd", 3) == 0)
-		ft_cd(data, root->args);
+		ret = ft_cd(data, root->args);
 	else if (ft_strncmp(root->args[0], "pwd", 4) == 0)
 		ft_pwd(data, root->args);
 	else if (ft_strncmp(root->args[0], "exit", 5) == 0)
 		ret = ft_exit(data, root->args);
+	data->status = ret;
 	return (ret);
 }
 
@@ -116,12 +119,14 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		if (pid == 0)
 		{
 			ft_execute(data, root->args);
-			exit(EXIT_FAILURE);
+			// exit(EXIT_FAILURE);
 		}
 		else
+		{
 			waitpid(pid, &status, 0);
+		}
 	}
-	return (1);
+	return (data->status);
 }
 
 int	init_exec(t_mini *data, t_root_f *root)

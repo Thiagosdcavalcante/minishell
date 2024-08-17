@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:56:40 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/15 15:28:25 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 16:05:31 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ char	*expansion(t_mini *data, char *arg)
 	char	*key;
 
 	j = 0;
+	if (arg[0] == '$' && arg[1] == '?')
+	{
+		// ft_strjoin(ft_itoa(data->status),arg[2])
+
+		return (ft_strjoin(ft_itoa(data->status),&arg[2]));
+	}
+	if (arg[0] == '$' && arg[1] == '\0')
+		return (ft_strdup("$"));
 	while (arg[j + 1] != ' ' && arg[j + 1] != '"' && arg[j + 1] != '\0' )
 		j++;
 	key = ft_substr(arg, 1, j);

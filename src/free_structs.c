@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 15:26:02 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 14:52:46 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,34 +58,34 @@ void	free_tokens(t_tokens *head)
 	}
 }
 
-static void	clear_matrix(t_tokens *mtx)
-{
-	t_tokens	*tmp;
+// static void	clear_matrix(t_tokens *mtx)
+// {
+// 	t_tokens	*tmp;
 
-	tmp = NULL;
-	while (mtx)
-	{
-		if (!mtx->next)
-		{
-			free(mtx->str);
-			free(mtx);
-			break ;
-		}
-		tmp = mtx;
-		mtx = mtx->next;
-		if (tmp->str)
-			free(tmp->str);
-		if (tmp)
-			free(tmp);
-	}
-}
+// 	tmp = NULL;
+// 	while (mtx)
+// 	{
+// 		if (!mtx->next)
+// 		{
+// 			free(mtx->str);
+// 			free(mtx);
+// 			break ;
+// 		}
+// 		tmp = mtx;
+// 		mtx = mtx->next;
+// 		if (tmp->str)
+// 			free(tmp->str);
+// 		if (tmp)
+// 			free(tmp);
+// 	}
+// }
 
 void	final_free(t_mini *mini)
 {
 	if (mini->in_ms)
 		free(mini->in_ms);
-	if (mini->cmmds)
-		clear_matrix(mini->cmmds);
+	// if (mini->cmmds)
+	// 	clear_matrix(mini->cmmds);
 	mini->in_ms = NULL;
 	mini->cmmds = NULL;
 }

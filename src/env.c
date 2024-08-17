@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:28:08 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 21:16:44 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:07:18 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_mini *data, char **cmd)
+int	ft_env(t_mini *data, char **cmd)
 {
 	(void)cmd;
 	t_env_list	*temp;
@@ -26,6 +26,7 @@ void	ft_env(t_mini *data, char **cmd)
 			ft_putendl_fd(temp->content, 1);
 		temp = temp->next;
 	}
+	return (0);
 }
 
 void	get_envs(t_mini *data)

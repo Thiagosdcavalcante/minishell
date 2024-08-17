@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 21:29:47 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:06:04 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*get_env(t_mini *data, char *key)
 	return (result);
 }
 
-void	change(t_mini *data, char *path)
+int	change(t_mini *data, char *path)
 {
 	char	*old_pwd;
 	char	**arr_pwd;
@@ -72,7 +72,7 @@ void	change(t_mini *data, char *path)
 	{
 		perror("cd");
 		free(old_pwd);
-		return ;
+		return (1);
 	}
 	arr_pwd[0] = ft_strjoin("OLDPWD=", old_pwd);
 	arr_pwd[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
@@ -83,20 +83,24 @@ void	change(t_mini *data, char *path)
 	free(arr_pwd[2]);
 	free(old_pwd);
 	free(home);
+	return (0);
 }
 
-void	ft_cd(t_mini *data, char **cmd)
+int	ft_cd(t_mini *data, char **cmd)
 {
+	int	status;
+
+	status = 0;
 	if (cmd[1] == NULL)
 	{
-		change(data, NULL);
-		return ;
+		status = change(data, NULL);
+		return (0);
 	}
 	else if (cmd[2])
 	{
-		ft_putendl_fd("too many arguments", 2);
-		return ;
+		ft_putendl_fd(" too many arguments", 2);
+		return (1);
 	}
-	change(data, cmd[1]);
-	return ;
+	status = change(data, cmd[1]);
+	return (status);
 }

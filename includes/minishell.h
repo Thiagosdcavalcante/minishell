@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/16 18:34:28 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:08:08 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_root_f
 typedef struct s_mini
 {
 	int			exit;
+	int			status;
 	char		**paths;
 	char		*in_ms;
 	t_env_list	*envs;
@@ -104,7 +105,7 @@ int			ft_has_n(char **cmd);
 int			ft_exec(t_mini *data, t_root_f *root);
 int			init_exec(t_mini *data, t_root_f *root);
 int			ft_exit(t_mini *data, char **cmd);
-void		ft_echo(t_mini *data, char **cmd);
+int			ft_echo(t_mini *data, char **cmd);
 // void		custom_export(char *str, t_env_list *envs);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
@@ -114,10 +115,10 @@ void		utils_expansion3(char **result, char *arg, int i);
 void		utils_expansion2(t_mini *data, char **arg, int i, int j, char **result);
 void		ft_pwd(t_mini *data, char **cmd);
 void		ft_unset(t_mini *data, char **cmd);
-void		ft_cd(t_mini *data, char **cmd);
-void		change(t_mini *data, char *path);
+int			ft_cd(t_mini *data, char **cmd);
+int			change(t_mini *data, char *path);
 void		ft_update_var(t_mini *data, char *key, char *value);
-void		ft_env(t_mini *data, char **cmd);
+int			ft_env(t_mini *data, char **cmd);
 void		get_envs(t_mini *data);
 void		ft_pipex(t_mini *data, t_root_f *root);
 void		sorted_insert(t_env_list **head, t_env_list *node);
@@ -126,14 +127,13 @@ void		ft_lstadd_back_env(t_env_list **lst, t_env_list *new);
 void		get_paths(t_mini *data);
 void		ffree(t_mini *data);
 void		all_free(t_mini *data);
-void		ft_export(t_mini *data, char **cmd);
+int			ft_export(t_mini *data, char **cmd);
 void		ft_init_redirect(t_mini *data, t_root_f *root);
 void		ft_execute(t_mini *data, char **cmd);
 void		my_error(t_mini *data, int status, char *msg, char *command);
 void		init_expansion(t_mini *data, char **args);
 void		utils_expansion(t_mini *data, char **arg);
 void		ft_strcpy(char *dst, const char *src);
-void		change(t_mini *data, char *path);
 void		free_tokens_f(t_tokens_f *head);
 void		free_tokens(t_tokens *head);
 t_tokens	*parse_str(char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:50 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 21:32:26 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 15:09:55 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	get_paths(t_mini *data)
 	char	*temp;
 	char	*env;
 
-	i = 0;
-	if (data->paths)
-	{
-		while (data->paths[i] != NULL)
-		{
-			free(data->paths[i++]);
-		}
-		data->paths[i] = NULL;
-	}
+	// i = 0;
+	// if (data->paths)
+	// {
+	// 	while (data->paths[i] != NULL)
+	// 	{
+	// 		free(data->paths[i++]);
+	// 	}
+	// 	data->paths[i] = NULL;
+	// }
 	i = 0;
 	env = get_env(data, "PATH");
 	data->paths = ft_split(env, ':');

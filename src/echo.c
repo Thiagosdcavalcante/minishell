@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 11:02:22 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 19:11:19 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 16:57:30 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,40 @@ int	ft_has_n(char **cmd)
 	return (i);
 }
 
-void	ft_echo(t_mini *data, char **cmd)
+static	void print_echo(char **cmd, int start)
 {
 	int	i;
 
-	init_expansion(data, cmd);
-	if (cmd[1] == NULL)
-	{
-		ft_putchar_fd('\n', 1);
-		return ;
-	}
-	i = ft_has_n(cmd);
+	i = start;
 	while (cmd[i])
 	{
 		if (i > 1)
-		{
 			ft_putstr_fd(cmd[i], 1);
-			if (cmd[i + 1] != NULL)
-				ft_putchar_fd(' ', 1);
-		}
-		else
+		else if (cmd[i + 1] != NULL)
 		{
 			ft_putstr_fd(cmd[i], 1);
 			ft_putchar_fd(' ', 1);
 		}
+		else
+			ft_putstr_fd(cmd[i], 1);
 		i++;
 	}
+}
+
+int	ft_echo(t_mini *data, char **cmd)
+{
+	int	i;
+
+	// init_expansion(data, cmd);
+	(void)data;
+	if (cmd[1] == NULL)
+	{
+		ft_putchar_fd('\n', 1);
+		return (0);
+	}
+	i = ft_has_n(cmd);
+	print_echo(cmd, i);
 	if (ft_has_n(cmd) == 1)
 		ft_putchar_fd('\n', 1);
-	return ;
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/16 18:34:26 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 14:53:41 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* { */
 /* 	rl_clear_history(); */
 /* 	final_free(mini); */
-/* 	free_envs(mini->envs); */ 
+/* 	free_envs(mini->envs); */
 /* 	exit(EXIT_SUCCESS); */
 /* } */
 /**/
@@ -47,15 +47,15 @@
 
 // static void print_tree(t_root_f *root, int nivel) {
 //     int i;
-//     if (root) { 
-//         print_tree(root->right, nivel + 1); 
-//         printf("\n\n"); 
-//         for (i = 0; i < nivel; i++) 
-//             printf("\t"); 
-//         printf("%s - %d\n", root->word ? root->word : "NULL", root->type); 
-//         print_tree(root->left, nivel + 1); 
-//     } 
-// } 
+//     if (root) {
+//         print_tree(root->right, nivel + 1);
+//         printf("\n\n");
+//         for (i = 0; i < nivel; i++)
+//             printf("\t");
+//         printf("%s - %d\n", root->word ? root->word : "NULL", root->type);
+//         print_tree(root->left, nivel + 1);
+//     }
+// }
 
 static void	add_item(t_mini *mini)
 {
@@ -129,6 +129,7 @@ static int	minishell(t_mini *mini)
 	if (mini->in_ms[0] != '\0')
 		add_item(mini);
 	status = init_exec(mini, mini->tree);
+	mini->status = status;
 	// if (mini->tree != NULL)
 	// 	unlink_here_doc(mini->tree);
 	final_free(mini);
@@ -142,6 +143,7 @@ int	main(void)
 
 	ret = 0;
 	mini = (t_mini){0};
+	// mini.status = 11;
 	get_envs(&mini);
 	while (1)
 		ret = minishell(&mini);

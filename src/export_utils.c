@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:04:25 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 20:02:58 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 16:50:04 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ void	insertion_sort(t_env_list **head)
 t_env_list	*create_node(char *content)
 {
 	t_env_list	*new_node;
-
+	
 	new_node = (t_env_list *)malloc(sizeof(t_env_list));
 	if (!new_node)
 		return (NULL);
-	new_node->content = strdup(content);
+	if (content[ft_strlen(content) - 1] == '=')
+		new_node->content = ft_substr(content, 0, ft_strlen(content) - 1);
+	else
+		new_node->content = ft_strdup(content);
 	new_node->next = NULL;
 	return (new_node);
 }

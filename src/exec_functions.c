@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 22:59:56 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/14 21:14:06 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/17 15:09:19 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	free_paths(t_mini *data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (data->paths[i])
 	{
@@ -24,7 +24,7 @@ void	free_paths(t_mini *data)
 	}
 	free(data->paths);
 }
-	
+
 char	*path_check(t_mini *data, char *command)
 {
 	int		i;
@@ -45,7 +45,6 @@ char	*path_check(t_mini *data, char *command)
 		free(temp);
 		i++;
 	}
-	free_paths(data);
 	if (ft_strncmp(command, "/", 1) == 0)
 		if (access(command, F_OK | X_OK) == 0)
 			return (command);
