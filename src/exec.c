@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/17 17:06:52 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:21:10 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 	}
 	close (fd[0]);
 	close (fd[1]);
-	data->status = 22;
 	waitpid (pid[0], &status, 0);
 	waitpid (pid[1], &status, 0);
+	data->status = WEXITSTATUS(status);
 }
 
 static int	is_builtins(t_mini *data, t_root_f *root)
