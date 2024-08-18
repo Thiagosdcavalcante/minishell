@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:50 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/17 15:09:55 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:02:17 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,14 @@ char	*ft_put_zero(void)
 
 	nbr++;
 	return (ft_itoa(nbr));
+}
+
+void	print_list_export(t_env_list *node)
+{
+	while (node != NULL)
+	{
+		ft_putstr_fd("declare -x ", 1);
+		ft_putendl_fd(node->content, 1);
+		node = node->next;
+	}
 }

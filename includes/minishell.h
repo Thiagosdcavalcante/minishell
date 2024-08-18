@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/17 17:08:08 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:03:47 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int			ft_exec(t_mini *data, t_root_f *root);
 int			init_exec(t_mini *data, t_root_f *root);
 int			ft_exit(t_mini *data, char **cmd);
 int			ft_echo(t_mini *data, char **cmd);
+int			ft_create_env(t_mini *data, char *key, char *value);
 // void		custom_export(char *str, t_env_list *envs);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
@@ -136,6 +137,7 @@ void		utils_expansion(t_mini *data, char **arg);
 void		ft_strcpy(char *dst, const char *src);
 void		free_tokens_f(t_tokens_f *head);
 void		free_tokens(t_tokens *head);
+void		print_list_export(t_env_list *node);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);

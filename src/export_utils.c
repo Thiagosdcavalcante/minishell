@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:04:25 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/17 16:50:04 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:02:17 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	insertion_sort(t_env_list **head)
 t_env_list	*create_node(char *content)
 {
 	t_env_list	*new_node;
-	
+
 	new_node = (t_env_list *)malloc(sizeof(t_env_list));
 	if (!new_node)
 		return (NULL);
@@ -57,15 +57,7 @@ void	free_list(t_env_list *head)
 	}
 }
 
-void	print_list(t_env_list *node)
-{
-	while (node != NULL)
-	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putendl_fd(node->content, 1);
-		node = node->next;
-	}
-}
+
 
 void	sort_export(t_env_list *envs)
 {
@@ -88,6 +80,6 @@ void	sort_export(t_env_list *envs)
 		temp = temp->next;
 	}
 	insertion_sort(&head);
-	print_list(head);
+	print_list_export(head);
 	free_list(head);
 }
