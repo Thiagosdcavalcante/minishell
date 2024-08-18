@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:04:25 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/18 14:02:17 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:10:30 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	free_list(t_env_list *head)
 		free(tmp);
 	}
 }
-
-
 
 void	sort_export(t_env_list *envs)
 {
