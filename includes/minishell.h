@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/18 17:53:33 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:49:19 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ void		change(t_mini *data, char *path);
 void		free_tokens_f(t_tokens_f *head);
 void		free_tokens(t_tokens *head);
 void		sigint_handler(int sig_num);
-void		sigquit_handler(int sig_num);
+int			sig_heredoc(int sig_heredoc)
+void		sig_handler(int sig_num);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);

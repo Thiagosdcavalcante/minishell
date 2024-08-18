@@ -6,13 +6,13 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/18 17:55:13 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:58:14 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile g_sig	sig = 0;
+volatile int	g_sig = 0;
 
 /* static void	clear_exit(t_mini *mini) */
 /* { */
@@ -146,8 +146,7 @@ int	main(void)
 	static int	ret;
 
 	ret = 0;
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	init_sig();
 	mini = (t_mini){0};
 	get_envs(&mini);
 	while (1 && sig < 3 )
