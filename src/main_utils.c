@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:51 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 21:11:50 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:38:43 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	size_str(char *str)
 	return (i);
 }
 
-int	ft_isspace(char c)
+t_bool	ft_isspace(char c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
 		return (TRUE);

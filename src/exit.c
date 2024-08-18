@@ -6,35 +6,51 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/16 18:34:21 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:00:36 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit(t_mini *data, char **cmd)
+static t_bool	exit_aux(char *str)
 {
 	int	i;
-	int	j;
-	int	ret;
+	int	sign;
 
 	i = 0;
-	j = 0;
+	sign = 0;
+	if (!str)
+		return (TRUE);
+	while (str[i])
+	{
+		if (str[i] == '-' || str[i] == '+')
+			sign++;
+		if (ft_isalpha(str[i]) > 0 || sign > 1)
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
+}
+
+int	ft_exit(t_mini *data, char **cmd)
+{
+	int		i;
+	int		ret;
+
+	i = 1;
 	ret = 0;
-	while (*cmd[i++])
+	if (!cmd[i])
+		exit(0);
+	while (cmd[i] != NULL)
 	{
 		if (i > 0)
-		{
-			while (cmd[i][j++])
-			{
-				if (ft_isalpha(cmd[i][j]) > 0)
-					return (2);
-				j++;
-			}
-		}
+			if (exit_aux(cmd[i]) == TRUE)
+				return (1);
+		i++;
 	}
 	rl_clear_history();
 	all_free(data);
-	data->exit = 0;
-	exit(ft_atoi(cmd[1]));
+	ret = ft_atoi(cmd[1]);
+	ret %= 256; 
+	return (ret);
 }

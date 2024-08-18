@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_var.c                                       :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 18:05:06 by tsantana          #+#    #+#             */
-/*   Updated: 2024/07/05 18:18:58 by tsantana         ###   ########.fr       */
+/*   Created: 2024/08/18 16:01:01 by tsantana          #+#    #+#             */
+/*   Updated: 2024/08/18 18:00:44 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static void	print_env(t_envs **envs)
-// {
-// 	while ((*envs))
-// 	{
-// 		ft_printf("%s=%s\n", (*envs)->envkey, (*envs)->envcontent);
-// 		(*envs) = (*envs)->next;
-// 	}
-// }
-//
-// void	custom_export(char *str, t_envs **envs)
-// {
-// 	int	i;
-//
-// 	i = 0;
-// 	if (ft_strncmp(str, EXPORT, ft_strlen(EXPORT)) == 0)
-// 		print_env(envs);
-// 	else if (ft_strncmp(str, EXPORT, ft_strlen(EXPORT)) > 0)
-// 	{
-//
-// 	}
-// }
+void	sigint_handler(int sig_num)
+{
+    signal(SIGINT, sigint_handler); 
+	g_sig = 1;
+}
+
+void	sigquit_handler(int sig_num)
+{
+    signal(SIGQUIT, sigquit_handler);
+	g_sig = 3;
+}

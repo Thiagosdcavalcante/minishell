@@ -6,11 +6,13 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/16 18:34:26 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:55:13 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile g_sig	sig = 0;
 
 /* static void	clear_exit(t_mini *mini) */
 /* { */
@@ -68,7 +70,7 @@ static void	add_item(t_mini *mini)
 	// print_tree(mini->tree, 1);
 }
 
-static int	check_if_only_spaces(t_mini *mini)
+static t_bool	check_if_only_spaces(t_mini *mini)
 {
 	int	flag;
 	int	i;
@@ -120,8 +122,11 @@ static int	minishell(t_mini *mini)
 	if (check_if_only_spaces(mini) == TRUE)
 	{
 		add_history(mini->in_ms);
-		free(mini->in_ms);
-		return (printf("exit: %s: numeric argument required", mini->paths[2]), 2);
+		if (mini->in_ms)
+		{
+			free(mini->in_ms);
+			return (printf("exit: %s: numeric argument required", mini->paths[2]), 2);
+		}
 	}
 	if (!check_quotes_and_double_quotes(mini->in_ms))
 		return (EXIT_FAILURE);
@@ -141,9 +146,11 @@ int	main(void)
 	static int	ret;
 
 	ret = 0;
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 	mini = (t_mini){0};
 	get_envs(&mini);
-	while (1)
-		ret = minishell(&mini);
+	while (1 && sig < 3 )
+		ret = ((minishell(&mini)) % 256);
 	return (ret);
 }

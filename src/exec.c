@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/16 18:34:31 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:00:20 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int	exec_builtins(t_mini *data, t_root_f *root)
 		ft_cd(data, root->args);
 	else if (ft_strncmp(root->args[0], "pwd", 4) == 0)
 		ft_pwd(data, root->args);
-	else if (ft_strncmp(root->args[0], "exit", 5) == 0)
+	else if (ft_strncmp(root->word, "exit", 5) == 0)
 		ret = ft_exit(data, root->args);
 	return (ret);
 }
