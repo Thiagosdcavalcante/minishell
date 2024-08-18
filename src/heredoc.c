@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 19:40:24 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:24:15 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 
 	cur = tokens;
 	path = path_name();
-	file = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	file = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	while (1)
 	{
 		line = readline("> ");

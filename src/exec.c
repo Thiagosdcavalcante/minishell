@@ -6,28 +6,59 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/17 18:21:10 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:48:37 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	close_fd_fork(int *fd, char *error)
+{
+	if (error)
+		perror(error);
+	if (*fd)
+	{
+		close(fd[0]);
+		if (fd[1])
+			close(fd[1]);
+	}
+}
+
 static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 {
+	int	status;
+
+	status = 0;
 	if (is_left == 1)
 	{
-		dup2 (fd[1], STDOUT_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
 		close (fd[0]);
 		close (fd[1]);
-		ft_exec (data, root->left);
+		status = ft_exec (data, root->left);
+		if (status == 1)
+			exit (EXIT_FAILURE);
+		exit (status);
 	}
 	else
 	{
-		dup2 (fd[0], STDIN_FILENO);
+		dup2(fd[0], STDIN_FILENO);
 		close (fd[0]);
 		close (fd[1]);
-		ft_exec (data, root->right);
+		status = ft_exec (data, root->right);
+		if (status == 1)
+			exit (EXIT_FAILURE);
+		exit(status);
 	}
+}
+
+static int	ft_status(pid_t pid)
+{
+	int	status;
+
+	waitpid (pid, &status, 0);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	return (status);
 }
 
 void	ft_pipex(t_mini *data, t_root_f *root)
@@ -36,25 +67,24 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 	int		fd[2];
 	int		status;
 
+	status = 0;
 	if (pipe(fd) < 0)
 		exit (0);
 	pid[0] = fork();
 	if (pid[0] == 0)
 	{
 		ft_pipe(data, root, fd, 1);
-		exit(EXIT_SUCCESS);
 	}
 	pid[1] = fork();
 	if (pid[1] == 0)
 	{
 		ft_pipe(data, root, fd, 0);
-		exit(EXIT_SUCCESS);
 	}
 	close (fd[0]);
 	close (fd[1]);
-	waitpid (pid[0], &status, 0);
-	waitpid (pid[1], &status, 0);
-	data->status = WEXITSTATUS(status);
+	status = ft_status(pid[0]);
+	status = ft_status(pid[1]);
+	data->status = status;
 }
 
 static int	is_builtins(t_mini *data, t_root_f *root)
@@ -105,7 +135,6 @@ static int	exec_builtins(t_mini *data, t_root_f *root)
 int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
-	int		status;
 
 	if (root->type == PIPE)
 		ft_pipex(data, root);
@@ -117,14 +146,8 @@ int	ft_exec(t_mini *data, t_root_f *root)
 	{
 		pid = fork();
 		if (pid == 0)
-		{
 			ft_execute(data, root->args);
-			// exit(EXIT_FAILURE);
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
-		}
+		data->status = ft_status(pid);
 	}
 	return (data->status);
 }
