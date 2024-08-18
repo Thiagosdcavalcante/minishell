@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/18 16:48:37 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:53:48 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 		close (fd[0]);
 		close (fd[1]);
 		status = ft_exec (data, root->left);
-		if (status == 1)
-			exit (EXIT_FAILURE);
 		exit (status);
 	}
 	else
@@ -45,9 +43,7 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 		close (fd[0]);
 		close (fd[1]);
 		status = ft_exec (data, root->right);
-		if (status == 1)
-			exit (EXIT_FAILURE);
-		exit(status);
+		exit (status);
 	}
 }
 
