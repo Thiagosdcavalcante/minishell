@@ -113,24 +113,24 @@ t_tokens_f	*exec_tokens(t_tokens *tkn)
 {
 	t_tokens_f	*token_f;
 	t_tokens_f	*head;
-	int			i;
+	// int			i;
 
-	i = 0;
+	// i = 0;
 	token_f = init_tokens_f(tkn);
 	head = token_f;
 	token_f = make_execve_token(&token_f, &tkn, 1);
 	// printf("-> %d ", size_tkn_f(token_f));
 	while (token_f)
 	{
-		i = 0;
+		// i = 0;
 		// while (token_f->args[i])
 		// {
 		// 	printf("cmmd: %s arg: %s type: %d\n", token_f->str, token_f->args[i], token_f->type);
-		// 	i++;	
+		// 	i++;
 		// }
 		if (token_f->next)
 			token_f = token_f->next;
-		else 
+		else
 			break ;
 	}
 	return (head);

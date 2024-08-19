@@ -16,9 +16,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*new_arr;
 	unsigned int	size_s;
-	unsigned int	i;
 
-	i = 0;
 	if (!s)
 		return (0);
 	size_s = ft_strlen(s);

@@ -33,8 +33,9 @@ int	ft_exit(t_mini *data, char **cmd)
 			}
 		}
 	}
-	rl_clear_history();
+	// rl_clear_history();
 	all_free(data);
 	data->exit = 0;
-	exit(ft_atoi(cmd[1]));
+	ret = ft_atoi(cmd[1]);
+	exit(ret);
 }

@@ -109,7 +109,7 @@ static int	exec_builtins(t_mini *data, t_root_f *root)
 	int	ret;
 
 	ret = 0;
-	init_expansion(data, root->args);
+	// init_expansion(data, root->args);
 	if (ft_strncmp(root->args[0], "env", 4) == 0)
 		ret = ft_env(data, root->args);
 	else if (ft_strncmp(root->args[0], "export", 7) == 0)
@@ -132,6 +132,7 @@ int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
 
+	init_expansion(data, root->args);
 	if (root->type == PIPE)
 		ft_pipex(data, root);
 	else if (root->type > PIPE)

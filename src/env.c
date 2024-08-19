@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern char **environ;
+
 int	ft_env(t_mini *data, char **cmd)
 {
 	(void)cmd;
@@ -32,9 +34,8 @@ int	ft_env(t_mini *data, char **cmd)
 void	get_envs(t_mini *data)
 {
 	char	*env;
-	char	**envp;
+    char **envp = environ;
 
-	envp = __environ;
 	while(*envp)
 	{
 		env = ft_substr(*envp, 0, ft_strlen(*envp));
