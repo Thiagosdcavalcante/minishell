@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 22:59:56 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/17 15:09:19 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/19 23:48:01 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,14 @@ char	**env_mtx(t_env_list *envs)
 	return (new_envs);
 }
 
-void	ft_execute(t_mini *data, char **cmd)
+int	ft_execute(t_mini *data, char **cmd)
 {
 	char	*path;
 	int		len;
 	char	**envs;
 
 	if (!cmd)
-		return ;
+		return (1) ;
 	path = NULL;
 	envs = env_mtx(data->envs);
 	if ((*&(cmd)) == NULL)
@@ -106,4 +106,5 @@ void	ft_execute(t_mini *data, char **cmd)
 		path = cmd[0];
 	if (execve(path, cmd, envs) < 0)
 		my_error(data, errno, strerror(errno), cmd[0]);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/18 14:03:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/20 01:27:49 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void		ffree(t_mini *data);
 void		all_free(t_mini *data);
 int			ft_export(t_mini *data, char **cmd);
 void		ft_init_redirect(t_mini *data, t_root_f *root);
-void		ft_execute(t_mini *data, char **cmd);
+int			ft_execute(t_mini *data, char **cmd);
 void		my_error(t_mini *data, int status, char *msg, char *command);
 void		init_expansion(t_mini *data, char **args);
 void		utils_expansion(t_mini *data, char **arg);

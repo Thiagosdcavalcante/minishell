@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/17 17:06:04 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/19 23:06:18 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int	change(t_mini *data, char *path)
 	home = get_env(data, "HOME");
 	old_pwd = getcwd(NULL, 0);
 	if (path == NULL)
+	{
 		chdir(home);
+		return (0);	
+	}
 	else if (chdir(path) != 0)
 	{
 		perror("cd");

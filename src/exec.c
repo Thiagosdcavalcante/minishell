@@ -6,23 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/18 16:53:48 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/20 01:30:06 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	close_fd_fork(int *fd, char *error)
-{
-	if (error)
-		perror(error);
-	if (*fd)
-	{
-		close(fd[0]);
-		if (fd[1])
-			close(fd[1]);
-	}
-}
 
 static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 {
@@ -65,7 +53,7 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 
 	status = 0;
 	if (pipe(fd) < 0)
-		exit (0);
+		exit (EXIT_FAILURE);
 	pid[0] = fork();
 	if (pid[0] == 0)
 	{
@@ -109,7 +97,6 @@ static int	exec_builtins(t_mini *data, t_root_f *root)
 	int	ret;
 
 	ret = 0;
-	// init_expansion(data, root->args);
 	if (ft_strncmp(root->args[0], "env", 4) == 0)
 		ret = ft_env(data, root->args);
 	else if (ft_strncmp(root->args[0], "export", 7) == 0)
@@ -143,7 +130,10 @@ int	ft_exec(t_mini *data, t_root_f *root)
 	{
 		pid = fork();
 		if (pid == 0)
+		{
 			ft_execute(data, root->args);
+			exit(EXIT_FAILURE);
+		}
 		data->status = ft_status(pid);
 	}
 	return (data->status);

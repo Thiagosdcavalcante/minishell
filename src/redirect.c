@@ -3,46 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/15 19:33:58 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/20 01:26:25 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// ao começar a tokenizar pode se criar já o infile do heredoc
 #include "minishell.h"
 
-static void	change_fd(int fd, int change_fd)
+int	ft_redirect_greater(t_root_f *root)
 {
-	dup2(fd, change_fd);
-
-	close(fd);
+	root->fd = open(root->right->word, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (root->fd == -1)
+	{
+		perror("minishell");
+		return (-1);
+	}
+	if (dup2(root->fd, STDOUT_FILENO) == -1)
+	{
+		perror("minishell");
+		close(root->fd);
+		return (-1);
+	}
+	close(root->fd);
+	return (0);
 }
 
-void	ft_redirect(t_mini *data, t_root_f *root)
+int	ft_redirect_lesser(t_root_f *root)
 {
-	if (root->left->type > PIPE)
-		ft_redirect(data, root->left);
+	root->fd = open(root->right->word, O_RDONLY, 0);
+	if (root->fd == -1)
+	{
+		perror("minishell");
+		return (-1);
+	}
+	if (dup2(root->fd, STDIN_FILENO) == -1)
+	{
+		perror("minishell");
+		close(root->fd);
+		return (-1);
+	}
+	close(root->fd);
+	return (0);
+}
+
+int	ft_redirect_doublegreater(t_root_f *root)
+{
+	root->fd = open(root->right->word, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	if (root->fd == -1)
+	{
+		perror("minishell");
+		return (-1);
+	}
+	if (dup2(root->fd, STDOUT_FILENO) == -1)
+	{
+		perror("minishell");
+		close(root->fd);
+		return (-1);
+	}
+	close(root->fd);
+	return (0);
+}
+
+int	ft_redirect(t_mini *data, t_root_f *root)
+{
+	int result = 0;
+
+	if (root->left && root->left->type > PIPE)
+	{
+		result = ft_redirect(data, root->left);
+		if (result == -1)
+			return (-1);
+	}
 	if (root->type == GREATER)
-	{
-		root->fd = open(root->right->word, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		change_fd(root->fd, STDOUT_FILENO);
-		close(root->fd);
-	}
+		result = ft_redirect_greater(root);
 	else if (root->type == LESSER || root->type == DOUBLELESSER)
-	{
-		root->fd = open(root->right->word, O_RDONLY, 0);
-		change_fd(root->fd, STDIN_FILENO);
-		close(root->fd);
-	}
+		result = ft_redirect_lesser(root);
 	else if (root->type == DOUBLEGREATER)
-	{
-		root->fd = open(root->right->word, O_WRONLY | O_CREAT | O_APPEND, 0666);
-		change_fd(root->fd, STDOUT_FILENO);
-		close(root->fd);
-	}
-	return ;
+		result = ft_redirect_doublegreater(root);
+	return (result);
 }
 
 void	ft_init_redirect(t_mini *data, t_root_f *root)
@@ -51,8 +91,16 @@ void	ft_init_redirect(t_mini *data, t_root_f *root)
 
 	temp_std[0] = dup(STDIN_FILENO);
 	temp_std[1] = dup(STDOUT_FILENO);
-	if(root->fd < 0)
-		ft_redirect(data, root);
+
+	if (ft_redirect(data, root) == -1)
+	{
+		dup2(temp_std[0], STDIN_FILENO);
+		dup2(temp_std[1], STDOUT_FILENO);
+		close(temp_std[0]);
+		close(temp_std[1]);
+		data->status = 1;
+		return;
+	}
 	ft_exec(data, root->left);
 	dup2(temp_std[0], STDIN_FILENO);
 	dup2(temp_std[1], STDOUT_FILENO);
