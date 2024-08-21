@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/20 01:27:49 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:09:10 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,11 @@ void		final_free(t_mini *mini);
 void		free_split(char **split);
 // void		free_envs(t_envs *envs);
 void		ft_check_heredoc(t_mini *data, t_tokens_f *tokens);
-void		utils_expansion3(char **result, char *arg, int i);
-void		utils_expansion2(t_mini *data, char **arg, int i, int j, char **result);
+void		one_quote(char **arg, int *i, char **new_result, char **result);
+void		handle_var_expansion(t_mini *data, char *arg, int *i, char **result);
+void		handle_normal_char(char c, char **result);
+// void		utils_expansion3(char **result, char *arg, int i);
+// void		utils_expansion2(t_mini *data, char **arg, int i, int j, char **result);
 void		ft_pwd(t_mini *data, char **cmd);
 void		ft_unset(t_mini *data, char **cmd);
 int			ft_cd(t_mini *data, char **cmd);

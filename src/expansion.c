@@ -6,57 +6,90 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:56:40 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/17 16:05:31 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:09:10 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expansion(t_mini *data, char *arg)
+void	double_quote_expansion(t_mini *data, char *arg, int *i, char **result)
+{
+	(*i)++;
+	while (arg[*i] && arg[*i] != '"')
+	{
+		if (arg[*i] == '$')
+		{
+			handle_var_expansion(data, arg, i, result);
+			if (!*result)
+				return ;
+		}
+		else
+		{
+			handle_normal_char(arg[*i], result);
+			if (!*result)
+				return ;
+		}
+		(*i)++;
+	}
+}
+
+void	expand_variable(t_mini *data, char *arg, int *i, char **result)
 {
 	int		j;
-	char	*result;
-	char	*key;
+	char	*temp;
+	char	*expanded_var;
+	char	*new_result;
 
-	j = 0;
-	if (arg[0] == '$' && arg[1] == '?')
-	{
-		// ft_strjoin(ft_itoa(data->status),arg[2])
-
-		return (ft_strjoin(ft_itoa(data->status),&arg[2]));
-	}
-	if (arg[0] == '$' && arg[1] == '\0')
-		return (ft_strdup("$"));
-	while (arg[j + 1] != ' ' && arg[j + 1] != '"' && arg[j + 1] != '\0' )
+	j = *i + 1;
+	while (arg[j] && arg[j] != ' ' && arg[j] != '"' && arg[j] != '\'')
 		j++;
-	key = ft_substr(arg, 1, j);
-	result = get_env(data, key);
-	free(key);
-	return (result);
+	temp = ft_substr(arg, *i, j - *i);
+	expanded_var = expansion(data, temp);
+	free(temp);
+	if (!expanded_var)
+		expanded_var = ft_strdup("");
+	new_result = ft_strjoin(*result, expanded_var);
+	free(*result);
+	free(expanded_var);
+	*result = new_result;
+	if (!*result)
+		return ;
+	*i = j - 1;
+}
+
+void	handle_expansion_case(t_mini *data, char *arg, int *i, char **result)
+{
+	if (arg[*i] == '"')
+		double_quote_expansion(data, arg, i, result);
+	else if (arg[*i] == '$')
+		expand_variable(data, arg, i, result);
+	else
+		handle_normal_char(arg[*i], result);
 }
 
 char	*full_expansion(t_mini *data, char *arg)
 {
 	int		i;
-	int		j;
 	char	*result;
+	char	*new_result;
 
-	i = -1;
-	j = 0;
+	i = 0;
 	result = ft_strdup("");
-	while (arg[++i])
+	while (arg[i])
 	{
-		if (arg[i] == '$' && (arg[i + 1] != '$'
-				&& arg[i + 1] != ' ' && arg[i + 1] != '\0'))
+		if (arg[i] == '\'')
 		{
-			j = i + 1;
-			while (arg[j] != ' ' && arg[j] != '"' && arg[j] != '\0')
-				j++;
-			utils_expansion2(data, &arg, i, j, &result);
-			i = j - 1;
+			one_quote(&arg, &i, &new_result, &result);
+			if (!result)
+				return (NULL);
 		}
 		else
-			utils_expansion3(&result, arg, i);
+		{
+			handle_expansion_case(data, arg, &i, &result);
+			if (!result)
+				return (NULL);
+		}
+		i++;
 	}
 	return (result);
 }
@@ -64,28 +97,14 @@ char	*full_expansion(t_mini *data, char *arg)
 void	init_expansion(t_mini *data, char **args)
 {
 	int		i;
-	int		j;
 	char	*temp;
 
 	i = 0;
 	while (args[++i])
 	{
-		j = 0;
-		if (args[i][j] == '\'')
-		{
-			temp = ft_substr(args[i], 1, ft_strlen(args[i]) - 2);
-			free(args[i]);
-			args[i] = temp;
-		}
-		else if (args[i][j] == '"')
-			utils_expansion(data, &args[i]);
-		else if (args[i][j] == '$')
-		{
-			temp = expansion(data, args[i]);
-			free(args[i]);
-			args[i] = ft_calloc(1, ft_strlen(temp) + 1);
-			ft_strcpy(args[i], temp);
-			free(temp);
-		}
+		temp = full_expansion(data, args[i]);
+		free(args[i]);
+		args[i] = ft_strdup(temp);
+		free(temp);
 	}
 }
