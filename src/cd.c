@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/19 23:06:18 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/20 21:35:15 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_update_var(t_mini *data, char *key, char *value)
 char	*get_env(t_mini *data, char *key)
 {
 	int			k;
-	int			start;
+	int			s;
 	char		*result;
 	t_env_list	*cur;
 
@@ -49,8 +49,8 @@ char	*get_env(t_mini *data, char *key)
 	{
 		if (ft_strncmp(cur->content, key, k) == 0)
 		{
-			start = k + 1;
-			return (ft_substr(cur->content, start, ft_strlen(cur->content) - start));
+			s = k + 1;
+			return (ft_substr(cur->content, s, ft_strlen(cur->content) - s));
 		}
 		cur = cur->next;
 	}
@@ -67,10 +67,7 @@ int	change(t_mini *data, char *path)
 	home = get_env(data, "HOME");
 	old_pwd = getcwd(NULL, 0);
 	if (path == NULL)
-	{
-		chdir(home);
-		return (0);	
-	}
+		return (chdir(home));
 	else if (chdir(path) != 0)
 	{
 		perror("cd");
