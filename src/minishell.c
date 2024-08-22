@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/17 14:53:41 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:02:39 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,23 @@
 //     }
 // }
 
+void print_list(t_tokens *cmd)
+{
+	while(cmd)
+	{
+		printf("TOKEN: %s", cmd->str);
+		cmd = cmd->next;
+	}
+
+}
+
 static void	add_item(t_mini *mini)
 {
 	add_history(mini->in_ms);
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
+    // clear_wrong_space(&mini->cmmds);
+	// print_list(mini->cmmds);
 	mini->tokens = exec_tokens(mini->cmmds);
 	ft_check_heredoc(mini, mini->tokens);
 	mini->tree = create_tree(mini->tokens);

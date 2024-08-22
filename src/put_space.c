@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   put_space.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:36 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 21:11:41 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:02:01 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	is_quote(char letter, int quote, int quote_d)
+{
+	if (letter == '\'' && quote == 1)
+		return (0);
+	else if (letter == '\'' && quote == 0)
+		return (1);
+	else if (letter == '\"' && quote_d == 1)
+		return (0);
+	else if (letter == '\"' && quote_d == 0)
+		return (1);
+	return (0);
+}
 
 static void	aux_cond(char *str, char *dest, int *i, int *j)
 {
@@ -31,7 +44,7 @@ static void	aux_cond(char *str, char *dest, int *i, int *j)
 	}
 }
 
-static char	*str_new(char *str, int extra)
+static char	*str_new(char *str, int extra, int quote, int quote_d)
 {
 	char	*new_str;
 	int		i;
@@ -44,7 +57,12 @@ static char	*str_new(char *str, int extra)
 		return (NULL);
 	while (str[i])
 	{
-		if (str[i] && str[i + 1] && aux_parse(str[i]) == 2)
+		if (str[i] == '\'')
+			quote = is_quote(str[i], quote, quote_d);
+		else if (str[i] == '\"')
+			quote_d = is_quote(str[i], quote, quote_d);
+		if (str[i] && str[i + 1] && aux_parse(str[i]) == 2
+			&& quote == 0 && quote_d == 0)
 			aux_cond(str, new_str, &i, &j);
 		else
 			new_str[j++] = str[i++];
@@ -56,18 +74,30 @@ static char	*str_new(char *str, int extra)
 
 char	*put_space_ms(char *str)
 {
-	int		i;
-	int		space;
+	int	i;
+	int	space;
+	int	quote;
+	int	quote_d;
 
 	i = 0;
 	space = 0;
+	quote = 0;
+	quote_d = 0;
 	if (!str)
 		return (0);
 	while (str[i])
 	{
-		if (aux_parse(str[i]) == 2)
+		if (str[i] == '\'' && quote == 0)
+			quote++;
+		if (str[i] == '\"' && quote_d == 0)
+			quote++;
+		if (str[i] == '\'' && quote == 1)
+			quote--;
+		if (str[i] == '\"' && quote_d == 1)
+			quote--;
+		if (aux_parse(str[i]) == 2 && quote == 0 && quote_d == 0)
 			space++;
 		i++;
 	}
-	return (str_new(str, space));
+	return (str_new(str, space, 0, 0));
 }
