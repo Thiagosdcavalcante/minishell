@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/21 20:32:18 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:29:42 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,9 @@ int    ft_exit(t_mini *data, char **cmd)
     while (cmd[i])
     {
         if (i > 1)
-		{
-
-			my_error(data, 1,  "too many arguments", "exit");
-        	// return (printf(" too many arguments\n"), 2);
-			return (0);
-		}
+			return (my_error(data, 1,  "too many arguments", "exit"), 0);
 	    if (check_for_alphaandsignal(cmd[i]) == 1 || (size_check(cmd[i]) == 1))
-		{
-			my_error(data, 2,  "numeric argument required", "exit");
-            // return (printf(" numeric argument required\n"), 2);
-		}
+			return (my_error(data, 2,  "numeric argument required", "exit"), 2);
         i++;
     }
     i--;

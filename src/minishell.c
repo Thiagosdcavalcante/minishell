@@ -6,56 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/21 22:02:39 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:26:03 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* static void	clear_exit(t_mini *mini) */
-/* { */
-/* 	rl_clear_history(); */
-/* 	final_free(mini); */
-/* 	free_envs(mini->envs); */
-/* 	exit(EXIT_SUCCESS); */
-/* } */
-/**/
-/* static void	if_exit(t_mini *mini) */
-/* { */
-/* 	char	**matrix; */
-/* 	int		j; */
-/**/
-/* 	j = -1; */
-/* 	if (ft_memcmp(&mini->in_ms[j], "exit", 4) == 0) */
-/* 	{ */
-/* 		matrix = ft_split(&(mini->in_ms[j]), ' '); */
-/* 		j = -1; */
-/* 		if (ft_strlen(matrix[0]) == 4) */
-/* 		{ */
-/* 			while (matrix[j] != NULL) */
-/* 				++j; */
-/* 			if (j <= 2) */
-/* 			{ */
-/* 				free_split(matrix); */
-/* 				clear_exit(mini); */
-/* 			} */
-/* 			printf("exit: too many arguments\n"); */
-/* 		} */
-/* 		free_split(matrix); */
-/* 	} */
-/* } */
-
-// static void print_tree(t_root_f *root, int nivel) {
-//     int i;
-//     if (root) {
-//         print_tree(root->right, nivel + 1);
-//         printf("\n\n");
-//         for (i = 0; i < nivel; i++)
-//             printf("\t");
-//         printf("%s - %d\n", root->word ? root->word : "NULL", root->type);
-//         print_tree(root->left, nivel + 1);
-//     }
-// }
+volatile int	g_sig = 0;
 
 void print_list(t_tokens *cmd)
 {
@@ -72,12 +29,9 @@ static void	add_item(t_mini *mini)
 	add_history(mini->in_ms);
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
-    // clear_wrong_space(&mini->cmmds);
-	// print_list(mini->cmmds);
 	mini->tokens = exec_tokens(mini->cmmds);
 	ft_check_heredoc(mini, mini->tokens);
 	mini->tree = create_tree(mini->tokens);
-	// print_tree(mini->tree, 1);
 }
 
 static int	check_if_only_spaces(t_mini *mini)
@@ -137,13 +91,10 @@ static int	minishell(t_mini *mini)
 	}
 	if (!check_quotes_and_double_quotes(mini->in_ms))
 		return (EXIT_FAILURE);
-	/* if_exit(mini); */
-	if (mini->in_ms[0] != '\0')
+	if (mini->in_ms[0] != '\0' || g_sig == 2)
 		add_item(mini);
 	status = init_exec(mini, mini->tree);
-	mini->status = status;
-	// if (mini->tree != NULL)
-	// 	unlink_here_doc(mini->tree);
+		mini->status = status;
 	final_free(mini);
 	return (0);
 }
@@ -154,10 +105,18 @@ int	main(void)
 	static int	ret;
 
 	ret = 0;
+	init_sig();
 	mini = (t_mini){0};
-	// mini.status = 11;
 	get_envs(&mini);
 	while (1)
+	{
 		ret = minishell(&mini);
+		if (mini.exit == 1)
+		{
+			rl_clear_history();
+			all_free(&mini);
+			exit(ret);
+		}
+	}
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/21 19:09:10 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:29:40 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ char		*ft_put_zero(void);
 char		*full_expansion(t_mini *data, char *arg);
 char		*expansion(t_mini *data, char *arg);
 char		*get_env(t_mini *data, char *key);
+int			sig_heredoc(int sig_heredoc);
 int			aux_parse(char letter);
 int			size_str(char *str);
 int			ft_isspace(char c);
@@ -108,6 +109,9 @@ int			ft_exit(t_mini *data, char **cmd);
 int			ft_echo(t_mini *data, char **cmd);
 int			ft_create_env(t_mini *data, char *key, char *value);
 // void		custom_export(char *str, t_env_list *envs);
+void		sig_handler(int sig_num);
+void		init_sig(void);
+void		sigint_handler(int sig_num);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
 // void		free_envs(t_envs *envs);
