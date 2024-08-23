@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/13 21:53:44 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/22 22:36:32 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ static int	reverse_branch(t_tokens_f *tokens, t_root_f *root, int type)
 	t_tokens_f *temp;
 	t_tokens_f *temp2;
 
+	(void)type;
 	last_token = ft_lstlast_token_f(tokens);
 	temp2 = last_token->prev;
 	while (temp2)
 	{
-		if (temp2->type == type)
+		if (temp2->type > PIPE)
 		{
 			rest = temp2->next;
 			temp = temp2->prev;
@@ -41,7 +42,7 @@ static int	reverse_branch(t_tokens_f *tokens, t_root_f *root, int type)
 			if (rest)
 				rest->prev = NULL;
 			root->word = strdup(temp2->str);
-			root->type = type;
+			root->type = root->type ;
 			root->args = (tokens->args);
 			root->fd = -1;
 			root->left = create_tree(tokens);
@@ -56,16 +57,24 @@ static int	reverse_branch(t_tokens_f *tokens, t_root_f *root, int type)
 
 static void	create_branch(t_root_f *root, t_tokens_f *tokens)
 {
-	if (reverse_branch(tokens, root, PIPE))
-		return;
-	if (reverse_branch(tokens, root, GREATER))
-		return;
-	if (reverse_branch(tokens, root, LESSER))
-		return;
-	if (reverse_branch(tokens, root, DOUBLEGREATER))
-		return;
-	if (reverse_branch(tokens, root, DOUBLELESSER))
-		return;
+	if (root->type == PIPE && reverse_branch(tokens, root, root->type))
+	{
+		return ;
+	}
+	if (root->type != PIPE && reverse_branch(tokens, root, root->type))
+	{
+		return ;
+	}
+	// if (reverse_branch(tokens, root, PIPE))
+	// 	return;
+	// if (reverse_branch(tokens, root, LESSER))
+	// 	return;
+	// if (reverse_branch(tokens, root, GREATER))
+	// 	return;
+	// if (reverse_branch(tokens, root, DOUBLEGREATER))
+	// 	return;
+	// if (reverse_branch(tokens, root, DOUBLELESSER))
+	// 	return;
 	root->left = NULL;
 	root->right = NULL;
 	root->word = strdup(tokens->str);
