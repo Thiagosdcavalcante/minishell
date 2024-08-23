@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/21 22:02:39 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:28:13 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ static int	minishell(t_mini *mini)
 {
 	int	status;
 
+	status = 0;
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
 		return (ft_exit(mini, NULL));

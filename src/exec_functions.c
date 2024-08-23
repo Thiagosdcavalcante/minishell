@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 22:59:56 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/19 23:48:01 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:15:06 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,26 +85,57 @@ char	**env_mtx(t_env_list *envs)
 	return (new_envs);
 }
 
-int	ft_execute(t_mini *data, char **cmd)
-{
-	char	*path;
-	int		len;
-	char	**envs;
+int ft_execute(t_mini *data, char **cmd) {
+    char *path;
+    char **envs;
 
-	if (!cmd)
-		return (1) ;
-	path = NULL;
-	envs = env_mtx(data->envs);
-	if ((*&(cmd)) == NULL)
-		my_error(data, 127, "cmd not found", " ");
-	len = ft_strlen(cmd[0]);
-	if (ft_strncmp(cmd[0] + len - 1, "/", 1) == 0)
-		my_error(data, 126, "Is a directory", cmd[0]);
-	if (ft_strncmp(cmd[0], "./", 2) != 0)
-		path = path_check(data, cmd[0]);
-	if (!path)
-		path = cmd[0];
-	if (execve(path, cmd, envs) < 0)
-		my_error(data, errno, strerror(errno), cmd[0]);
-	return (1);
+    if (!cmd || !cmd[0]) // Verifica se o comando é nulo ou vazio.
+	{
+
+		my_error(data, 127, "Command not found", NULL);
+        return (1);
+	}
+
+    if (cmd[0][strlen(cmd[0]) - 1] == '/')
+	{
+
+		 my_error(data, 126, "Is a directory", cmd[0]);
+        return (1);
+	}
+
+    // Busca pelo caminho se necessário.
+    if (strncmp(cmd[0], "./", 2) == 0 || strncmp(cmd[0], "/", 1) == 0) {
+        path = cmd[0];
+    } else {
+        path = path_check(data, cmd[0]);
+    }
+    envs = env_mtx(data->envs);
+    if (execve(path ? path : cmd[0], cmd, envs) == -1)
+        my_error(data, errno, strerror(errno), cmd[0]);
+
+    return 1; // Não deve alcançar aqui.
 }
+
+// int	ft_execute(t_mini *data, char **cmd)
+// {
+// 	char	*path;
+// 	int		len;
+// 	char	**envs;
+
+// 	if (!cmd)
+// 		return (1) ;
+// 	path = NULL;
+// 	envs = env_mtx(data->envs);
+// 	if ((*&(cmd)) == NULL)
+// 		my_error(data, 127, "cmd not found", " ");
+// 	len = ft_strlen(cmd[0]);
+// 	if (ft_strncmp(cmd[0] + len - 1, "/", 1) == 0)
+// 		my_error(data, 126, "Is a directory", cmd[0]);
+// 	if (ft_strncmp(cmd[0], "./", 2) != 0)
+// 		path = path_check(data, cmd[0]);
+// 	if (!path)
+// 		path = cmd[0];
+// 	if (execve(path, cmd, envs) < 0)
+// 		my_error(data, errno, strerror(errno), cmd[0]);
+// 	return (1);
+// }
