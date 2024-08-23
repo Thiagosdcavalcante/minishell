@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/23 14:46:29 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:21:28 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,56 +55,55 @@ static t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens)
 // 	return (0);
 // }
 
-static int reverse_branch(t_tokens_f *tokens, t_root_f *root, int type)
+static int	reverse_branch(t_tokens_f *tokens, t_root_f *root, int type)
 {
-    t_tokens_f *rest;
-    t_tokens_f *last_token;
-    t_tokens_f *temp;
-    t_tokens_f *temp2;
+	t_tokens_f *rest;
+	t_tokens_f *last_token;
+	t_tokens_f *temp;
+	t_tokens_f *temp2;
 
-    last_token = ft_lstlast_token_f(tokens);
-    temp2 = last_token->prev;
-    while (temp2) {
-        if (temp2->type == type) {
-            rest = temp2->next;
-            temp = temp2->prev;
-            if (temp)
-                temp->next = NULL;
-            if (rest)
-                rest->prev = NULL;
-            root->word = strdup(temp2->str);
-            root->type = temp2->type;
-            root->args = (tokens->args);
-            root->fd = -1;
-            root->left = create_tree(tokens);
-            root->right = create_tree(rest);
-            free(temp2);
-            return 1;
-        }
-        temp2 = temp2->prev;
-    }
-    return 0;
+	last_token = ft_lstlast_token_f(tokens);
+	temp2 = last_token->prev;
+	while (temp2) {
+		if (temp2->type == type) {
+			rest = temp2->next;
+			temp = temp2->prev;
+			if (temp)
+				temp->next = NULL;
+			if (rest)
+				rest->prev = NULL;
+			root->word = strdup(temp2->str);
+			root->type = temp2->type;
+			root->args = (tokens->args);
+			root->fd = -1;
+			root->left = create_tree(tokens);
+			root->right = create_tree(rest);
+			free(temp2);
+			return (1);
+		}
+		temp2 = temp2->prev;
+	}
+	return (0);
 }
 
-static void create_branch(t_root_f *root, t_tokens_f *tokens)
+static void	create_branch(t_root_f *root, t_tokens_f *tokens)
 {
-    if (reverse_branch(tokens, root, PIPE))
-        return;
-
-    if (reverse_branch(tokens, root, LESSER) ||
-        reverse_branch(tokens, root, GREATER) ||
-        reverse_branch(tokens, root, DOUBLEGREATER) ||
-        reverse_branch(tokens, root, DOUBLELESSER)) {
-        return;
-    }
-
-    // Se nenhum redirecionamento ou PIPE foi processado, inicialize o nó folha
-    root->left = NULL;
-    root->right = NULL;
-    root->word = strdup(tokens->str);
-    root->type = tokens->type;
-    root->fd = -1;
-    root->args = tokens->args;
+	if (reverse_branch(tokens, root, PIPE))
+		return ;
+	if (reverse_branch(tokens, root, LESSER) ||
+		reverse_branch(tokens, root, GREATER) ||
+		reverse_branch(tokens, root, DOUBLELESSER) ||
+		reverse_branch(tokens, root, DOUBLEGREATER)
+		)
+		{
+			return;
+		}
+	root->left = NULL;
+	root->right = NULL;
+	root->word = strdup(tokens->str);
+	root->type = tokens->type;
+	root->fd = -1;
+	root->args = tokens->args;
 }
 
 // static void	create_branch(t_root_f *root, t_tokens_f *tokens)

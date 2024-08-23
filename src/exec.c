@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/23 17:19:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:52:26 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,17 @@ void ft_pipex(t_mini *data, t_root_f *root)
 	int		status;
 
 	status = 0;
-    if (pipe(fd) < 0)
-        exit(EXIT_FAILURE);
-    if ((pid[0] = fork()) == 0)
-        ft_pipe(data, root, fd, 1);
-    if ((pid[1] = fork()) == 0)
-        ft_pipe(data, root, fd, 0);
-    close(fd[0]);
-    close(fd[1]);
-    status = ft_status(pid[0]);
-    status = ft_status(pid[1]);
+	if (pipe(fd) < 0)
+		exit(EXIT_FAILURE);
+	if ((pid[0] = fork()) == 0)
+		ft_pipe(data, root, fd, 1);
+	if ((pid[1] = fork()) == 0)
+		ft_pipe(data, root, fd, 0);
+	close(fd[0]);
+	close(fd[1]);
+	status = ft_status(pid[0]);
+	status = ft_status(pid[1]);
+	data->status = status;
 }
 
 static int	is_builtins(t_mini *data, t_root_f *root)
@@ -113,7 +114,7 @@ static int	exec_builtins(t_mini *data, t_root_f *root)
 int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
-	
+
 	init_expansion(data, root->args);
 	if (root->type == PIPE)
 		ft_pipex(data, root);

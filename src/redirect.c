@@ -6,95 +6,107 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/23 16:22:39 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:11:40 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strip_quotes(char *word)
+char	*ft_quotes(char *word)
 {
 	char	*file;
+	int		i;
+	int		j;
 
-	if ((word[0] == '"' && word[ft_strlen(word) - 1] == '"') ||
-		(word[0] == '\'' && word[ft_strlen(word) - 1] == '\''))
+	file = (char *)malloc(ft_strlen(word) + 1);
+	if (!file)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (word[i])
 	{
-		file = ft_substr(word, 1, ft_strlen(word) - 2);
+		if (word[i] != '"' && word[i] != '\'')
+		{
+			file[j] = word[i];
+			j++;
+		}
+		i++;
 	}
-	else
-		file = word;
+	file[j] = '\0';
 	return (file);
 }
 
 int	ft_redirect_lesser(t_root_f *root)
 {
-    char *file;
+	char	*file;
 
-	file = ft_strip_quotes(root->right->word);
-    if ((root->fd = open(file, O_RDONLY)) == -1)
+	file = ft_quotes(root->right->word);
+	root->fd = open(file, O_RDONLY);
+	if (root->fd == -1)
 	{
-        perror("minishell: open error");
-        free(file);
-        return -1;
-    }
-    dup2(root->fd, STDIN_FILENO);
-    close(root->fd);
-    free(file);
-    return 0;
+		perror("minishell: open error");
+		free(file);
+		return (-1);
+	}
+	dup2(root->fd, STDIN_FILENO);
+	close(root->fd);
+	free(file);
+	return (0);
 }
 
 int	ft_redirect_greater(t_root_f *root)
 {
-    char *file;
+	char	*file;
 
-	file = ft_strip_quotes(root->right->word);
-    if ((root->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666)) == -1)
+	file = ft_quotes(root->right->word);
+	root->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (root->fd == -1)
 	{
-        perror("minishell: open error"); 
-        free(file);
-        return -1;
-    }
-    if (dup2(root->fd, STDOUT_FILENO) == -1)
+		perror("minishell:");
+		free(file);
+		return (-1);
+	}
+	if (dup2(root->fd, STDOUT_FILENO) == -1)
 	{
-        perror("minishell: dup2 error");
-        close(root->fd);
-        free(file);
-        return -1;
-    }
-    close(root->fd);
-    free(file);
-    return 0;
+		perror("minishell:");
+		close(root->fd);
+		free(file);
+		return (-1);
+	}
+	close(root->fd);
+	free(file);
+	return (0);
 }
 
 int	ft_redirect_doublegreater(t_root_f *root)
 {
-    char *file;
+	char	*file;
 
-	file = ft_strip_quotes(root->right->word);
-    if ((root->fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666)) == -1)
+	file = ft_quotes(root->right->word);
+	root->fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	if (root->fd == -1)
 	{
-        perror("minishell: open error");
-        free(file);
-        return -1;
-    }
-
-    if (dup2(root->fd, STDOUT_FILENO) == -1)
+		perror("minishell:");
+		free(file);
+		return (-1);
+	}
+	if (dup2(root->fd, STDOUT_FILENO) == -1)
 	{
-        perror("minishell: dup2 error");
-        close(root->fd);
-        free(file);
-        return -1;
-    }
-
-    close(root->fd);
-    free(file);
-    return 0;
+		perror("minishell:");
+		close(root->fd);
+		free(file);
+		return (-1);
+	}
+	close(root->fd);
+	free(file);
+	return (0);
 }
 
 int	ft_redirect(t_mini *data, t_root_f *root)
 {
-	int	result = 0;
+	int	result;
 
+	result = (0);
 	if (root->left && root->left->type > PIPE)
 	{
 		result = ft_redirect(data, root->left);
@@ -116,7 +128,7 @@ void	ft_init_redirect(t_mini *data, t_root_f *root)
 
 	temp_std[0] = dup(STDIN_FILENO);
 	temp_std[1] = dup(STDOUT_FILENO);
-	if(root->fd < 0)
+	if (root->fd < 0)
 	{
 		if (ft_redirect(data, root) == -1)
 		{
