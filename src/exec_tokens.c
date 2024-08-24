@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 19:02:00 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:37:00 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,40 +94,16 @@ static t_tokens_f	*make_execve_token(t_tokens_f **tkn_f, t_tokens **tkn, int wor
 	return (head);
 }
 
-// static int	size_tkn_f(t_tokens_f *tkn)
-// {
-// 	t_tokens_f	*temp;
-// 	int			i;
-
-// 	temp = tkn;
-// 	i = 0;
-// 	while (temp)
-// 	{
-// 		i++;
-// 		temp = temp->next;
-// 	}
-// 	return (i);
-// }
-
 t_tokens_f	*exec_tokens(t_tokens *tkn)
 {
 	t_tokens_f	*token_f;
 	t_tokens_f	*head;
-	// int			i;
 
-	// i = 0;
 	token_f = init_tokens_f(tkn);
 	head = token_f;
 	token_f = make_execve_token(&token_f, &tkn, 1);
-	// printf("-> %d ", size_tkn_f(token_f));
 	while (token_f)
 	{
-		// i = 0;
-		// while (token_f->args[i])
-		// {
-		// 	printf("cmmd: %s arg: %s type: %d\n", token_f->str, token_f->args[i], token_f->type);
-		// 	i++;
-		// }
 		if (token_f->next)
 			token_f = token_f->next;
 		else

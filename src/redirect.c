@@ -6,17 +6,19 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/23 20:11:40 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:17:14 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 char	*ft_quotes(char *word)
 {
 	char	*file;
 	int		i;
 	int		j;
+
+	if (!word)
+		return (NULL);
 
 	file = (char *)malloc(ft_strlen(word) + 1);
 	if (!file)
@@ -44,11 +46,17 @@ int	ft_redirect_lesser(t_root_f *root)
 	root->fd = open(file, O_RDONLY);
 	if (root->fd == -1)
 	{
-		perror("minishell: open error");
+		perror("minishell:");
 		free(file);
 		return (-1);
 	}
-	dup2(root->fd, STDIN_FILENO);
+	if (dup2(root->fd, STDIN_FILENO) == -1)
+	{
+		perror("minishell:");
+		close(root->fd);
+		free(file);
+		return (-1);
+	}
 	close(root->fd);
 	free(file);
 	return (0);

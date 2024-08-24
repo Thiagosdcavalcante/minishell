@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/21 19:09:10 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:45:48 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <fcntl.h>
 # include "libft.h"
 
-# define EXPORT "export"
+// # define EXPORT "export"
 
 typedef enum e_bool
 {
@@ -76,6 +76,7 @@ typedef struct s_mini
 	t_tokens	*cmmds;
 	t_tokens_f	*tokens;
 	t_root_f	*tree;
+	int			fd[2];
 }	t_mini;
 
 typedef enum e_type
@@ -107,16 +108,12 @@ int			init_exec(t_mini *data, t_root_f *root);
 int			ft_exit(t_mini *data, char **cmd);
 int			ft_echo(t_mini *data, char **cmd);
 int			ft_create_env(t_mini *data, char *key, char *value);
-// void		custom_export(char *str, t_env_list *envs);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
-// void		free_envs(t_envs *envs);
 void		ft_check_heredoc(t_mini *data, t_tokens_f *tokens);
 void		one_quote(char **arg, int *i, char **new_result, char **result);
 void		handle_var_expansion(t_mini *data, char *arg, int *i, char **result);
 void		handle_normal_char(char c, char **result);
-// void		utils_expansion3(char **result, char *arg, int i);
-// void		utils_expansion2(t_mini *data, char **arg, int i, int j, char **result);
 void		ft_pwd(t_mini *data, char **cmd);
 void		ft_unset(t_mini *data, char **cmd);
 int			ft_cd(t_mini *data, char **cmd);
@@ -141,6 +138,10 @@ void		ft_strcpy(char *dst, const char *src);
 void		free_tokens_f(t_tokens_f *head);
 void		free_tokens(t_tokens *head);
 void		print_list_export(t_env_list *node);
+void		init_sig(void);
+void		sig_handler(int sig_num);
+int			ft_redirect(t_mini *data, t_root_f *root);
+char		*ft_quotes(char *word);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
