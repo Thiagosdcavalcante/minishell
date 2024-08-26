@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/25 13:49:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:31:40 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 	int		i;
 	char	finded_quote;
 
-	i = 0;
+	i = -1;
 	while (str[i++] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
