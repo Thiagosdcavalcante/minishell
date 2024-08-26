@@ -6,11 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/08/22 18:29:40 by tsantana         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/26 13:25:05 by ajuliao-         ###   ########.fr       */
->>>>>>> ajuliao22
+/*   Updated: 2024/08/26 19:38:48 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +110,10 @@ int			init_exec(t_mini *data, t_root_f *root);
 int			ft_exit(t_mini *data, char **cmd);
 int			ft_echo(t_mini *data, char **cmd);
 int			ft_create_env(t_mini *data, char *key, char *value);
-<<<<<<< HEAD
 // void		custom_export(char *str, t_env_list *envs);
 void		sig_handler(int sig_num);
 void		init_sig(void);
 void		sigint_handler(int sig_num);
-=======
->>>>>>> ajuliao22
 void		final_free(t_mini *mini);
 void		free_split(char **split);
 void		ft_check_heredoc(t_mini *data, t_tokens_f *tokens);

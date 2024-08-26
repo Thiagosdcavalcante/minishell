@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/26 19:37:13 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:42:44 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 	int		i;
 	char	finded_quote;
 
-	i = -1;
-	while (str[i++] != '\0')
+	i = 0;
+	while (str[i] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
 		{
@@ -85,6 +85,7 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 			if (str[i] == '\0')
 				return (printf("Syntax error: quoted unclosed\n"), FALSE);
 		}
+		i++;
 	}
 	return (TRUE);
 }
