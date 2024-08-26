@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/24 18:15:43 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:47:35 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		if (pid == 0)
 		{
 			ft_execute(data, root->args);
-			exit(EXIT_FAILURE);
+			exit(0);
 		}
 		data->status = ft_status(pid);
 	}

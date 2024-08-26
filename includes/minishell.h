@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/24 16:45:48 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/26 13:25:05 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <errno.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <dirent.h>
 # include "libft.h"
 
 // # define EXPORT "export"
