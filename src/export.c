@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:04:25 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/18 14:04:32 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/24 18:18:53 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,8 @@ int	ft_export(t_mini *data, char **cmd)
 
 	status = 0;
 	if (cmd[1] == NULL)
-	{
 		sort_export(data->envs);
-	}
 	else
-	{
 		status = ft_search_env(data, cmd);
-	}
 	return (status);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+         #
+#    By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/12 14:23:04 by tsantana          #+#    #+#              #
-#    Updated: 2024/04/23 20:12:22 by tsantana         ###   ########.fr        #
+#    Updated: 2024/08/23 16:29:20 by ajuliao-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = libft.a
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra# -Werror
 
 SRCS = ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	ft_isdigit.c ft_isprint.c ft_memchr.c ft_memcmp.c \

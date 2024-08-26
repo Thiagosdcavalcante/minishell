@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:01:01 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/22 19:31:40 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:37:20 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	sigint_handler(int sig_num)
 
 void	sig_handler(int sig_num)
 {
+	// (void)signum;
 	g_sig = sig_num;
 }
 

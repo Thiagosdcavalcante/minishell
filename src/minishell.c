@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/22 19:26:03 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:37:13 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 
 volatile int	g_sig = 0;
 
+// void	print_tree(t_root_f *root, int nivel)
+// {
+// 	int	i;
+
+// 	if (root)
+// 	{
+// 		print_tree(root->right, nivel + 1);
+// 		printf("\n\n");
+// 		for(i = 0; i < nivel; i++)
+// 			printf("\t");
+// 		printf("%s - %d", root->word, root->type);
+// 		print_tree(root->left, nivel + 1);
+// 	}
+// }
 void print_list(t_tokens *cmd)
 {
 	while(cmd)
@@ -30,7 +44,6 @@ static void	add_item(t_mini *mini)
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
-	ft_check_heredoc(mini, mini->tokens);
 	mini->tree = create_tree(mini->tokens);
 }
 
@@ -60,7 +73,7 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 	int		i;
 	char	finded_quote;
 
-	i = 0;
+	i = -1;
 	while (str[i++] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
@@ -80,23 +93,29 @@ static int	minishell(t_mini *mini)
 {
 	int	status;
 
+	status = 0;
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
 		return (ft_exit(mini, NULL));
-	if (check_if_only_spaces(mini) == TRUE)
-	{
-		add_history(mini->in_ms);
-		free(mini->in_ms);
-		return (printf("exit: %s: numeric argument required", mini->paths[2]), 2);
-	}
+	// if (check_if_only_spaces(mini) == TRUE)
+	// {
+	// 	add_history(mini->in_ms);
+	// 	free(mini->in_ms);
+	// 	return (printf("exit: %s: numeric argument required", mini->paths[2]), 2);
+	// }
 	if (!check_quotes_and_double_quotes(mini->in_ms))
 		return (EXIT_FAILURE);
-	if (mini->in_ms[0] != '\0' || g_sig == 2)
+	if (mini->in_ms[0] != '\0')
+	{
+
 		add_item(mini);
 	status = init_exec(mini, mini->tree);
-		mini->status = status;
-	final_free(mini);
-	return (0);
+	mini->status = status;
+	if (mini->tree != NULL)
+		unlink_here_doc(mini->tree);
+	all_free(mini);
+	}
+	return (mini->status);
 }
 
 int	main(void)
@@ -117,6 +136,7 @@ int	main(void)
 			all_free(&mini);
 			exit(ret);
 		}
+		all_free(&mini);
 	}
 	return (ret);
 }
