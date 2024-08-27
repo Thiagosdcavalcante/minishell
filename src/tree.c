@@ -6,11 +6,24 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/24 18:21:29 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:47:19 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_tree(t_root_f *root)
+{
+	if (!root)
+		return;
+	if (root->left)
+		free_tree(root->left);
+	if (root->right)
+		free_tree(root->right);
+	if (root->word)
+		free(root->word);
+	free(root);
+}
 
 static t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens)
 {
@@ -90,6 +103,8 @@ t_root_f	*create_tree(t_tokens_f *tokens)
 	if (!tokens)
 		return (NULL);
 	tree = (t_root_f *)ft_calloc(1, sizeof(t_root_f));
+	if (!tree)
+		return (NULL);
 	create_branch(tree, tokens);
 	return (tree);
 }
