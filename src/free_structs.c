@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/24 18:24:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:46:29 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@
 /* 	} */
 /* } */
 
+
+void	free_tree(t_root_f *root)
+{
+    if (!root)
+        return;
+    if (root->left)
+        free_tree(root->left);
+    if (root->right)
+        free_tree(root->right);
+    if (root->word)
+        free(root->word);
+    free(root);
+}
+
 void	free_tokens_f(t_tokens_f *head)
 {
 	t_tokens_f *temp;
@@ -33,8 +47,8 @@ void	free_tokens_f(t_tokens_f *head)
 	while (head != NULL) {
 		temp = head;
 		head = head->next;
-		if (temp->str)
-			free(temp->str);
+		// if (temp->str)
+		// 	free(temp->str);
 		if (temp->args) {
 			for (int i = 0; temp->args[i] != NULL; i++) {
 				free(temp->args[i]);
@@ -52,8 +66,8 @@ void	free_tokens(t_tokens *head)
 	while (head != NULL) {
 		temp = head;
 		head = head->next;
-		if (temp->str)
-			free(temp->str);
+		// if (temp->str)
+		// 	free(temp->str);
 		free(temp);
 	}
 }

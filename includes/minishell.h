@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/26 13:25:05 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:18:38 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ void		init_sig(void);
 void		sig_handler(int sig_num);
 int			ft_redirect(t_mini *data, t_root_f *root);
 char		*ft_quotes(char *word);
+void	free_tree(t_root_f *root);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);

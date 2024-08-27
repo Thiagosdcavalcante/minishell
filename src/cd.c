@@ -6,32 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/20 21:35:15 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:17:11 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_update_var(t_mini *data, char *key, char *value)
-{
-	t_env_list	*data_temp;
-	char		*temp;
-	char		*full_temp;
 
-	data_temp = data->envs;
-	while (data_temp)
-	{
-		if (ft_strncmp(data_temp->content, key, ft_strlen(key)) == 0)
-		{
-			free(data_temp->content);
-			temp = ft_strjoin(key, "=");
-			full_temp = ft_strjoin(temp, value);
-			free(temp);
-			data_temp->content = full_temp;
-		}
-		data_temp = data_temp->next;
-	}
-}
 
 char	*get_env(t_mini *data, char *key)
 {
@@ -57,30 +38,56 @@ char	*get_env(t_mini *data, char *key)
 	return (result);
 }
 
-int	change(t_mini *data, char *path)
+void	update_pwd_variables(t_mini *data, char *old_pwd)
 {
-	char	*old_pwd;
+	char	*new_pwd;
 	char	**arr_pwd;
-	char	*home;
 
 	arr_pwd = ft_calloc(sizeof(char *), 3);
-	home = get_env(data, "HOME");
-	old_pwd = getcwd(NULL, 0);
-	if (path == NULL)
-		return (chdir(home));
-	else if (chdir(path) != 0)
-	{
-		perror("cd");
-		free(old_pwd);
-		return (1);
-	}
+	new_pwd = getcwd(NULL, 0);
 	arr_pwd[0] = ft_strjoin("OLDPWD=", old_pwd);
-	arr_pwd[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	arr_pwd[1] = ft_strjoin("PWD=", new_pwd);
 	arr_pwd[2] = NULL;
 	ft_export(data, arr_pwd);
 	free(arr_pwd[0]);
 	free(arr_pwd[1]);
 	free(arr_pwd[2]);
+	free(arr_pwd); 
+	free(new_pwd); 
+}
+
+int	change_to_home_directory(t_mini *data, char *home, char *old_pwd)
+{
+	if (chdir(home) != 0)
+	{
+		free(old_pwd);
+		free(home);
+		perror("cd");
+		return (1);
+	}
+	return (0);
+}
+
+int	change(t_mini *data, char *path)
+{
+	char	*old_pwd;
+	char	*home;
+
+	home = get_env(data, "HOME");
+	old_pwd = getcwd(NULL, 0);
+	if (path == NULL)
+	{
+		if (change_to_home_directory(data, home, old_pwd) != 0)
+			return (1);
+	}
+	else if (chdir(path) != 0)
+	{
+		perror("cd");
+		free(old_pwd);
+		free(home);
+		return (1);
+	}
+	update_pwd_variables(data, old_pwd);
 	free(old_pwd);
 	free(home);
 	return (0);

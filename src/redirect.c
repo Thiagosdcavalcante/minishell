@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/24 17:17:14 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:53:22 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int	ft_redirect_lesser(t_root_f *root)
 	root->fd = open(file, O_RDONLY);
 	if (root->fd == -1)
 	{
-		perror("minishell:");
+		perror("minishell");
 		free(file);
 		return (-1);
 	}
 	if (dup2(root->fd, STDIN_FILENO) == -1)
 	{
-		perror("minishell:");
+		perror("minishell");
 		close(root->fd);
 		free(file);
 		return (-1);
@@ -70,13 +70,13 @@ int	ft_redirect_greater(t_root_f *root)
 	root->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (root->fd == -1)
 	{
-		perror("minishell:");
+		perror("minishell");
 		free(file);
 		return (-1);
 	}
 	if (dup2(root->fd, STDOUT_FILENO) == -1)
 	{
-		perror("minishell:");
+		perror("minishell");
 		close(root->fd);
 		free(file);
 		return (-1);
@@ -94,13 +94,13 @@ int	ft_redirect_doublegreater(t_root_f *root)
 	root->fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (root->fd == -1)
 	{
-		perror("minishell:");
+		perror("minishell");
 		free(file);
 		return (-1);
 	}
 	if (dup2(root->fd, STDOUT_FILENO) == -1)
 	{
-		perror("minishell:");
+		perror("minishell");
 		close(root->fd);
 		free(file);
 		return (-1);

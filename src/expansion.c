@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:56:40 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/26 13:27:22 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:03:59 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	expand_variable(t_mini *data, char *arg, int *i, char **result)
 	char	*new_result;
 
 	j = *i + 1;
-	while (arg[j] && arg[j] != ' ' && arg[j] != '"' && arg[j] != '\'')
+	while (arg[j] && arg[j] != ' ' && arg[j] != '"' && arg[j] != '\'' && arg[j] != '$')
 		j++;
 	temp = ft_substr(arg, *i, j - *i);
 	expanded_var = expansion(data, temp);

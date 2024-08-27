@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 13:52:03 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/26 13:39:43 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:01:56 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ char	*expansion(t_mini *data, char *arg)
 	int		j;
 	char	*result;
 	char	*key;
-
+	char	*res_copy;
+	
 	j = 0;
 	if (!arg || !*arg)
 		return (ft_strdup(""));
@@ -41,7 +42,11 @@ char	*expansion(t_mini *data, char *arg)
 	result = get_env(data, key);
 	free(key);
 	if (result)
-		return (ft_strdup(result));
+	{
+		res_copy =  ft_strdup(result);
+		free(result);
+		return (res_copy);
+	}
 	return (ft_strdup(""));
 }
 

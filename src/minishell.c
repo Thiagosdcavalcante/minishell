@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/26 19:31:40 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:18:32 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	add_item(t_mini *mini)
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
+	ft_check_heredoc(mini, mini->tokens);
 	mini->tree = create_tree(mini->tokens);
 }
 
@@ -107,7 +108,6 @@ static int	minishell(t_mini *mini)
 		return (EXIT_FAILURE);
 	if (mini->in_ms[0] != '\0')
 	{
-
 		add_item(mini);
 	status = init_exec(mini, mini->tree);
 	mini->status = status;
@@ -133,10 +133,10 @@ int	main(void)
 		if (mini.exit == 1)
 		{
 			rl_clear_history();
-			all_free(&mini);
+			// all_free(&mini);
 			exit(ret);
 		}
-		all_free(&mini);
+		// all_free(&mini);
 	}
 	return (ret);
 }

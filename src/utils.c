@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:50 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/24 18:13:05 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:46:24 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,12 @@ void	all_free(t_mini *data)
 {
 	if (data->in_ms)
 		free(data->in_ms);
-	// if (data->cmmds)
-	// 	free_tokens(data->cmmds);
-	// if (data->tokens)
-	// 	free_tokens_f(data->tokens);
+	if (data->cmmds)
+		free_tokens(data->cmmds);
+	if (data->tokens)
+		free_tokens_f(data->tokens);
+	if (data->tree)
+		free_tree(data->tree);
 	data->in_ms = NULL;
 }
 
