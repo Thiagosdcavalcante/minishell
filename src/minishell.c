@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/26 19:42:44 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:40:09 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 
 volatile int	g_sig = 0;
 
-// void	print_tree(t_root_f *root, int nivel)
-// {
-// 	int	i;
-
-// 	if (root)
-// 	{
-// 		print_tree(root->right, nivel + 1);
-// 		printf("\n\n");
-// 		for(i = 0; i < nivel; i++)
-// 			printf("\t");
-// 		printf("%s - %d", root->word, root->type);
-// 		print_tree(root->left, nivel + 1);
-// 	}
-// }
 void print_list(t_tokens *cmd)
 {
 	while(cmd)
@@ -110,11 +96,11 @@ static int	minishell(t_mini *mini)
 	{
 
 		add_item(mini);
-	status = init_exec(mini, mini->tree);
-	mini->status = status;
-	if (mini->tree != NULL)
-		unlink_here_doc(mini->tree);
-	all_free(mini);
+		status = init_exec(mini, mini->tree);
+		mini->status = status;
+		if (mini->tree != NULL)
+			unlink_here_doc(mini->tree);
+		all_free(mini);
 	}
 	return (mini->status);
 }
@@ -134,10 +120,8 @@ int	main(void)
 		if (mini.exit == 1)
 		{
 			rl_clear_history();
-			all_free(&mini);
 			exit(ret);
 		}
-		all_free(&mini);
 	}
 	return (ret);
 }

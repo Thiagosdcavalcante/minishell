@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:50 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/24 18:13:05 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:43:50 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ void	get_paths(t_mini *data)
 	char	*temp;
 	char	*env;
 
-	// i = 0;
-	// if (data->paths)
-	// {
-	// 	while (data->paths[i] != NULL)
-	// 	{
-	// 		free(data->paths[i++]);
-	// 	}
-	// 	data->paths[i] = NULL;
-	// }
 	i = 0;
 	env = get_env(data, "PATH");
 	data->paths = ft_split(env, ':');
@@ -73,10 +64,7 @@ void	all_free(t_mini *data)
 {
 	if (data->in_ms)
 		free(data->in_ms);
-	// if (data->cmmds)
-	// 	free_tokens(data->cmmds);
-	// if (data->tokens)
-	// 	free_tokens_f(data->tokens);
+	final_free(data);
 	data->in_ms = NULL;
 }
 

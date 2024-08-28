@@ -6,86 +6,61 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/24 18:24:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:40:04 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* void	free_envs(t_envs *envs) */
-/* { */
-/* 	t_envs	*next; */
-/**/
-/* 	while (envs) */
-/* 	{ */
-/* 		free(envs->envcontent); */
-/* 		free(envs->envkey); */
-/* 		next = envs->next; */
-/* 		free(envs); */
-/* 		envs = next; */
-/* 	} */
-/* } */
-
 void	free_tokens_f(t_tokens_f *head)
 {
-	t_tokens_f *temp;
+	t_tokens_f	*temp;
+	int			i;
 
-	while (head != NULL) {
+	i = 0;
+	while (head != NULL)
+	{
 		temp = head;
 		head = head->next;
-		if (temp->str)
-			free(temp->str);
-		if (temp->args) {
-			for (int i = 0; temp->args[i] != NULL; i++) {
+		if (temp->args)
+		{
+			while (temp->args[i])
+			{
 				free(temp->args[i]);
+				i++;
 			}
-			free(temp->args);
+			if (temp->args)
+				free(temp->args);
 		}
-		free(temp);
+		if (temp)
+			free(temp);
 	}
 }
 
 void	free_tokens(t_tokens *head)
 {
-	t_tokens *temp;
+	t_tokens	*temp;
 
-	while (head != NULL) {
+	while (head != NULL)
+	{
 		temp = head;
 		head = head->next;
-		if (temp->str)
-			free(temp->str);
-		free(temp);
+		/* if (temp->str) */
+		/* 	free(temp->str); */
+		if (temp)
+			free(temp);
 	}
+	if (head)
+		free(head);
 }
-
-// static void	clear_matrix(t_tokens *mtx)
-// {
-// 	t_tokens	*tmp;
-
-// 	tmp = NULL;
-// 	while (mtx)
-// 	{
-// 		if (!mtx->next)
-// 		{
-// 			free(mtx->str);
-// 			free(mtx);
-// 			break ;
-// 		}
-// 		tmp = mtx;
-// 		mtx = mtx->next;
-// 		if (tmp->str)
-// 			free(tmp->str);
-// 		if (tmp)
-// 			free(tmp);
-// 	}
-// }
 
 void	final_free(t_mini *mini)
 {
-	if (mini->in_ms)
-		free(mini->in_ms);
-	// if (mini->cmmds)
-	// 	clear_matrix(mini->cmmds);
+	if (mini->cmmds != NULL)
+		free_tokens(mini->cmmds);
+	if (mini->tokens != NULL)
+		free_tokens_f(mini->tokens);
 	mini->in_ms = NULL;
 	mini->cmmds = NULL;
+	mini->tokens = NULL;
 }
