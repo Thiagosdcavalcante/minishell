@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/24 17:37:00 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:00:59 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,5 @@ t_tokens_f	*exec_tokens(t_tokens *tkn)
 	token_f = init_tokens_f(tkn);
 	head = token_f;
 	token_f = make_execve_token(&token_f, &tkn, 1);
-	while (token_f)
-	{
-		if (token_f->next)
-			token_f = token_f->next;
-		else
-			break ;
-	}
 	return (head);
 }

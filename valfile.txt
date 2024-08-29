@@ -1,33 +1,130 @@
-==115158== Memcheck, a memory error detector
-==115158== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==115158== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==115158== Command: /usr/bin/ls -la
-==115158== Parent PID: 115156
-==115158==115156== 
-==115156== HEAP SUMMARY:
-==115156==     in use at exit: 209,657 bytes in 347 blocks
-==115156==   total heap usage: 592 allocs, 245 frees, 230,604 bytes allocated
-==115156== 
-==115156== 43 (40 direct, 3 indirect) bytes in 1 blocks are definitely lost in loss record 15 of 64
-==115156==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==115156==    by 0x404BD9: ft_calloc (in /nfs/homes/tsantana/final_minishell/minishell)
-==115156==    by 0x40209A: create_tree (tree.c:92)
-==115156==    by 0x40166D: add_item (minishell.c:33)
-==115156==    by 0x40166D: minishell (minishell.c:98)
-==115156==    by 0x40166D: main (minishell.c:119)
-==115156== 
-==115156== LEAK SUMMARY:
-==115156==    definitely lost: 40 bytes in 1 blocks
-==115156==    indirectly lost: 3 bytes in 1 blocks
-==115156==      possibly lost: 0 bytes in 0 blocks
-==115156==    still reachable: 5,002 bytes in 130 blocks
-==115156==         suppressed: 204,612 bytes in 215 blocks
-==115156== Reachable blocks (those to which a pointer was found) are not shown.
-==115156== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==115156== 
-==115156== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
---115156-- 
---115156-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
---115156-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
-==115156== 
-==115156== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==128484== Memcheck, a memory error detector
+==128484== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==128483== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==128484== Command: /usr/bin/ls ==12==128484== Parent PID: 128482
+==128484==12==128484== 
+==128484== HEAP SUMMARY:
+==128484==     in use at exit: 20,711 bytes in 20 blocks
+==128484==   total heap usage: 111 allocs, 91 frees, 78,732 bytes allocated
+==128484== 
+==128484== LEAK SUMMARY:
+==128484==    definitely lost: 0 bytes in 0 blocks
+==128484==    indirectly lost: 0 bytes in 0 blocks
+==128484==      possibly lost: 0 bytes in 0 blocks
+==128484==    still reachable: 0 bytes in 0 blocks
+==128484==         suppressed: 20,711 bytes in 20 blocks
+==128484== 
+==128484== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--128484-- 
+--128484-- used_suppression:      8 igonere_binaries readline.sup:9 suppressed: 20,711 bytes in 20 blocks
+==128484== 
+==128484== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+blocks are definitely lost in loss record 26 of 76
+==128481==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==128481==    by 0x401F33: init_tokens_f (exec_tokens.c:57)
+==128481==    by 0x401F33: make_execve_token (exec_tokens.c:84)
+==128481==    by 0x401F33: exec_tokens (exec_tokens.c:104)
+==128481==    by 0x401600: add_item (minishell.c:32)
+==128481==    by 0x401600: minishell (minishell.c:98)
+==128481==    by 0x401600: main (minishell.c:119)
+==128481== 
+==128481== LEAK SUMMARY:
+==128481==    definitely lost: 56 bytes in 2 blocks
+==128481==    indirectly lost: 0 bytes in 0 blocks
+==128481==      possibly lost: 0 bytes in 0 blocks
+==128481==    still reachable: 6,100 bytes in 164 blocks
+==128481==         suppressed: 204,612 bytes in 215 blocks
+==128481== Reachable blocks (those to which a pointer was found) are not shown.
+==128481== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==128481== 
+==128481== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+--128481-- 
+--128481-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--128481-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==128481== 
+==128481== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==128482== 
+==128482== HEAP SUMMARY:
+==128482==     in use at exit: 210,816 bytes in 384 blocks
+==128482==   total heap usage: 614 allocs, 230 frees, 231,691 bytes allocated
+==128482== 
+==128482== 16 bytes in 1 blocks are definitely lost in loss record 19 of 80
+==128482==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==128482==    by 0x402003: add_special_character (utils_exec_tokens.c:24)
+==128482==    by 0x401EDC: make_execve_token (exec_tokens.c:79)
+==128482==    by 0x401EDC: exec_tokens (exec_tokens.c:104)
+==128482==    by 0x401600: add_item (minishell.c:32)
+==128482==    by 0x401600: minishell (minishell.c:98)
+==128482==    by 0x401600: main (minishell.c:119)
+==128482== 
+==128482== 40 bytes in 1 blocks are definitely lost in loss record 30 of 80
+==128482==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==128482==    by 0x401F33: init_tokens_f (exec_tokens.c:57)
+==128482==    by 0x401F33: make_execve_token (exec_tokens.c:84)
+==128482==    by 0x401F33: exec_tokens (exec_tokens.c:104)
+==128482==    by 0x401600: add_item (minishell.c:32)
+==128482==    by 0x401600: minishell (minishell.c:98)
+==128482==    by 0x401600: main (minishell.c:119)
+==128482== 
+==128482== LEAK SUMMARY:
+==128482==    definitely lost: 56 bytes in 2 blocks
+==128482==    indirectly lost: 0 bytes in 0 blocks
+==128482==      possibly lost: 0 bytes in 0 blocks
+==128482==    still reachable: 6,100 bytes in 164 blocks
+==128482==         suppressed: 204,660 bytes in 218 blocks
+==128482== Reachable blocks (those to which a pointer was found) are not shown.
+==128482== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==128482== 
+==128482== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+--128482-- 
+--128482-- used_suppression:     58 ignore_libreadline_leaks readline.sup:2 suppressed: 204,632 bytes in 215 blocks
+--128482-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 12 bytes in 1 blocks
+--128482-- used_suppression:      2 <Readline> readline.sup:16 suppressed: 16 bytes in 2 blocks
+==128482== 
+==128482== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==128436== 
+==128436== HEAP SUMMARY:
+==128436==     in use at exit: 210,612 bytes in 375 blocks
+==128436==   total heap usage: 623 allocs, 248 frees, 231,947 bytes allocated
+==128436== 
+==128436== 18 (16 direct, 2 indirect) bytes in 1 blocks are definitely lost in loss record 14 of 72
+==128436==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==128436==    by 0x402003: add_special_character (utils_exec_tokens.c:24)
+==128436==    by 0x401EDC: make_execve_token (exec_tokens.c:79)
+==128436==    by 0x401EDC: exec_tokens (exec_tokens.c:104)
+==128436==    by 0x401600: add_item (minishell.c:32)
+==128436==    by 0x401600: minishell (minishell.c:98)
+==128436==    by 0x401600: main (minishell.c:119)
+==128436== 
+==128436== 71 (40 direct, 31 indirect) bytes in 1 blocks are definitely lost in loss record 25 of 72
+==128436==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==128436==    by 0x401F33: init_tokens_f (exec_tokens.c:57)
+==128436==    by 0x401F33: make_execve_token (exec_tokens.c:84)
+==128436==    by 0x401F33: exec_tokens (exec_tokens.c:104)
+==128436==    by 0x401600: add_item (minishell.c:32)
+==128436==    by 0x401600: minishell (minishell.c:98)
+==128436==    by 0x401600: main (minishell.c:119)
+==128436== 
+==128436== 128 (40 direct, 88 indirect) bytes in 1 blocks are definitely lost in loss record 29 of 72
+==128436==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==128436==    by 0x404B89: ft_calloc (in /nfs/homes/tsantana/final_minishell/minishell)
+==128436==    by 0x40204A: create_tree (tree.c:92)
+==128436==    by 0x40160D: add_item (minishell.c:33)
+==128436==    by 0x40160D: minishell (minishell.c:98)
+==128436==    by 0x40160D: main (minishell.c:119)
+==128436== 
+==128436== LEAK SUMMARY:
+==128436==    definitely lost: 96 bytes in 3 blocks
+==128436==    indirectly lost: 121 bytes in 9 blocks
+==128436==      possibly lost: 0 bytes in 0 blocks
+==128436==    still reachable: 5,783 bytes in 148 blocks
+==128436==         suppressed: 204,612 bytes in 215 blocks
+==128436== Reachable blocks (those to which a pointer was found) are not shown.
+==128436== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==128436== 
+==128436== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+--128436-- 
+--128436-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--128436-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==128436== 
+==128436== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)

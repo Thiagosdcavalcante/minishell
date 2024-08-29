@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/26 20:27:55 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:53:42 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int			ft_env(t_mini *data, char **cmd);
 int			ft_export(t_mini *data, char **cmd);
 int			ft_execute(t_mini *data, char **cmd);
 int			ft_redirect(t_mini *data, t_root_f *root);
+void		free_tree(t_root_f *root);
 void		final_free(t_mini *mini);
 void		free_tokens_f(t_tokens_f *head);
 void		free_tokens(t_tokens *head);
