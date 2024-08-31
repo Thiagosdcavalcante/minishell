@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/30 21:14:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:16:32 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,6 @@ static int	minishell(t_mini *mini)
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
 		return (ft_exit(mini, NULL));
-	// if (check_if_only_spaces(mini) == TRUE)
-	// {
-	// 	add_history(mini->in_ms);
-	// 	free(mini->in_ms);
-	// 	return (printf("exit: %s: numeric argument required", mini->paths[2]), 2);
-	// }
 	if (!check_quotes_and_double_quotes(mini->in_ms))
 		return (EXIT_FAILURE);
 	if (mini->in_ms[0] != '\0')

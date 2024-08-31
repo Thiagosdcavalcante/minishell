@@ -6,12 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/30 21:25:04 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:20:02 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	free_tokens_f(t_tokens_f **head)
 {
@@ -42,7 +41,7 @@ void	free_tokens(t_tokens **head)
 	while ((*head) != NULL)
 	{
 		temp = (*head)->next;
-		if ((*head)->str)
+		if ((*head)->str != NULL)
 		{
 			free((*head)->str);
 			(*head)->str = NULL;
@@ -67,3 +66,4 @@ void	final_free(t_mini *mini)
 		free_tree(mini->tree);
 	mini->in_ms = NULL;
 }
+

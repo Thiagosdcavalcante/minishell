@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/30 20:54:21 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:54:50 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_root_f
 	int					type;
 	int					fd;
 	char				**args;
+	char				**new_args;
 	struct s_root_f	*left;
 	struct s_root_f	*right;
 }			t_root_f;
@@ -132,7 +133,7 @@ int			ft_export(t_mini *data, char **cmd);
 void		ft_init_redirect(t_mini *data, t_root_f *root);
 int			ft_execute(t_mini *data, char **cmd);
 void		my_error(t_mini *data, int status, char *msg, char *command);
-void		init_expansion(t_mini *data, char **args);
+void		init_expansion(t_mini *data, char **args, char **new_args);
 void		utils_expansion(t_mini *data, char **arg);
 void		ft_strcpy(char *dst, const char *src);
 void		free_tokens_f(t_tokens_f **head);

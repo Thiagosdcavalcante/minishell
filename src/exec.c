@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/30 21:46:51 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:12:01 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ static int	exec_builtins(t_mini *data, t_root_f *root)
 	int	ret;
 
 	ret = 0;
-	if (ft_strncmp(root->args[0], "env", 4) == 0)
-		ret = ft_env(data, root->args);
-	else if (ft_strncmp(root->args[0], "export", 7) == 0)
-		ret = ft_export(data, root->args);
-	else if (ft_strncmp(root->args[0], "unset", 6) == 0)
-		ft_unset(data, root->args);
-	else if (ft_strncmp(root->args[0], "echo", 5) == 0)
-		ret = ft_echo(data, root->args);
-	else if (ft_strncmp(root->args[0], "cd", 3) == 0)
-		ret = ft_cd(data, root->args);
-	else if (ft_strncmp(root->args[0], "pwd", 4) == 0)
-		ft_pwd(data, root->args);
-	else if (ft_strncmp(root->args[0], "exit", 5) == 0)
-		ret = ft_exit(data, root->args);
+	if (ft_strncmp(root->new_args[0], "env", 4) == 0)
+		ret = ft_env(data, root->new_args);
+	else if (ft_strncmp(root->new_args[0], "export", 7) == 0)
+		ret = ft_export(data, root->new_args);
+	else if (ft_strncmp(root->new_args[0], "unset", 6) == 0)
+		ft_unset(data, root->new_args);
+	else if (ft_strncmp(root->new_args[0], "echo", 5) == 0)
+		ret = ft_echo(data, root->new_args);
+	else if (ft_strncmp(root->new_args[0], "cd", 3) == 0)
+		ret = ft_cd(data, root->new_args);
+	else if (ft_strncmp(root->new_args[0], "pwd", 4) == 0)
+		ft_pwd(data, root->new_args);
+	else if (ft_strncmp(root->new_args[0], "exit", 5) == 0)
+		ret = ft_exit(data, root->new_args);
 	data->status = ret;
 	return (ret);
 }
@@ -48,19 +48,19 @@ static int	exec_builtins(t_mini *data, t_root_f *root)
 static int	is_builtins(t_mini *data, t_root_f *root)
 {
 	(void)data;
-	if (ft_strncmp(root->args[0], "env", 4) == 0)
+	if (ft_strncmp(root->new_args[0], "env", 4) == 0)
 		return (1);
-	else if (ft_strncmp(root->args[0], "export", 7) == 0)
+	else if (ft_strncmp(root->new_args[0], "export", 7) == 0)
 		return (1);
-	else if (ft_strncmp(root->args[0], "unset", 6) == 0)
+	else if (ft_strncmp(root->new_args[0], "unset", 6) == 0)
 		return (1);
-	else if (ft_strncmp(root->args[0], "echo", 5) == 0)
+	else if (ft_strncmp(root->new_args[0], "echo", 5) == 0)
 		return (1);
-	else if (ft_strncmp(root->args[0], "cd", 3) == 0)
+	else if (ft_strncmp(root->new_args[0], "cd", 3) == 0)
 		return (1);
-	else if (ft_strncmp(root->args[0], "pwd", 4) == 0)
+	else if (ft_strncmp(root->new_args[0], "pwd", 4) == 0)
 		return (1);
-	else if (ft_strncmp(root->args[0], "exit", 5) == 0)
+	else if (ft_strncmp(root->new_args[0], "exit", 5) == 0)
 		return (1);
 	else
 		return (0);
@@ -111,12 +111,25 @@ void ft_pipex(t_mini *data, t_root_f *root)
 	data->status = status;
 }
 
+int	count_args(char **args)
+{
+	int count = 0;
+
+	while (args[count])
+		count++;
+	return count;
+}
+
+
 int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
 
 	if (root->args != NULL)
-		init_expansion(data, root->args);
+	{
+		root->new_args = (char **)malloc(sizeof(char *) * (count_args(root->args) + 1));
+		init_expansion(data, root->args, root->new_args);
+	}
 	if (root->type == PIPE)
 		ft_pipex(data, root);
 	else if (root->type > PIPE)
@@ -128,14 +141,40 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		pid = fork();
 		if (pid == 0)
 		{
-			ft_execute(data, root->args);
-			// free_tree(data->tree);
+			ft_execute(data, root->new_args);
 			exit(0);
 		}
 		data->status = ft_status(pid);
 	}
 	return (data->status);
 }
+
+
+// int	ft_exec(t_mini *data, t_root_f *root)
+// {
+// 	pid_t	pid;
+
+// 	if (root->args != NULL)
+// 		init_expansion(data, root->args);
+// 	if (root->type == PIPE)
+// 		ft_pipex(data, root);
+// 	else if (root->type > PIPE)
+// 		ft_init_redirect(data, root);
+// 	else if (is_builtins(data, root))
+// 		exec_builtins(data, root);
+// 	else
+// 	{
+// 		pid = fork();
+// 		if (pid == 0)
+// 		{
+// 			ft_execute(data, root->args);
+// 			// free_tree(data->tree);
+// 			exit(0);
+// 		}
+// 		data->status = ft_status(pid);
+// 	}
+// 	return (data->status);
+// }
 
 int	init_exec(t_mini *data, t_root_f *root)
 {

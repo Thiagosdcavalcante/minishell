@@ -6,14 +6,16 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/30 20:38:07 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:19:00 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tree(t_root_f *root)
+void free_tree(t_root_f *root)
 {
+	int i;
+	
 	if (!root)
 		return;
 	if (root->left)
@@ -22,6 +24,16 @@ void	free_tree(t_root_f *root)
 		free_tree(root->right);
 	if (root->word)
 		free(root->word);
+	if (root->new_args)
+	{
+		i = 0;
+		while (root->new_args[i] != NULL)
+		{
+			free(root->new_args[i]);
+			i++;
+		}
+		free(root->new_args);
+	}
 	free(root);
 }
 
@@ -93,19 +105,19 @@ static int branch_op(t_tokens_f *op_token, t_root_f *root, t_tokens_f *tokens)
 static void create_branch(t_root_f *root, t_tokens_f *tokens)
 {
 	t_tokens_f *op_token;
-	// t_tokens_f *head;
 
-	// head = tokens;
 	op_token = find_operator(tokens);
 	if (branch_op(op_token, root, tokens))
 		return;
 	root->left = NULL;
 	root->right = NULL;
-	root->word = strdup(tokens->str);
+	root->word = ft_strdup(tokens->str);
 	root->type = tokens->type;
 	root->fd = -1;
-	root->args = tokens->args;
-	// tokens = head;
+	if (tokens->args)
+		root->args = tokens->args;
+	else 
+		root->args = NULL;
 }
 
 t_root_f	*create_tree(t_tokens_f *tokens)

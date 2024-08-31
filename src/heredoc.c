@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/18 15:24:15 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:16:18 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ int	unlink_here_doc(t_root_f *operator)
 		return (0);
 	if (operator->type == DOUBLELESSER)
 	{
-		if (unlink(operator->right->word) == -1)
+		if (operator->right && operator->right->word)
 		{
-			perror("Error unlinking file");
-			return (-1);
+			if (unlink(operator->right->word) == -1)
+			{
+				perror("Error unlinking file");
+				return (-1);
+			}
 		}
 	}
 	if (operator->left)

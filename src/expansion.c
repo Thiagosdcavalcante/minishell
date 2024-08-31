@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:56:40 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/30 21:57:05 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:21:44 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,24 +94,49 @@ char	*full_expansion(t_mini *data, char *arg)
 	return (result);
 }
 
-void init_expansion(t_mini *data, char **args)
+void	init_expansion(t_mini *data, char **args, char **new_args)
 {
 	int		i;
 	char	*temp;
 
 	i = 0;
-	// if (args[0] == NULL)
-	// 	return ;
-	if (args[0][0] == '$')
-		i = -1;
-	while (args[++i])
+	while (args[i])
 	{
 		temp = full_expansion(data, args[i]);
-		if (temp)
+		if (temp != NULL)
 		{
-			free(args[i]);
-			args[i] = ft_strdup(temp);
+			new_args[i] = ft_strdup(temp);
 			free(temp);
 		}
+		else
+		{
+			new_args[i] = ft_strdup(args[i]);
+		}
+		i++;
 	}
+	new_args[i] = NULL;
 }
+
+
+// void init_expansion(t_mini *data, char **args)
+// {
+// 	int		i;
+// 	char	*temp;
+
+// 	i = 0;
+// 	// if (args[0] == NULL)
+// 	// 	return ;
+// 	if (args[0][0] == '$')
+// 		i = -1;
+// 	while (args[++i])
+// 	{
+// 		temp = full_expansion(data, args[i]);
+// 		if (temp != NULL)
+// 		{
+// 			if (args[i] != NULL)
+//     			free(args[i]);
+// 			args[i] = ft_strdup(temp);
+// 			free(temp);
+// 		}
+// 	}
+// }
