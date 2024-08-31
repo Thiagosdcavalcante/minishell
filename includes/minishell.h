@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/27 20:22:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:54:21 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void		sort_export(t_env_list *envs);
 void		ft_lstadd_back_env(t_env_list **lst, t_env_list *new);
 void		get_paths(t_mini *data);
 void		ffree(t_mini *data);
-void		all_free(t_mini *data);
 int			ft_export(t_mini *data, char **cmd);
 void		ft_init_redirect(t_mini *data, t_root_f *root);
 int			ft_execute(t_mini *data, char **cmd);
@@ -136,8 +135,8 @@ void		my_error(t_mini *data, int status, char *msg, char *command);
 void		init_expansion(t_mini *data, char **args);
 void		utils_expansion(t_mini *data, char **arg);
 void		ft_strcpy(char *dst, const char *src);
-void		free_tokens_f(t_tokens_f *head);
-void		free_tokens(t_tokens *head);
+void		free_tokens_f(t_tokens_f **head);
+void		free_tokens(t_tokens **head);
 void		print_list_export(t_env_list *node);
 void		init_sig(void);
 void		sig_handler(int sig_num);

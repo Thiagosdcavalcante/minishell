@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/24 17:37:00 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:12:20 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static t_tokens_f	*init_tokens_f(t_tokens *tkn)
 
 	size = check_array_size(tkn);
 	token = malloc(sizeof(t_tokens_f));
+	if (!token)
+		return (NULL);
 	token->str = tkn->str;
 	token->type = WORD;
 	token->next = NULL;

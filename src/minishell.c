@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/27 20:18:32 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:14:57 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 	int		i;
 	char	finded_quote;
 
-	i = -1;
-	while (str[i++] != '\0')
+	i = 0;
+	while (str[i] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
 		{
@@ -86,6 +86,7 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 			if (str[i] == '\0')
 				return (printf("Syntax error: quoted unclosed\n"), FALSE);
 		}
+		i++;
 	}
 	return (TRUE);
 }
@@ -109,11 +110,11 @@ static int	minishell(t_mini *mini)
 	if (mini->in_ms[0] != '\0')
 	{
 		add_item(mini);
-	status = init_exec(mini, mini->tree);
-	mini->status = status;
+		status = init_exec(mini, mini->tree);
+		mini->status = status;
 	if (mini->tree != NULL)
 		unlink_here_doc(mini->tree);
-	all_free(mini);
+	final_free(mini);
 	}
 	return (mini->status);
 }
@@ -133,10 +134,8 @@ int	main(void)
 		if (mini.exit == 1)
 		{
 			rl_clear_history();
-			// all_free(&mini);
 			exit(ret);
 		}
-		// all_free(&mini);
 	}
 	return (ret);
 }

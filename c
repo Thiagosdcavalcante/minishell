@@ -1,0 +1,11 @@
+c
+includes
+libs
+Makefile
+minishell
+minishell_tester
+minishell_tester2
+obj
+readline.sup
+src
+valfile.txt

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/27 20:47:19 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:38:07 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,15 @@ static int branch_op(t_tokens_f *op_token, t_root_f *root, t_tokens_f *tokens)
 {
 	t_tokens_f *rest;
 	t_tokens_f *temp;
+	t_tokens_f *head_r;
+	t_tokens_f *head_t;
 
 	if (!op_token)
 		return (0);
 	rest = op_token->next;
 	temp = op_token->prev;
+	head_t = temp;
+	head_r = rest;
 	if (temp)
 		temp->next = NULL;
 	if (rest)
@@ -78,13 +82,20 @@ static int branch_op(t_tokens_f *op_token, t_root_f *root, t_tokens_f *tokens)
 	root->left = create_tree(tokens);
 	root->right = create_tree(rest);
 	free(op_token);
+	head_r->prev = head_t;
+	head_t->next = head_r;
+	while (head_t->prev)
+		head_t = head_t->prev;
+	tokens = head_t;
 	return (1);
 }
 
 static void create_branch(t_root_f *root, t_tokens_f *tokens)
 {
 	t_tokens_f *op_token;
+	// t_tokens_f *head;
 
+	// head = tokens;
 	op_token = find_operator(tokens);
 	if (branch_op(op_token, root, tokens))
 		return;
@@ -94,6 +105,7 @@ static void create_branch(t_root_f *root, t_tokens_f *tokens)
 	root->type = tokens->type;
 	root->fd = -1;
 	root->args = tokens->args;
+	// tokens = head;
 }
 
 t_root_f	*create_tree(t_tokens_f *tokens)

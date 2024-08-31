@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:56:02 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/15 21:11:45 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:02:32 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,12 @@ t_tokens	*parse_str(char *str)
 	if (!mtx)
 		return (NULL);
 	head = mtx;
-	i++;
-	while (parse_str[i])
+	while (parse_str[++i])
 	{
 		mtx->next = create_mtx(parse_str[i]);
 		mtx->next->prev = mtx;
 		mtx = mtx->next;
-		i++;
+		// i++;
 	}
 	free_split(parse_str);
 	return (define_word(head));

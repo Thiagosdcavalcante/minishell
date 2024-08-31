@@ -1,0 +1,67 @@
+==90801== Memcheck, a memory error detector
+==90801== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==90801== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==90801== Command: ./minishell
+==90801== Parent PID: 42694
+==90801== 
+==90814== 
+==90814== HEAP SUMMARY:
+==90814==     in use at exit: 210,236 bytes in 370 blocks
+==90814==   total heap usage: 589 allocs, 219 frees, 230,931 bytes allocated
+==90814== 
+==90814== LEAK SUMMARY:
+==90814==    definitely lost: 0 bytes in 0 blocks
+==90814==    indirectly lost: 0 bytes in 0 blocks
+==90814==      possibly lost: 0 bytes in 0 blocks
+==90814==    still reachable: 5,624 bytes in 155 blocks
+==90814==         suppressed: 204,612 bytes in 215 blocks
+==90814== Reachable blocks (those to which a pointer was found) are not shown.
+==90814== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==90814== 
+==90814== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--90814-- 
+--90814-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--90814-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==90814== 
+==90814== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==90815== 
+==90815== HEAP SUMMARY:
+==90815==     in use at exit: 210,289 bytes in 373 blocks
+==90815==   total heap usage: 589 allocs, 216 frees, 230,931 bytes allocated
+==90815== 
+==90815== LEAK SUMMARY:
+==90815==    definitely lost: 0 bytes in 0 blocks
+==90815==    indirectly lost: 0 bytes in 0 blocks
+==90815==      possibly lost: 0 bytes in 0 blocks
+==90815==    still reachable: 5,624 bytes in 155 blocks
+==90815==         suppressed: 204,665 bytes in 218 blocks
+==90815== Reachable blocks (those to which a pointer was found) are not shown.
+==90815== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==90815== 
+==90815== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--90815-- 
+--90815-- used_suppression:     52 ignore_libreadline_leaks readline.sup:2 suppressed: 204,553 bytes in 209 blocks
+--90815-- used_suppression:      8 <Readline> readline.sup:16 suppressed: 100 bytes in 8 blocks
+--90815-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 12 bytes in 1 blocks
+==90815== 
+==90815== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==90801== 
+==90801== HEAP SUMMARY:
+==90801==     in use at exit: 209,782 bytes in 349 blocks
+==90801==   total heap usage: 606 allocs, 257 frees, 231,207 bytes allocated
+==90801== 
+==90801== LEAK SUMMARY:
+==90801==    definitely lost: 0 bytes in 0 blocks
+==90801==    indirectly lost: 0 bytes in 0 blocks
+==90801==      possibly lost: 0 bytes in 0 blocks
+==90801==    still reachable: 5,170 bytes in 134 blocks
+==90801==         suppressed: 204,612 bytes in 215 blocks
+==90801== Reachable blocks (those to which a pointer was found) are not shown.
+==90801== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==90801== 
+==90801== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--90801-- 
+--90801-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--90801-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==90801== 
+==90801== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

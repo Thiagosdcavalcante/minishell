@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:50 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/27 19:46:24 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:51:39 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,8 @@ void	ffree(t_mini *data)
 		}
 	}
 }
-void	all_free(t_mini *data)
-{
-	if (data->in_ms)
-		free(data->in_ms);
-	if (data->cmmds)
-		free_tokens(data->cmmds);
-	if (data->tokens)
-		free_tokens_f(data->tokens);
-	if (data->tree)
-		free_tree(data->tree);
-	data->in_ms = NULL;
-}
+
+
 
 char	*ft_put_zero(void)
 {

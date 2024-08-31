@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/27 19:49:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:18:48 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 		close (fd[1]);
 		rl_clear_history();
 		status = ft_exec(data, root->left);
-		free_tree(data->tree);
+		// free_tree(data->tree);
 		exit (status);
 	}
 	else
@@ -115,7 +115,8 @@ int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
 
-	init_expansion(data, root->args);
+	// if (root->args != NULL)
+	// 	init_expansion(data, root->args);
 	if (root->type == PIPE)
 		ft_pipex(data, root);
 	else if (root->type > PIPE)
@@ -128,7 +129,7 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		if (pid == 0)
 		{
 			ft_execute(data, root->args);
-			free_tree(data->tree);
+			// free_tree(data->tree);
 			exit(0);
 		}
 		data->status = ft_status(pid);
