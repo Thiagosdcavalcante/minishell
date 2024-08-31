@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/28 20:12:20 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:58:23 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,17 @@ static t_tokens_f	*init_tokens_f(t_tokens *tkn)
 	if (!token)
 		return (NULL);
 	token->str = tkn->str;
-	token->type = WORD;
+	token->type = tkn->type;
 	token->next = NULL;
 	token->prev = NULL;
-	token->args = make_word_exec(tkn, size);
+	if (tkn->type == LESSER || tkn->type == GREATER
+			|| tkn->type == DOUBLELESSER || tkn->type == DOUBLEGREATER
+			|| tkn->type == MS_FILE)
+	{
+		token->args = NULL;
+	}
+	else
+		token->args = make_word_exec(tkn, size);
 	return (token);
 }
 

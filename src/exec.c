@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/30 21:18:48 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:46:51 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
 
-	// if (root->args != NULL)
-	// 	init_expansion(data, root->args);
+	if (root->args != NULL)
+		init_expansion(data, root->args);
 	if (root->type == PIPE)
 		ft_pipex(data, root);
 	else if (root->type > PIPE)
