@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/31 12:08:28 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:28:31 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	ft_redirect_lesser(t_root_f *root)
 {
 	char	*file;
 
+	if (root->right == NULL)
+		return (1);
 	file = ft_quotes(root->right->word);
 	root->fd = open(file, O_RDONLY);
 	if (root->fd == -1)
@@ -66,6 +68,8 @@ int	ft_redirect_greater(t_root_f *root)
 {
 	char	*file;
 
+	if (root->right == NULL)
+		return (1);
 	file = ft_quotes(root->right->word);
 	root->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (root->fd == -1)
@@ -90,6 +94,8 @@ int	ft_redirect_doublegreater(t_root_f *root)
 {
 	char	*file;
 
+	if (root->right == NULL)
+		return (1);
 	file = ft_quotes(root->right->word);
 	root->fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (root->fd == -1)
@@ -114,7 +120,7 @@ int	ft_redirect(t_mini *data, t_root_f *root)
 {
 	int	result;
 
-	result = (0);
+	result = 0;
 	if (root->left && root->left->type > PIPE)
 	{
 		result = ft_redirect(data, root->left);

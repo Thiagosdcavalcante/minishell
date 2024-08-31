@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:56:02 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/30 21:02:32 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 16:04:06 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ t_tokens	*parse_str(char *str)
 		mtx->next = create_mtx(parse_str[i]);
 		mtx->next->prev = mtx;
 		mtx = mtx->next;
-		// i++;
 	}
 	free_split(parse_str);
 	return (define_word(head));

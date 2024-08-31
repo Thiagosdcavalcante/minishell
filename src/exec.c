@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/31 12:12:01 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:20:35 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ static int	exec_builtins(t_mini *data, t_root_f *root)
 static int	is_builtins(t_mini *data, t_root_f *root)
 {
 	(void)data;
-	if (ft_strncmp(root->new_args[0], "env", 4) == 0)
+	if (ft_strncmp(root->word, "env", 4) == 0)
 		return (1);
-	else if (ft_strncmp(root->new_args[0], "export", 7) == 0)
+	else if (ft_strncmp(root->word, "export", 7) == 0)
 		return (1);
-	else if (ft_strncmp(root->new_args[0], "unset", 6) == 0)
+	else if (ft_strncmp(root->word, "unset", 6) == 0)
 		return (1);
-	else if (ft_strncmp(root->new_args[0], "echo", 5) == 0)
+	else if (ft_strncmp(root->word, "echo", 5) == 0)
 		return (1);
-	else if (ft_strncmp(root->new_args[0], "cd", 3) == 0)
+	else if (ft_strncmp(root->word, "cd", 3) == 0)
 		return (1);
-	else if (ft_strncmp(root->new_args[0], "pwd", 4) == 0)
+	else if (ft_strncmp(root->word, "pwd", 4) == 0)
 		return (1);
-	else if (ft_strncmp(root->new_args[0], "exit", 5) == 0)
+	else if (ft_strncmp(root->word, "exit", 5) == 0)
 		return (1);
 	else
 		return (0);
@@ -125,18 +125,18 @@ int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
 
-	if (root->args != NULL)
+	if (root->type < 2 )
 	{
 		root->new_args = (char **)malloc(sizeof(char *) * (count_args(root->args) + 1));
 		init_expansion(data, root->args, root->new_args);
 	}
 	if (root->type == PIPE)
 		ft_pipex(data, root);
-	else if (root->type > PIPE)
+	else if (root->left != NULL && root->type > PIPE)
 		ft_init_redirect(data, root);
 	else if (is_builtins(data, root))
 		exec_builtins(data, root);
-	else
+	else if (root->new_args)
 	{
 		pid = fork();
 		if (pid == 0)

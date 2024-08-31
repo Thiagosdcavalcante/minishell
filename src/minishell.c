@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/31 12:16:32 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:29:29 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ volatile int	g_sig = 0;
 // 		print_tree(root->left, nivel + 1);
 // 	}
 // }
-void print_list(t_tokens *cmd)
-{
-	while(cmd)
-	{
-		printf("TOKEN: %s", cmd->str);
-		cmd = cmd->next;
-	}
+// void print_list(t_tokens *cmd)
+// {
+// 	while(cmd)
+// 	{
+// 		printf("TOKEN: %s", cmd->str);
+// 		cmd = cmd->next;
+// 	}
 
-}
+// }
 
 static void	add_item(t_mini *mini)
 {
@@ -46,6 +46,7 @@ static void	add_item(t_mini *mini)
 	mini->tokens = exec_tokens(mini->cmmds);
 	ft_check_heredoc(mini, mini->tokens);
 	mini->tree = create_tree(mini->tokens);
+	// print_tree(mini->tree, 1);
 }
 
 static int	check_if_only_spaces(t_mini *mini)
@@ -106,9 +107,9 @@ static int	minishell(t_mini *mini)
 		add_item(mini);
 		status = init_exec(mini, mini->tree);
 		mini->status = status;
-	if (mini->tree != NULL)
-		unlink_here_doc(mini->tree);
-	final_free(mini);
+		if (mini->tree != NULL)
+			unlink_here_doc(mini->tree);
+		final_free(mini);
 	}
 	return (mini->status);
 }

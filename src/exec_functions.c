@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 22:59:56 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/26 14:28:46 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 15:54:12 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*get_command_path(t_mini *data, char *cmd)
 int	is_directory(const char *path)
 {
 	DIR *dir;
-	
+
 	dir = opendir(path);
 	if (dir)
 	{
@@ -116,7 +116,7 @@ int	is_directory(const char *path)
 int	path_exists(const char *path)
 {
 	DIR *dir;
-	
+
 	dir = opendir(path);
 	if (dir)
 	{
@@ -130,7 +130,7 @@ int	ft_execute(t_mini *data, char **cmd)
 {
 	char	*path;
 	char	**envs;
-	
+
 	while (*cmd && strcmp(*cmd, "") == 0)
 		cmd++;
 	if (!cmd || !cmd[0])
@@ -147,5 +147,5 @@ int	ft_execute(t_mini *data, char **cmd)
 	envs = env_mtx(data->envs);
 	execve(path, cmd, envs);
 	my_error(data, 126, "Execution failed", cmd[0]);
-	return (0);
+	exit(0);
 }
