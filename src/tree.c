@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/31 18:22:25 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:42:14 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static t_tokens_f *find_operator(t_tokens_f *tokens)
 	pipe_token = NULL;
 	last_token = ft_lstlast_token_f(tokens);
 	temp = last_token->prev;
-	while (temp) {
+	while (temp)
+	{
 		if (temp->type == PIPE)
 		{
 			pipe_token = temp;
