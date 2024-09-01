@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/31 19:20:13 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/01 14:54:05 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 volatile int	g_sig = 0;
 
-void	print_tree(t_root_f *root, int nivel)
-{
-	int	i;
+// void	print_tree(t_root_f *root, int nivel)
+// {
+// 	int	i;
 
-	if (root)
-	{
-		print_tree(root->right, nivel + 1);
-		printf("\n\n");
-		for(i = 0; i < nivel; i++)
-			printf("\t");
-		printf("%s - %d", root->word, root->type);
-		print_tree(root->left, nivel + 1);
-	}
-}
+// 	if (root)
+// 	{
+// 		print_tree(root->right, nivel + 1);
+// 		printf("\n\n");
+// 		for(i = 0; i < nivel; i++)
+// 			printf("\t");
+// 		printf("%s - %d", root->word, root->type);
+// 		print_tree(root->left, nivel + 1);
+// 	}
+// }
 // void print_list(t_tokens *cmd)
 // {
 // 	while(cmd)
@@ -46,7 +46,7 @@ static void	add_item(t_mini *mini)
 	mini->tokens = exec_tokens(mini->cmmds);
 	ft_check_heredoc(mini, mini->tokens);
 	mini->tree = create_tree(mini->tokens);
-	print_tree(mini->tree, 1);
+	// print_tree(mini->tree, 1);
 }
 
 static int	check_if_only_spaces(t_mini *mini)
@@ -105,10 +105,10 @@ static int	minishell(t_mini *mini)
 	if (mini->in_ms[0] != '\0')
 	{
 		add_item(mini);
-		// status = init_exec(mini, mini->tree);
-		// mini->status = status;
-		// if (mini->tree != NULL)
-		// 	unlink_here_doc(mini->tree);
+		status = init_exec(mini, mini->tree);
+		mini->status = status;
+		if (mini->tree != NULL)
+			unlink_here_doc(mini->tree);
 		final_free(mini);
 	}
 	return (mini->status);
