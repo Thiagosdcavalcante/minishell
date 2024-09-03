@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/01 14:54:05 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:30:35 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 volatile int	g_sig = 0;
 
-// void	print_tree(t_root_f *root, int nivel)
-// {
-// 	int	i;
+void	print_tree(t_root_f *root, int nivel)
+{
+	int	i;
 
-// 	if (root)
-// 	{
-// 		print_tree(root->right, nivel + 1);
-// 		printf("\n\n");
-// 		for(i = 0; i < nivel; i++)
-// 			printf("\t");
-// 		printf("%s - %d", root->word, root->type);
-// 		print_tree(root->left, nivel + 1);
-// 	}
-// }
+	if (root)
+	{
+		print_tree(root->right, nivel + 1);
+		printf("\n\n");
+		for(i = 0; i < nivel; i++)
+			printf("\t");
+		printf("%s - %d", root->word, root->type);
+		print_tree(root->left, nivel + 1);
+	}
+}
 // void print_list(t_tokens *cmd)
 // {
 // 	while(cmd)
@@ -37,6 +37,18 @@ volatile int	g_sig = 0;
 // 	}
 
 // }
+void print_list_tokens(t_tokens_f *cmd)
+{
+	while (cmd)
+	{
+		if (cmd->str)
+			printf("TOKEN: %s - TYPE: %d\n", cmd->str, cmd->type);
+		else
+			printf("TOKEN: (null) - TYPE: %d\n", cmd->type);
+
+		cmd = cmd->next;
+	}
+}
 
 static void	add_item(t_mini *mini)
 {
@@ -44,6 +56,7 @@ static void	add_item(t_mini *mini)
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
+	// print_list_tokens(mini->tokens);
 	ft_check_heredoc(mini, mini->tokens);
 	mini->tree = create_tree(mini->tokens);
 	// print_tree(mini->tree, 1);

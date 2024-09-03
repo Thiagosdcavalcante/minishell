@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/30 21:58:23 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:19:58 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,37 @@ static t_tokens_f	*make_execve_token(t_tokens_f **tkn_f, t_tokens **tkn, int wor
 	}
 	return (head);
 }
+
+// t_tokens_f	*exec_tokens(t_tokens *tkn)
+// {
+// 	t_tokens_f	*token_f;
+// 	t_tokens_f	*head;
+
+// 	token_f = NULL;
+// 	head = NULL;
+// 	if (tkn && tkn->type == WORD)
+// 	{
+// 		token_f = init_tokens_f(tkn);
+// 		tkn = tkn->next;
+// 		head = token_f;
+// 	}
+// 	if (token_f == NULL)
+// 	{
+// 		token_f = init_tokens_f(tkn);
+// 		head = token_f;
+// 		tkn = tkn->next;
+// 	}
+// 	token_f = make_execve_token(&token_f, &tkn, 1);
+// 	while (token_f)
+// 	{
+// 		if (token_f->next)
+// 			token_f = token_f->next;
+// 		else
+// 			break ;
+// 	}
+// 	return (head);
+// }
+
 
 t_tokens_f	*exec_tokens(t_tokens *tkn)
 {
