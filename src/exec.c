@@ -6,22 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/03 20:40:56 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:45:46 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_status(pid_t pid)
-{
-	int	status;
-
-	waitpid (pid, &status, 0);
-	/* if (WIFEXITED(status)) */
-	/* 	status = WEXITSTATUS(status); */
-	status = get_return_value(status);
-	return (status);
-}
 
 static int	exec_builtins(t_mini *data, t_root_f *root)
 {
@@ -72,6 +61,7 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 	int	status;
 
 	status = 0;
+	set_sig_func();
 	if (is_left == 1)
 	{
 		dup2(fd[1], STDOUT_FILENO);
@@ -121,7 +111,6 @@ int	count_args(char **args)
 	return count;
 }
 
-
 int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
@@ -142,8 +131,7 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		pid = fork();
 		if (pid == 0)
 		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
+			set_sig_func();
 			ft_execute(data, root->new_args);
 			exit(0);
 		}
@@ -153,7 +141,6 @@ int	ft_exec(t_mini *data, t_root_f *root)
 	}
 	return (data->status);
 }
-
 
 // int	ft_exec(t_mini *data, t_root_f *root)
 // {
