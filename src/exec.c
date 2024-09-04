@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/02 13:46:32 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/03 22:46:35 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,14 @@ void ft_pipex(t_mini *data, t_root_f *root)
 
 int	count_args(char **args)
 {
-	int count = 0;
+	int count;
 
+	if(!args)
+		return (0);
+	count = 0;
 	while (args[count])
 		count++;
-	return count;
+	return (count);
 }
 
 

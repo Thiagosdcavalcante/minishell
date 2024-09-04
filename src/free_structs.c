@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/02 13:47:03 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/03 21:29:12 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	free_tokens_f(t_tokens_f **head)
 	i = 0;
 	while ((*head))
 	{
+		// printf("str: %s\n", (*head)->args[0]);
 		temp = (*head)->next;
 		if ((*head)->args)
 		{
@@ -60,8 +61,8 @@ void	final_free(t_mini *mini)
 		free(mini->in_ms);
 	if (mini->cmmds != NULL)
 		free_tokens(&mini->cmmds);
-	if (mini->tokens != NULL)
-		free_tokens_f(&mini->tokens);
+	// if (mini->tokens != NULL)
+	// 	free_tokens_f(&mini->tokens);
 	if (mini->tree)
 		free_tree(mini->tree);
 	mini->in_ms = NULL;

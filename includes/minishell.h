@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/31 11:54:50 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/03 21:45:46 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_root_f
 	int					fd;
 	char				**args;
 	char				**new_args;
+	// struct s_tokens_f	*left_token;
+	// struct s_tokens_f	*right_token;
 	struct s_root_f	*left;
 	struct s_root_f	*right;
 }			t_root_f;
@@ -144,6 +146,7 @@ void		sig_handler(int sig_num);
 int			ft_redirect(t_mini *data, t_root_f *root);
 char		*ft_quotes(char *word);
 void		free_tree(t_root_f *root);
+int			count_args(char **args);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
