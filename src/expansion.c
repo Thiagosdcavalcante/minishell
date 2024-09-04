@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:56:40 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/31 12:21:44 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:11:37 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,7 @@ void	init_expansion(t_mini *data, char **args, char **new_args)
 			free(temp);
 		}
 		else
-		{
 			new_args[i] = ft_strdup(args[i]);
-		}
 		i++;
 	}
 	new_args[i] = NULL;

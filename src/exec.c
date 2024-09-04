@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/03 22:46:35 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:42:06 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,11 @@ int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
 
-	if (root->type < 2 )
-	{
-		root->new_args = (char **)malloc(sizeof(char *) * (count_args(root->args) + 1));
-		init_expansion(data, root->args, root->new_args);
-	}
+	// if (root->type < 2 )
+	// {
+	// 	root->new_args = (char **)malloc(sizeof(char *) * (count_args(root->args) + 1));
+	// 	init_expansion(data, root->args, root->new_args);
+	// }
 	if (root->type == PIPE)
 		ft_pipex(data, root);
 	else if (root->left != NULL && root->type > PIPE)

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/03 21:45:46 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:43:47 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int			count_args(char **args);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
-t_root_f	*create_tree(t_tokens_f *tokens);
+t_root_f	*create_tree(t_mini *mini, t_tokens_f *tokens);
 t_env_list	*ft_lstnew_env(char *content);
 
 #endif
