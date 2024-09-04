@@ -6,13 +6,15 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/02 20:30:35 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/03 21:10:14 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <termios.h>
+#include <unistd.h>
 
-volatile int	g_sig = 0;
+volatile int	g_sig;
 
 void	print_tree(t_root_f *root, int nivel)
 {
@@ -131,13 +133,20 @@ int	main(void)
 {
 	t_mini		mini;
 	static int	ret;
+	t_termios	term;
+	int			backup_fd;
 
+	g_sig = 0;
 	ret = 0;
-	init_sig();
 	mini = (t_mini){0};
 	get_envs(&mini);
+	/* backup_fd = dup(STDIN_FILENO); */
+	tcgetattr(STDIN_FILENO, &term);
 	while (1)
 	{
+		init_sig();
+		/* dup2(backup_fd, STDIN_FILENO); */
+		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 		ret = minishell(&mini);
 		if (mini.exit == 1)
 		{

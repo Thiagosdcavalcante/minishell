@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/02 13:46:32 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:40:56 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static int	ft_status(pid_t pid)
 	int	status;
 
 	waitpid (pid, &status, 0);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
+	/* if (WIFEXITED(status)) */
+	/* 	status = WEXITSTATUS(status); */
+	status = get_return_value(status);
 	return (status);
 }
 
@@ -141,9 +142,13 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		pid = fork();
 		if (pid == 0)
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			ft_execute(data, root->new_args);
 			exit(0);
 		}
+		else
+			sig_exec();
 		data->status = ft_status(pid);
 	}
 	return (data->status);

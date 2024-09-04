@@ -6,11 +6,20 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/31 12:16:18 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/03 21:09:44 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* void	sig_hand_here(int signal) */
+/* { */
+/* 	(void)signal; */
+/* 	ft_printf("\n"); */
+/* 	close(STDIN_FILENO); */
+/* 	g_sig = SIGINT; */
+/* } */
+/**/
 
 int	unlink_here_doc(t_root_f *operator)
 {
@@ -63,6 +72,7 @@ static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 	cur = tokens;
 	path = path_name();
 	file = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	/* signal(SIGINT, sig_hand_here); */
 	while (1)
 	{
 		line = readline("> ");
@@ -88,9 +98,7 @@ void	ft_check_heredoc(t_mini *data, t_tokens_f *tokens)
 	while (current)
 	{
 		if (current->type == DOUBLELESSER)
-		{
 			current->next->str = ft_heredoc(data, current);
-		}
 		current = current->next;
 	}
 	return ;

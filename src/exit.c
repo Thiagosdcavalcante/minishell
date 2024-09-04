@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/24 18:16:39 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:01:18 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int    ft_exit(t_mini *data, char **cmd)
     i = 1;
     ret = 0;
     data->exit = 1;
-    while (cmd[i])
+    while (cmd && cmd[i])
     {
         if (i > 1)
 		{
@@ -95,7 +95,7 @@ int    ft_exit(t_mini *data, char **cmd)
         i++;
     }
     i--;
-	if (cmd[1] && i == 1)
+	if (cmd && cmd[1] && i == 1)
     {
 		ret = ft_atoi(cmd[1]);
         if (ret < 0 && ret > -256)

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/08/31 11:54:50 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:59:29 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <termios.h>
 # include "libft.h"
 
-// # define EXPORT "export"
+typedef struct termios	t_termios;
+
+extern volatile int	g_sig;
 
 typedef enum e_bool
 {
@@ -110,6 +113,7 @@ int			init_exec(t_mini *data, t_root_f *root);
 int			ft_exit(t_mini *data, char **cmd);
 int			ft_echo(t_mini *data, char **cmd);
 int			ft_create_env(t_mini *data, char *key, char *value);
+int			get_return_value(int status);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
 void		ft_check_heredoc(t_mini *data, t_tokens_f *tokens);
@@ -118,6 +122,8 @@ void		handle_var_expansion(t_mini *data, char *arg, int *i, char **result);
 void		handle_normal_char(char c, char **result);
 void		ft_pwd(t_mini *data, char **cmd);
 void		ft_unset(t_mini *data, char **cmd);
+void		sig_exec(void);
+void		sig_hand_here(int signal);
 int			ft_cd(t_mini *data, char **cmd);
 int			change(t_mini *data, char *path);
 void		ft_update_var(t_mini *data, char *key, char *value);
