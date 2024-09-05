@@ -6,13 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/27 20:17:11 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/04 21:43:57 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 char	*get_env(t_mini *data, char *key)
 {
@@ -52,8 +50,8 @@ void	update_pwd_variables(t_mini *data, char *old_pwd)
 	free(arr_pwd[0]);
 	free(arr_pwd[1]);
 	free(arr_pwd[2]);
-	free(arr_pwd); 
-	free(new_pwd); 
+	free(arr_pwd);
+	free(new_pwd);
 }
 
 int	change_to_home_directory(t_mini *data, char *home, char *old_pwd)
