@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/04 13:42:06 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/04 21:28:02 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,39 @@ static int	is_builtins(t_mini *data, t_root_f *root)
 		return (0);
 }
 
+void	free_tree2(t_root_f *root)
+{
+	t_root_f	*current;
+	t_root_f	*right;
+	if (!root)
+		return ;
+	if (root == NULL)
+		return ;
+	current = root;
+	while (current != NULL)
+	{
+		right = current->right;
+		if (current->left != NULL)
+			free_tree2(current->left);
+		// if (current->content)
+		// 	free(current->content);
+		free(current);
+		current = right;
+	}
+	root = NULL;
+}
+
+void free_dup(t_mini *data)
+{
+	free_tokens(&data->cmmds);
+	free_tree(data->tree);
+	ffree(data);
+	if (data->in_ms)
+		free(data->in_ms);
+	close (STDOUT_FILENO);
+	close (STDIN_FILENO);
+}
+
 static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 {
 	int	status;
@@ -78,7 +111,7 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 		close (fd[1]);
 		rl_clear_history();
 		status = ft_exec(data, root->left);
-		// free_tree(data->tree);
+		free_dup(data);
 		exit (status);
 	}
 	else
@@ -87,6 +120,7 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 		close (fd[0]);
 		close (fd[1]);
 		status = ft_exec(data, root->right);
+		free_dup(data);
 		exit (status);
 	}
 }

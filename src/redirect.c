@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/31 18:28:31 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:17:49 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ char	*ft_quotes(char *word)
 	return (file);
 }
 
-int	ft_redirect_lesser(t_root_f *root)
+int	ft_redirect_lesser(t_mini *mini, t_root_f *root)
 {
 	char	*file;
 
 	if (root->right == NULL)
 		return (1);
 	file = ft_quotes(root->right->word);
+	// file = expansion(mini, root->right->word);
 	root->fd = open(file, O_RDONLY);
 	if (root->fd == -1)
 	{
@@ -64,13 +65,14 @@ int	ft_redirect_lesser(t_root_f *root)
 	return (0);
 }
 
-int	ft_redirect_greater(t_root_f *root)
+int	ft_redirect_greater(t_mini *mini, t_root_f *root)
 {
 	char	*file;
 
 	if (root->right == NULL)
 		return (1);
 	file = ft_quotes(root->right->word);
+	// file = expansion(mini, root->right->word);
 	root->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (root->fd == -1)
 	{
@@ -90,13 +92,14 @@ int	ft_redirect_greater(t_root_f *root)
 	return (0);
 }
 
-int	ft_redirect_doublegreater(t_root_f *root)
+int	ft_redirect_doublegreater(t_mini *mini, t_root_f *root)
 {
 	char	*file;
 
 	if (root->right == NULL)
 		return (1);
 	file = ft_quotes(root->right->word);
+	// file = expansion(mini, root->right->word);
 	root->fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (root->fd == -1)
 	{
@@ -128,11 +131,11 @@ int	ft_redirect(t_mini *data, t_root_f *root)
 			return (-1);
 	}
 	if (root->type == GREATER)
-		result = ft_redirect_greater(root);
+		result = ft_redirect_greater(data, root);
 	else if (root->type == LESSER || root->type == DOUBLELESSER)
-		result = ft_redirect_lesser(root);
+		result = ft_redirect_lesser(data, root);
 	else if (root->type == DOUBLEGREATER)
-		result = ft_redirect_doublegreater(root);
+		result = ft_redirect_doublegreater(data, root);
 	return (result);
 }
 

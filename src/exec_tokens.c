@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/04 13:36:30 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:50:02 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,12 @@ t_tokens_f	*exec_tokens(t_tokens *tkn)
 	// t_tokens_f	*head;
 
 	token_f = init_tokens_f(tkn);
+	if (tkn->next && (tkn->type == LESSER || tkn->type == GREATER
+			|| tkn->type == DOUBLELESSER || tkn->type == DOUBLEGREATER
+			|| tkn->type == MS_FILE))
+	{
+		tkn = tkn->next;
+	}
 	token_f = make_execve_token(&token_f, &tkn, 1);
 	// head = token_f;
 	// while (token_f)

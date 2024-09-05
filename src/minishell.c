@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/03 22:23:26 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:05:09 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	add_item(t_mini *mini)
 	mini->tokens = exec_tokens(mini->cmmds);
 	// print_list_tokens(mini->tokens);
 	ft_check_heredoc(mini, mini->tokens);
-	mini->tree = create_tree(mini->tokens);
+	mini->tree = create_tree(mini, mini->tokens);
 	// print_tree(mini->tree, 1);
 }
 
