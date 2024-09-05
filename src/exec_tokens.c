@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/02 20:19:58 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/05 20:16:40 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,8 @@ static t_tokens_f	*init_tokens_f(t_tokens *tkn)
 	token->type = tkn->type;
 	token->next = NULL;
 	token->prev = NULL;
-	if (tkn->type == LESSER || tkn->type == GREATER
-			|| tkn->type == DOUBLELESSER || tkn->type == DOUBLEGREATER
-			|| tkn->type == MS_FILE)
-	{
+	if (exec_tokens_cond(tkn) == 1)
 		token->args = NULL;
-	}
 	else
 		token->args = make_word_exec(tkn, size);
 	return (token);
@@ -79,9 +75,7 @@ static t_tokens_f	*make_execve_token(t_tokens_f **tkn_f, t_tokens **tkn, int wor
 	head = (*tkn_f);
 	while ((*tkn))
 	{
-		if ((*tkn)->type == LESSER || (*tkn)->type == GREATER
-			|| (*tkn)->type == DOUBLELESSER || (*tkn)->type == DOUBLEGREATER
-			|| (*tkn)->type == MS_FILE)
+		if (exec_tokens_cond(*tkn) == 1)
 			(*tkn_f)->next = add_special_character(tkn);
 		else if ((*tkn)->type == PIPE)
 		{
@@ -103,51 +97,59 @@ static t_tokens_f	*make_execve_token(t_tokens_f **tkn_f, t_tokens **tkn, int wor
 	return (head);
 }
 
-// t_tokens_f	*exec_tokens(t_tokens *tkn)
-// {
-// 	t_tokens_f	*token_f;
-// 	t_tokens_f	*head;
+t_tokens_f	*token_f_order(t_tokens_f **tkn)
+{
+	t_tokens_f	*tmp;
+	t_tokens_f	*tmp2;
 
-// 	token_f = NULL;
-// 	head = NULL;
-// 	if (tkn && tkn->type == WORD)
-// 	{
-// 		token_f = init_tokens_f(tkn);
-// 		tkn = tkn->next;
-// 		head = token_f;
-// 	}
-// 	if (token_f == NULL)
-// 	{
-// 		token_f = init_tokens_f(tkn);
-// 		head = token_f;
-// 		tkn = tkn->next;
-// 	}
-// 	token_f = make_execve_token(&token_f, &tkn, 1);
-// 	while (token_f)
-// 	{
-// 		if (token_f->next)
-// 			token_f = token_f->next;
-// 		else
-// 			break ;
-// 	}
-// 	return (head);
-// }
+	if (!(*tkn)->prev)
+		return (*tkn);
+	tmp = (*tkn)->prev;
+	if ((*tkn)->next && (*tkn)->prev)
+	{
+		(*tkn)->next->prev = (*tkn)->prev;
+		(*tkn)->prev->next = (*tkn)->next;
+	}
+	else
+		(*tkn)->prev->next = NULL;
+	while (tmp && tmp->prev)
+		tmp = tmp->prev;
+	(*tkn)->prev = NULL;
+	(*tkn)->next = tmp;
+	tmp->prev = (*tkn);
+	while (tmp && tmp->next->type != PIPE)
+		tmp = tmp->next;
+	return (tmp);
+}
 
+static void	print_tknf(t_tokens_f *tkn)
+{
+	while (tkn)
+	{
+		printf("STR: %s | TYPE: %d\n", tkn->str, tkn->type);
+		tkn = tkn->next;
+	}
+}
 
 t_tokens_f	*exec_tokens(t_tokens *tkn)
 {
 	t_tokens_f	*token_f;
-	t_tokens_f	*head;
+	t_tokens_f	*temp;
 
 	token_f = init_tokens_f(tkn);
-	head = token_f;
+	if (exec_tokens_cond(tkn) == 1)
+		tkn = tkn->next;
 	token_f = make_execve_token(&token_f, &tkn, 1);
-	while (token_f)
+	temp = token_f;
+	while (temp)
 	{
-		if (token_f->next)
-			token_f = token_f->next;
-		else
-			break ;
+		if (temp->type == WORD)
+			temp = token_f_order(&temp);
+		temp = temp->next;
 	}
-	return (head);
+	while (temp && temp->prev)
+		temp = temp->prev;
+	token_f = temp;
+	print_tknf(token_f);
+	return (token_f);
 }
