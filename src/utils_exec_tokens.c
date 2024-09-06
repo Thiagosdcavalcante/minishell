@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:09:45 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/05 20:12:12 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/05 21:55:59 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,51 +36,39 @@ int	exec_tokens_cond(t_tokens *tkn)
 	return (0);
 }
 
-static int	has_word(t_tokens_f *tkn)
-{
-	t_tokens_f	*tmp;
-
-	tmp = tkn;
-	while (tmp)
-	{
-		if (tmp->type == WORD)
-			return (1);
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
 /* t_tokens_f	*token_f_order(t_tokens_f **tkn) */
 /* { */
-/* 	t_tokens_f	*temp; */
-/* 	t_tokens_f	*temp2; */
-/* 	t_tokens_f	*head; */
-/* 	int			word; */
+/* 	t_tokens_f	*tmp; */
+/* 	t_tokens_f	*tmp2; */
 /**/
-/* 	if (has_word((*tkn)) == 0) */
-/* 		return ((*tkn)); */
-/* 	temp = (*tkn); */
-/* 	temp2 = (*tkn); */
-/* 	head = (*tkn); */
-/* 	word = 0; */
-/* 	while (temp) */
+/* 	if (!(*tkn)->prev || (*tkn)->type == WORD) */
+/* 		return (*tkn); */
+/* 	printf("%s\n", (*tkn)->str); */
+/* 	tmp = (*tkn)->prev; */
+/* 	printf("%s\n", tmp->str); */
+/* 	if ((*tkn)->next && (*tkn)->prev) */
 /* 	{ */
-/* 		word = 0; */
-/* 		while (temp && temp->next && temp->type != PIPE) */
-/* 		{ */
-/* 			if (word != 1 && temp->type == WORD) */
-/* 			{ */
-/* 				temp->next->prev = temp->prev; */
-/* 				temp->prev->next = temp->next; */
-/* 				temp->prev = NULL; */
-/* 				temp->next = head; */
-/* 				head->prev = temp; */
-/* 				word = 1; */
-/* 			} */
-/* 			temp = temp->next; */
-/* 		} */
-/* 		if (temp->next && temp->type == PIPE) */
-/* 			temp = temp->next; */
+/* 		(*tkn)->next->prev = (*tkn)->prev; */
+/* 		(*tkn)->prev->next = (*tkn)->next; */
 /* 	} */
-/* 	return (temp); */
+/* 	while (tmp && tmp->prev && tmp->prev->type != PIPE) */
+/* 		tmp = tmp->prev; */
+/* 	printf("%s\n", tmp->str); */
+/* 	if (tmp && tmp->prev && tmp->prev->type == PIPE) */
+/* 	{ */
+/* 		(*tkn)->prev = tmp->prev; */
+/* 		(*tkn)->prev->next = (*tkn); */
+/* 		(*tkn)->next = tmp; */
+/* 		tmp->prev = (*tkn); */
+/* 	} */
+/* 	else if (!tmp->prev) */
+/* 	{ */
+/* 		(*tkn)->prev = NULL; */
+/* 		(*tkn)->next = tmp; */
+/* 		tmp->prev = (*tkn); */
+/* 	} */
+/* 	printf("%s\n", tmp->str); */
+/* 	while (tmp && tmp->next->type != PIPE) */
+/* 		tmp = tmp->next; */
+/* 	return (tmp); */
 /* } */

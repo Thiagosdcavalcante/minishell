@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/05 20:16:40 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/05 21:56:01 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,31 +97,6 @@ static t_tokens_f	*make_execve_token(t_tokens_f **tkn_f, t_tokens **tkn, int wor
 	return (head);
 }
 
-t_tokens_f	*token_f_order(t_tokens_f **tkn)
-{
-	t_tokens_f	*tmp;
-	t_tokens_f	*tmp2;
-
-	if (!(*tkn)->prev)
-		return (*tkn);
-	tmp = (*tkn)->prev;
-	if ((*tkn)->next && (*tkn)->prev)
-	{
-		(*tkn)->next->prev = (*tkn)->prev;
-		(*tkn)->prev->next = (*tkn)->next;
-	}
-	else
-		(*tkn)->prev->next = NULL;
-	while (tmp && tmp->prev)
-		tmp = tmp->prev;
-	(*tkn)->prev = NULL;
-	(*tkn)->next = tmp;
-	tmp->prev = (*tkn);
-	while (tmp && tmp->next->type != PIPE)
-		tmp = tmp->next;
-	return (tmp);
-}
-
 static void	print_tknf(t_tokens_f *tkn)
 {
 	while (tkn)
@@ -140,16 +115,18 @@ t_tokens_f	*exec_tokens(t_tokens *tkn)
 	if (exec_tokens_cond(tkn) == 1)
 		tkn = tkn->next;
 	token_f = make_execve_token(&token_f, &tkn, 1);
-	temp = token_f;
-	while (temp)
-	{
-		if (temp->type == WORD)
-			temp = token_f_order(&temp);
-		temp = temp->next;
-	}
-	while (temp && temp->prev)
-		temp = temp->prev;
-	token_f = temp;
 	print_tknf(token_f);
+	/* temp = token_f; */
+	/* while (temp->next) */
+	/* { */
+	/* 	if (temp->next->type == WORD) */
+	/* 		temp = token_f_order(&temp->next); */
+	/* 	temp = temp->next; */
+	/* } */
+	/* while (temp->prev) */
+	/* 	temp = temp->prev; */
+	/* print_tknf(temp); */
+	/* token_f = temp; */
+	/* print_tknf(token_f); */
 	return (token_f);
 }
