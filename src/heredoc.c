@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 17:12:19 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:43:12 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 			break ;
 		}
 		if (ft_strlen(line) == ft_strlen(cur->next->str)
-		&& ft_strncmp(line, cur->next->str, ft_strlen(cur->next->str)) == 0)
+			&& ft_strncmp(line, cur->next->str, ft_strlen(cur->next->str)) == 0)
 		{
 			free(line);
 			break ;
@@ -98,7 +98,9 @@ int	ft_check_heredoc(t_mini *data, t_tokens_f *tokens)
 	while (current)
 	{
 		if (current->type == DOUBLELESSER)
+		{
 			current->next->str = ft_heredoc(data, current);
+		}
 		if (current && current->next && !current->next->str)
 			return (0);
 		current = current->next;

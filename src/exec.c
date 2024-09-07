@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 17:14:04 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:34:14 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		{
 			set_sig_func();
 			ft_execute(data, root->new_args);
+			free_tree(data->tree);
 			exit(0);
 		}
 		else
