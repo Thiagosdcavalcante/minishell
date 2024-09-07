@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:26:23 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/24 18:23:50 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:37:15 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ void	ft_unset(t_mini *data, char **cmd)
 		ft_remove_env(data, cmd[i]);
 	}
 }
-

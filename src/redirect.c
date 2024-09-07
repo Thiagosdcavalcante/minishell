@@ -6,37 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/04 19:17:49 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:25:50 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-char	*ft_quotes(char *word)
-{
-	char	*file;
-	int		i;
-	int		j;
-
-	if (!word)
-		return (NULL);
-
-	file = (char *)malloc(ft_strlen(word) + 1);
-	if (!file)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (word[i])
-	{
-		if (word[i] != '"' && word[i] != '\'')
-		{
-			file[j] = word[i];
-			j++;
-		}
-		i++;
-	}
-	file[j] = '\0';
-	return (file);
-}
 
 int	ft_redirect_lesser(t_mini *mini, t_root_f *root)
 {

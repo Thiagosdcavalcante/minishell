@@ -6,13 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/04 20:37:09 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:28:08 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 void	free_tokens_f(t_tokens_f **head)
 {
@@ -22,7 +20,6 @@ void	free_tokens_f(t_tokens_f **head)
 	i = 0;
 	while ((*head))
 	{
-		// printf("str: %s\n", (*head)->args[0]);
 		temp = (*head)->next;
 		if ((*head)->args)
 		{
@@ -39,7 +36,6 @@ void	free_tokens_f(t_tokens_f **head)
 void	free_tokens(t_tokens **head)
 {
 	t_tokens	*temp;
-
 
 	while ((*head) != NULL)
 	{
@@ -63,10 +59,32 @@ void	final_free(t_mini *mini)
 		free(mini->in_ms);
 	if (mini->cmmds != NULL)
 		free_tokens(&mini->cmmds);
-	// if (mini->tokens != NULL)
-	// 	free_tokens_f(&mini->tokens);
 	if (mini->tree)
 		free_tree(mini->tree);
 	mini->in_ms = NULL;
 }
 
+void	free_tree(t_root_f *root)
+{
+	int	i;
+
+	if (!root)
+		return;
+	if (root->left)
+		free_tree(root->left);
+	if (root->right)
+		free_tree(root->right);
+	if (root->word)
+		free(root->word);
+	if (root->new_args)
+	{
+		i = 0;
+		while (root->new_args[i] != NULL)
+		{
+			free(root->new_args[i]);
+			i++;
+		}
+		free(root->new_args);
+	}
+	free(root);
+}

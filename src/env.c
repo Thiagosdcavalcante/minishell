@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:28:08 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/06 18:04:07 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 11:32:05 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	ft_update_var(t_mini *data, char *key, char *value)
 
 int	ft_env(t_mini *data, char **cmd)
 {
-	(void)cmd;
 	t_env_list	*temp;
 	char		*teste;
 
+	(void)cmd;
 	temp = data->envs;
 	while (temp)
 	{
 		teste = ft_strchr(temp->content, '=');
-		if(*++teste != '\0')
+		if (*++teste != '\0')
 			ft_putendl_fd(temp->content, 1);
 		temp = temp->next;
 	}
@@ -53,9 +53,10 @@ int	ft_env(t_mini *data, char **cmd)
 void	get_envs(t_mini *data)
 {
 	char	*env;
-	char	**envp = __environ;
+	char	**envp;
 
-	while(*envp)
+	envp = __environ;
+	while (*envp)
 	{
 		env = ft_substr(*envp, 0, ft_strlen(*envp));
 		ft_lstadd_back_env(&(data->envs), ft_lstnew_env(env));
@@ -86,4 +87,17 @@ int	ft_create_env(t_mini *data, char *key, char *value)
 	free(content);
 	ft_lstadd_back_env(&(data->envs), ft_lstnew_env(full_content));
 	return (0);
+}
+
+int	path_exists(char *path)
+{
+	DIR	*dir;
+
+	dir = opendir(path);
+	if (dir)
+	{
+		closedir(dir);
+		return (1);
+	}
+	return (access(path, F_OK) == 0);
 }

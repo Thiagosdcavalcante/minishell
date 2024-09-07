@@ -6,24 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 22:59:56 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/06 18:13:15 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 11:33:25 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_paths(t_mini *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->paths[i])
-	{
-		free(data->paths[i]);
-		i++;
-	}
-	free(data->paths);
-}
 
 char	*path_check(t_mini *data, char *command)
 {
@@ -100,32 +87,6 @@ char	*get_command_path(t_mini *data, char *cmd)
 	return (path);
 }
 
-int	is_directory(const char *path)
-{
-	DIR *dir;
-
-	dir = opendir(path);
-	if (dir)
-	{
-		closedir(dir);
-		return (1);
-	}
-	return (0);
-}
-
-int	path_exists(const char *path)
-{
-	DIR *dir;
-
-	dir = opendir(path);
-	if (dir)
-	{
-		closedir(dir);
-		return (1);
-	}
-	return (access(path, F_OK) == 0);
-}
-
 int	ft_execute(t_mini *data, char **cmd)
 {
 	char	*path;
@@ -147,4 +108,5 @@ int	ft_execute(t_mini *data, char **cmd)
 	envs = env_mtx(data->envs);
 	execve(path, cmd, envs);
 	my_error(data, 126, "Execution failed", cmd[0]);
+	return (0);
 }

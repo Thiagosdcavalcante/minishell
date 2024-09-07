@@ -6,66 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/06 18:49:28 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 11:50:49 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	exec_builtins(t_mini *data, t_root_f *root)
-{
-	int	ret;
-
-	ret = 0;
-	if (ft_strncmp(root->new_args[0], "env", 4) == 0)
-		ret = ft_env(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "export", 7) == 0)
-		ret = ft_export(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "unset", 6) == 0)
-		ft_unset(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "echo", 5) == 0)
-		ret = ft_echo(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "cd", 3) == 0)
-		ret = ft_cd(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "pwd", 4) == 0)
-		ft_pwd(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "exit", 5) == 0)
-		ret = ft_exit(data, root->new_args);
-	data->status = ret;
-	return (ret);
-}
-
-static int	is_builtins(t_mini *data, t_root_f *root)
-{
-	(void)data;
-	if (ft_strncmp(root->word, "env", 4) == 0)
-		return (1);
-	else if (ft_strncmp(root->word, "export", 7) == 0)
-		return (1);
-	else if (ft_strncmp(root->word, "unset", 6) == 0)
-		return (1);
-	else if (ft_strncmp(root->word, "echo", 5) == 0)
-		return (1);
-	else if (ft_strncmp(root->word, "cd", 3) == 0)
-		return (1);
-	else if (ft_strncmp(root->word, "pwd", 4) == 0)
-		return (1);
-	else if (ft_strncmp(root->word, "exit", 5) == 0)
-		return (1);
-	else
-		return (0);
-}
-
-void free_dup(t_mini *data)
-{
-	free_tokens(&data->cmmds);
-	free_tree(data->tree);
-	ffree(data);
-	if (data->in_ms)
-		free(data->in_ms);
-	close (STDOUT_FILENO);
-	close (STDIN_FILENO);
-}
 
 static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 {
@@ -104,9 +49,11 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 	status = 0;
 	if (pipe(fd) < 0)
 		exit(EXIT_FAILURE);
-	if ((pid[0] = fork()) == 0)
+	pid[0] = fork();
+	if (pid[0] == 0)
 		ft_pipe(data, root, fd, 1);
-	if ((pid[1] = fork()) == 0)
+	pid[1] = fork();
+	if (pid[1] == 0)
 		ft_pipe(data, root, fd, 0);
 	close(fd[0]);
 	close(fd[1]);
@@ -114,19 +61,6 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 	status = ft_status(pid[1]);
 	data->status = status;
 }
-
-int	count_args(char **args)
-{
-	int count;
-
-	if(!args)
-		return (0);
-	count = 0;
-	while (args[count])
-		count++;
-	return (count);
-}
-
 
 int	ft_exec(t_mini *data, t_root_f *root)
 {

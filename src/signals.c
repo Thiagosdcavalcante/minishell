@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:01:01 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/06 16:33:24 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:27:23 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern volatile	int	g_sig;
+extern volatile int	g_sig;
 
 void	sig_handler(int sig_num)
 {

@@ -1,67 +1,24 @@
-==106800== Memcheck, a memory error detector
-==106800== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==106800== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==106800== Command: ./minishell
-==106800== Parent PID: 42927
-==106800== 
-==106800== Invalid read of size 8
-==106800==    at 0x4038CC: is_builtins (exec.c:51)
-==106800==    by 0x4038CC: ft_exec (exec.c:124)
-==106800==    by 0x403094: ft_init_redirect (redirect.c:151)
-==106800==    by 0x4038C2: ft_exec (exec.c:123)
-==106800==    by 0x403094: ft_init_redirect (redirect.c:151)
-==106800==    by 0x4038C2: ft_exec (exec.c:123)
-==106800==    by 0x40167A: minishell (minishell.c:113)
-==106800==    by 0x40167A: main (minishell.c:133)
-==106800==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
-==106800== 
-==106800== 
-==106800== Process terminating with default action of signal 11 (SIGSEGV)
-==106800==  Access not within mapped region at address 0x0
-==106800==    at 0x4038CC: is_builtins (exec.c:51)
-==106800==    by 0x4038CC: ft_exec (exec.c:124)
-==106800==    by 0x403094: ft_init_redirect (redirect.c:151)
-==106800==    by 0x4038C2: ft_exec (exec.c:123)
-==106800==    by 0x403094: ft_init_redirect (redirect.c:151)
-==106800==    by 0x4038C2: ft_exec (exec.c:123)
-==106800==    by 0x40167A: minishell (minishell.c:113)
-==106800==    by 0x40167A: main (minishell.c:133)
-==106800==  If you believe this happened as a result of a stack
-==106800==  overflow in your program's main thread (unlikely but
-==106800==  possible), you can try to increase the size of the
-==106800==  main thread stack using the --main-stacksize= flag.
-==106800==  The main thread stack size used in this run was 8388608.
-==106800== 
-==106800== HEAP SUMMARY:
-==106800==     in use at exit: 210,332 bytes in 374 blocks
-==106800==   total heap usage: 611 allocs, 237 frees, 264,159 bytes allocated
-==106800== 
-==106800== LEAK SUMMARY:
-==106800==    definitely lost: 0 bytes in 0 blocks
-==106800==    indirectly lost: 0 bytes in 0 blocks
-==106800==      possibly lost: 0 bytes in 0 blocks
-==106800==    still reachable: 5,669 bytes in 156 blocks
-==106800==         suppressed: 204,663 bytes in 218 blocks
-==106800== Reachable blocks (those to which a pointer was found) are not shown.
-==106800== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==106800== 
-==106800== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-==106800== 
-==106800== 1 errors in context 1 of 1:
-==106800== Invalid read of size 8
-==106800==    at 0x4038CC: is_builtins (exec.c:51)
-==106800==    by 0x4038CC: ft_exec (exec.c:124)
-==106800==    by 0x403094: ft_init_redirect (redirect.c:151)
-==106800==    by 0x4038C2: ft_exec (exec.c:123)
-==106800==    by 0x403094: ft_init_redirect (redirect.c:151)
-==106800==    by 0x4038C2: ft_exec (exec.c:123)
-==106800==    by 0x40167A: minishell (minishell.c:113)
-==106800==    by 0x40167A: main (minishell.c:133)
-==106800==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
-==106800== 
---106800-- 
---106800-- used_suppression:     53 ignore_libreadline_leaks readline.sup:2 suppressed: 204,567 bytes in 210 blocks
---106800-- used_suppression:      7 <Readline> readline.sup:16 suppressed: 84 bytes in 7 blocks
---106800-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 12 bytes in 1 blocks
-==106800== 
-==106800== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==128388== Memcheck, a memory error detector
+==128388== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==128388== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==128388== Command: ./minishell
+==128388== Parent PID: 57152
+==128388== 
+==128388== 
+==128388== HEAP SUMMARY:
+==128388==     in use at exit: 204,612 bytes in 215 blocks
+==128388==   total heap usage: 577 allocs, 362 frees, 230,493 bytes allocated
+==128388== 
+==128388== LEAK SUMMARY:
+==128388==    definitely lost: 0 bytes in 0 blocks
+==128388==    indirectly lost: 0 bytes in 0 blocks
+==128388==      possibly lost: 0 bytes in 0 blocks
+==128388==    still reachable: 0 bytes in 0 blocks
+==128388==         suppressed: 204,612 bytes in 215 blocks
+==128388== 
+==128388== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--128388-- 
+--128388-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--128388-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==128388== 
+==128388== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

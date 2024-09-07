@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/06 18:06:24 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:19:14 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,14 @@ char		*ft_quotes(char *word);
 void		free_tree(t_root_f *root);
 int			count_args(char **args);
 void		set_sig_func(void);
+void		free_paths(t_mini *data);
 int			exec_tokens_cond(t_tokens *tkn);
+int			path_exists(char *path);
+int			is_directory(char *path);
+void		free_dup(t_mini *data);
+int			is_builtins(t_mini *data, t_root_f *root);
+int			exec_builtins(t_mini *data, t_root_f *root);
+int			is_file(int type);
 t_tokens_f	*token_f_order(t_tokens_f **tkn);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);

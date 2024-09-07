@@ -6,36 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/06 19:26:53 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:39:38 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_tree(t_root_f *root)
-{
-	int	i;
-
-	if (!root)
-		return;
-	if (root->left)
-		free_tree(root->left);
-	if (root->right)
-		free_tree(root->right);
-	if (root->word)
-		free(root->word);
-	if (root->new_args)
-	{
-		i = 0;
-		while (root->new_args[i] != NULL)
-		{
-			free(root->new_args[i]);
-			i++;
-		}
-		free(root->new_args);
-	}
-	free(root);
-}
 
 static t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens)
 {
@@ -47,6 +22,7 @@ static t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens)
 	}
 	return (tokens);
 }
+
 char	**new_args(char **args)
 {
 	char	**result;
@@ -56,7 +32,7 @@ char	**new_args(char **args)
 	result = (char **)malloc(sizeof(char *) * (1 + 1));
 	if (!args)
 		return (result = NULL);
-	while(args[i])
+	while (args[i])
 	{
 		result[i] = ft_strdup(args[i]);
 		free(args[i]);
@@ -66,10 +42,10 @@ char	**new_args(char **args)
 	return (result);
 }
 
-static t_tokens_f *find_matching_token(t_tokens_f *tokens, int *types, int num_types)
+static t_tokens_f	*find_token(t_tokens_f *tokens, int *types, int num_types)
 {
-	t_tokens_f *temp;
-	int i;
+	t_tokens_f	*temp;
+	int			i;
 
 	temp = ft_lstlast_token_f(tokens);
 	while (temp)
@@ -78,7 +54,7 @@ static t_tokens_f *find_matching_token(t_tokens_f *tokens, int *types, int num_t
 		while (i < num_types)
 		{
 			if (temp->type == types[i])
-				return temp;
+				return (temp);
 			i++;
 		}
 		temp = temp->prev;
@@ -86,78 +62,51 @@ static t_tokens_f *find_matching_token(t_tokens_f *tokens, int *types, int num_t
 	return (NULL);
 }
 
-static int	setup_branch(t_mini *mini, t_tokens_f *matching_token, t_tokens_f *tokens, t_root_f *root)
+int	branch(t_mini *mini, t_tokens_f *m_tkn, t_tokens_f *tokens, t_root_f *root)
 {
-	t_tokens_f *rest;
+	t_tokens_f	*rest;
 
-	if (!matching_token)
+	if (!m_tkn)
 		return (0);
-	rest = matching_token->next;
+	rest = m_tkn->next;
 	if (rest)
 		rest->prev = NULL;
-	root->word = ft_strdup(matching_token->str);
-	root->type = matching_token->type;
+	root->word = ft_strdup(m_tkn->str);
+	root->type = m_tkn->type;
 	root->args = tokens->args;
 	root->fd = -1;
-	if (matching_token == tokens)
+	if (m_tkn == tokens)
 	{
 		free(tokens);
 		tokens = NULL;
 	}
 	else
 	{
-		matching_token->prev->next = NULL;
-		free(matching_token);
+		m_tkn->prev->next = NULL;
+		free(m_tkn);
 	}
 	root->left = create_tree(mini, tokens);
 	root->right = create_tree(mini, rest);
 	return (1);
 }
 
-static int reverse_branch(t_mini *mini, t_tokens_f *tokens, t_root_f *root, int *types, int num_types)
+int	r_branch(t_mini *mini, t_tokens_f *tkn, t_root_f *root, int *t, int n_t)
 {
 	t_tokens_f *matching_token;
 
-	matching_token = find_matching_token(tokens, types, num_types);
-	return (setup_branch(mini, matching_token, tokens, root));
-}
-
-
-int *get_types(int type, int *num_types)
-{
-    static int redirection_types[4] = {GREATER, LESSER, DOUBLEGREATER, DOUBLELESSER};
-    static int pipe_types[1] = {PIPE};
-
-    if (type == 1) 
-    {
-        *num_types = 4;
-        return (redirection_types);
-    }
-    else 
-    {
-        *num_types = 1;
-        return (pipe_types);
-    }
+	matching_token = find_token(tkn, t, n_t);
+	return (branch(mini, matching_token, tkn, root));
 }
 
 static void create_branch(t_mini *mini, t_root_f *root, t_tokens_f *tokens)
 {
-	// int redirection_types[4] = {GREATER, LESSER, DOUBLEGREATER, DOUBLELESSER};
-	// int pipe_types[1] = {PIPE};
+	int redirection_types[4] = {GREATER, LESSER, DOUBLEGREATER, DOUBLELESSER};
+	int pipe_types[1] = {PIPE};
 
-	// if (reverse_branch(mini, tokens, root, pipe_types, 1))
-	// 	return ;
-	// if (reverse_branch(mini, tokens, root, redirection_types, 4))
-	// 	return ;
-	int num_types;
-    int *types;
-
-    types = get_types(0, &num_types);
-    if (reverse_branch(mini, tokens, root, types, num_types))
-        return;
-    types = get_types(1, &num_types);
-    if (reverse_branch(mini, tokens, root, types, num_types))
-        return;
+	if (r_branch(mini, tokens, root, pipe_types, 1))
+		return ;
+	if (r_branch(mini, tokens, root, redirection_types, 4))
+		return ;
 	root->left = NULL;
 	root->right = NULL;
 	root->word = ft_strdup(tokens->str);
@@ -176,7 +125,7 @@ static void create_branch(t_mini *mini, t_root_f *root, t_tokens_f *tokens)
 
 t_root_f	*create_tree(t_mini *mini, t_tokens_f *tokens)
 {
-	t_root_f *tree;
+	t_root_f	*tree;
 
 	if (!tokens)
 		return (NULL);

@@ -6,25 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:56:02 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/06 16:37:40 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:21:13 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
 
 static int	search_type(char *str)
 {
@@ -44,15 +30,6 @@ static int	search_type(char *str)
 	else
 		return (WORD);
 }
-
-static int	is_file(int type)
-{
-	if (type == DOUBLELESSER || type == DOUBLEGREATER
-		|| type == LESSER || type == GREATER)
-		return (TRUE);
-	return (FALSE);
-}
-
 
 static t_tokens	*define_word(t_tokens *lst)
 {

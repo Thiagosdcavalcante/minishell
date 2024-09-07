@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:50 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/06 18:08:28 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 11:28:59 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,17 @@ void	print_list_export(t_env_list *node)
 		ft_putendl_fd(node->content, 1);
 		node = node->next;
 	}
+}
+
+void	free_paths(t_mini *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->paths[i])
+	{
+		free(data->paths[i]);
+		i++;
+	}
+	free(data->paths);
 }

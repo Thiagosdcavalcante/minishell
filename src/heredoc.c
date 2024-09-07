@@ -6,12 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/06 16:47:32 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:14:50 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	unlink_here_doc(t_root_f *operator)
 {
@@ -46,9 +45,11 @@ static char	*path_name(void)
 	return (path);
 }
 
-static void heredoc_util(t_mini *data, char *line, int file)
+static void	heredoc_util(t_mini *data, char *line, int file)
 {
-	char *new_line = full_expansion(data, line);
+	char	*new_line;
+
+	new_line = full_expansion(data, line);
 	ft_putendl_fd(new_line, file);
 	free(line);
 	free(new_line);
@@ -71,10 +72,10 @@ static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 		if (line == NULL)
 			break ;
 		if (ft_strlen(line) == ft_strlen(cur->next->str)
-		&& ft_strncmp(line, cur->next->str, ft_strlen(cur->next->str)) == 0)
+			&& ft_strncmp(line, cur->next->str, ft_strlen(cur->next->str)) == 0)
 		{
 			free(line);
-			break; ;
+			break ;
 		}
 		heredoc_util(data, line, file);
 	}
@@ -91,7 +92,7 @@ static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 
 int	ft_check_heredoc(t_mini *data, t_tokens_f *tokens)
 {
-	t_tokens_f *current;
+	t_tokens_f	*current;
 
 	current = tokens;
 	while (current)

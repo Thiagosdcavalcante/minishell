@@ -3,6 +3,7 @@
         "history.h": "c",
         "compare": "c",
         "type_traits": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "minishell.h": "c"
     }
 }

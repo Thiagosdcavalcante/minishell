@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 11:02:22 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/20 21:33:02 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 11:33:53 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,18 @@ int	ft_echo(t_mini *data, char **cmd)
 	print_echo(cmd, i);
 	if (ft_has_n(cmd) == 1)
 		ft_putchar_fd('\n', 1);
+	return (0);
+}
+
+int	is_directory(char *path)
+{
+	DIR	*dir;
+
+	dir = opendir(path);
+	if (dir)
+	{
+		closedir(dir);
+		return (1);
+	}
 	return (0);
 }
