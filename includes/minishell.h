@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 14:07:40 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:56:05 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <termios.h>
 # include "libft.h"
 
 typedef struct termios	t_termios;
@@ -162,6 +163,8 @@ void		free_dup(t_mini *data);
 int			is_builtins(t_mini *data, t_root_f *root);
 int			exec_builtins(t_mini *data, t_root_f *root);
 int			is_file(int type);
+void		close_fds(int bckp_fd);
+void	sig_exec(void);
 t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens);
 t_tokens_f	*token_f_order(t_tokens_f **tkn);
 t_tokens	*parse_str(char *str);

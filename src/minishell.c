@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 14:40:16 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:08:42 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile int	g_sig = 0;
+volatile int	g_sig;
 
 void	print_tree(t_root_f *root, int nivel)
 {
@@ -50,16 +50,18 @@ void print_list_tokens(t_tokens_f *cmd)
 	}
 }
 
-static void	add_item(t_mini *mini)
+static int	add_item(t_mini *mini)
 {
 	add_history(mini->in_ms);
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
 	// print_list_tokens(mini->tokens);
-	ft_check_heredoc(mini, mini->tokens);
+	if (ft_check_heredoc(mini, mini->tokens) == 0)
+		return (0);
 	mini->tree = create_tree(mini, mini->tokens);
 	// print_tree(mini->tree, 1);
+	return (1);
 }
 
 static int	check_if_only_spaces(t_mini *mini)
@@ -117,7 +119,8 @@ static int	minishell(t_mini *mini)
 		return (EXIT_FAILURE);
 	if (mini->in_ms[0] != '\0')
 	{
-		add_item(mini);
+		if (add_item(mini) == 0)
+			return (130);
 		status = init_exec(mini, mini->tree);
 		mini->status = status;
 		if (mini->tree != NULL)
@@ -130,21 +133,28 @@ static int	minishell(t_mini *mini)
 int	main(void)
 {
 	t_mini		mini;
+	t_termios	term;
 	static int	ret;
+	const int	backup_fd = dup(STDIN_FILENO);
 
 	ret = 0;
-	init_sig();
 	mini = (t_mini){0};
 	get_envs(&mini);
+	tcgetattr(STDIN_FILENO, &term);
 	while (1)
 	{
+		init_sig();
+		dup2(backup_fd, STDIN_FILENO);
+		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 		ret = minishell(&mini);
 		if (mini.exit == 1)
 		{
 			rl_clear_history();
+			close_fds((int)backup_fd);
 			ffree(&mini);
 			exit(ret);
 		}
 	}
+	close_fds((int)backup_fd);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:50:49 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:14:04 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 	int	status;
 
 	status = 0;
-	// set_sig_func(); pra q seria isso? está quebrando um teste de pipe
 	if (is_left == 1)
 	{
 		dup2(fd[1], STDOUT_FILENO);
@@ -45,7 +44,7 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 	int		fd[2];
 	int		status;
 
-	set_sig_func(); //coloquei aqui e foi, é isso? lugar errado?
+	set_sig_func();
 	status = 0;
 	if (pipe(fd) < 0)
 		exit(EXIT_FAILURE);
@@ -77,9 +76,12 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		pid = fork();
 		if (pid == 0)
 		{
+			set_sig_func();
 			ft_execute(data, root->new_args);
 			exit(0);
 		}
+		else
+			sig_exec();
 		data->status = ft_status(pid);
 	}
 	return (data->status);

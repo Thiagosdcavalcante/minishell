@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/06 16:45:15 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:17:42 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,9 +199,7 @@ static t_tokens_f	*make_execve_token(t_tokens_f **tkn_f, t_tokens **tkn, int wor
 	head = (*tkn_f);
 	while ((*tkn))
 	{
-		if ((*tkn)->type == LESSER || (*tkn)->type == GREATER
-			|| (*tkn)->type == DOUBLELESSER || (*tkn)->type == DOUBLEGREATER
-			|| (*tkn)->type == MS_FILE)
+		if (exec_tokens_cond((*tkn)))
 			(*tkn_f)->next = add_special_character(tkn);
 		else if ((*tkn)->type == PIPE)
 		{
