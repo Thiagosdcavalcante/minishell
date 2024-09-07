@@ -6,57 +6,45 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 12:43:16 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 15:35:21 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens)
-{
-	if (!tokens)
-		return (NULL);
-	while (tokens && tokens->next)
-	{
-		tokens = tokens->next;
-	}
-	return (tokens);
-}
+// static t_tokens_f	*find_token(t_tokens_f *tokens, int *types, int num_types)
+// {
+// 	t_tokens_f	*temp;
+// 	int			i;
 
-char	**new_args(char **args)
-{
-	char	**result;
-	int		i;
+// 	temp = ft_lstlast_token_f(tokens);
+// 	while (temp)
+// 	{
+// 		i = 0;
+// 		while (i < num_types)
+// 		{
+// 			if (temp->type == types[i])
+// 				return (temp);
+// 			i++;
+// 		}
+// 		temp = temp->prev;
+// 	}
+// 	return (NULL);
+// }
 
-	i = 0;
-	result = (char **)malloc(sizeof(char *) * (1 + 1));
-	if (!args)
-		return (result = NULL);
-	while (args[i])
-	{
-		result[i] = ft_strdup(args[i]);
-		free(args[i]);
-		i++;
-	}
-	result[i] = NULL;
-	return (result);
-}
-
-static t_tokens_f	*find_token(t_tokens_f *tokens, int *types, int num_types)
+static t_tokens_f	*find_token(t_tokens_f *tokens, int t)
 {
 	t_tokens_f	*temp;
-	int			i;
+	int			type;
 
+	type = t;
 	temp = ft_lstlast_token_f(tokens);
 	while (temp)
 	{
-		i = 0;
-		while (i < num_types)
-		{
-			if (temp->type == types[i])
-				return (temp);
-			i++;
-		}
+		if (temp->type == PIPE && type == PIPE)
+			return (temp);
+		if (temp->type > PIPE && type > PIPE)
+			return (temp);
 		temp = temp->prev;
 	}
 	return (NULL);
@@ -90,22 +78,20 @@ int	branch(t_mini *mini, t_tokens_f *m_tkn, t_tokens_f *tokens, t_root_f *root)
 	return (1);
 }
 
-int	r_branch(t_mini *mini, t_tokens_f *tkn, t_root_f *root, int *t, int n_t)
+int	r_branch(t_mini *mini, t_tokens_f *tkn, t_root_f *root, int t)
 {
-	t_tokens_f *matching_token;
+	t_tokens_f	*matching_token;
 
-	matching_token = find_token(tkn, t, n_t);
+	matching_token = find_token(tkn, t);
 	return (branch(mini, matching_token, tkn, root));
 }
 
-static void create_branch(t_mini *mini, t_root_f *root, t_tokens_f *tokens)
+static void	create_branch(t_mini *mini, t_root_f *root, t_tokens_f *tokens)
 {
-	int redirection_types[4] = {GREATER, LESSER, DOUBLEGREATER, DOUBLELESSER};
-	int pipe_types[1] = {PIPE};
 
-	if (r_branch(mini, tokens, root, pipe_types, 1))
+	if (r_branch(mini, tokens, root, PIPE))
 		return ;
-	if (r_branch(mini, tokens, root, redirection_types, 4))
+	if (r_branch(mini, tokens, root, 3))
 		return ;
 	root->left = NULL;
 	root->right = NULL;
@@ -114,6 +100,7 @@ static void create_branch(t_mini *mini, t_root_f *root, t_tokens_f *tokens)
 	root->fd = -1;
 	root->args = tokens->args;
 	root->new_args = NULL;
+	// expansion(mini, root->word);
 	if (tokens->args && tokens->type < 2)
 	{
 		root->new_args = (char **)malloc(sizeof(char *) * (n_args(tokens->args) + 1));

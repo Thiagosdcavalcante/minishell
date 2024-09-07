@@ -1,24 +1,61 @@
-==128388== Memcheck, a memory error detector
-==128388== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==128388== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==128388== Command: ./minishell
-==128388== Parent PID: 57152
-==128388== 
-==128388== 
-==128388== HEAP SUMMARY:
-==128388==     in use at exit: 204,612 bytes in 215 blocks
-==128388==   total heap usage: 577 allocs, 362 frees, 230,493 bytes allocated
-==128388== 
-==128388== LEAK SUMMARY:
-==128388==    definitely lost: 0 bytes in 0 blocks
-==128388==    indirectly lost: 0 bytes in 0 blocks
-==128388==      possibly lost: 0 bytes in 0 blocks
-==128388==    still reachable: 0 bytes in 0 blocks
-==128388==         suppressed: 204,612 bytes in 215 blocks
-==128388== 
-==128388== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---128388-- 
---128388-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
---128388-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
-==128388== 
-==128388== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==276799== Memcheck, a memory error detector
+==276799== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==276799== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==276799== Command: ./minishell
+==276799== Parent PID: 209124
+==276799== 
+==276808== 
+==276808== HEAP SUMMARY:
+==276808==     in use at exit: 204,612 bytes in 215 blocks
+==276808==   total heap usage: 642 allocs, 427 frees, 264,612 bytes allocated
+==276808== 
+==276809== 
+==276809== HEAP SUMMARY:
+==276809==     in use at exit: 204,673 bytes in 218 blocks
+==276809==   total heap usage: 644 allocs, 426 frees, 264,623 bytes allocated
+==276809== 
+==276808== LEAK SUMMARY:
+==276808==    definitely lost: 0 bytes in 0 blocks
+==276808==    indirectly lost: 0 bytes in 0 blocks
+==276808==      possibly lost: 0 bytes in 0 blocks
+==276808==    still reachable: 0 bytes in 0 blocks
+==276808==         suppressed: 204,612 bytes in 215 blocks
+==276808== 
+==276808== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--276808-- 
+--276808-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--276808-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==276808== 
+==276808== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==276809== LEAK SUMMARY:
+==276809==    definitely lost: 0 bytes in 0 blocks
+==276809==    indirectly lost: 0 bytes in 0 blocks
+==276809==      possibly lost: 0 bytes in 0 blocks
+==276809==    still reachable: 0 bytes in 0 blocks
+==276809==         suppressed: 204,673 bytes in 218 blocks
+==276809== 
+==276809== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--276809-- 
+--276809-- used_suppression:     50 ignore_libreadline_leaks readline.sup:2 suppressed: 204,521 bytes in 207 blocks
+--276809-- used_suppression:     10 <Readline> readline.sup:16 suppressed: 140 bytes in 10 blocks
+--276809-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 12 bytes in 1 blocks
+==276809== 
+==276809== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==276799== 
+==276799== HEAP SUMMARY:
+==276799==     in use at exit: 204,612 bytes in 215 blocks
+==276799==   total heap usage: 675 allocs, 460 frees, 265,040 bytes allocated
+==276799== 
+==276799== LEAK SUMMARY:
+==276799==    definitely lost: 0 bytes in 0 blocks
+==276799==    indirectly lost: 0 bytes in 0 blocks
+==276799==      possibly lost: 0 bytes in 0 blocks
+==276799==    still reachable: 0 bytes in 0 blocks
+==276799==         suppressed: 204,612 bytes in 215 blocks
+==276799== 
+==276799== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--276799-- 
+--276799-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--276799-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==276799== 
+==276799== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

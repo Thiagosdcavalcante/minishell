@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:41 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 12:25:55 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 14:07:30 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,14 @@ char	*ft_quotes(char *word)
 	}
 	file[j] = '\0';
 	return (file);
+}
+t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens)
+{
+	if (!tokens)
+		return (NULL);
+	while (tokens && tokens->next)
+	{
+		tokens = tokens->next;
+	}
+	return (tokens);
 }
