@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:09:45 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 15:09:03 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:21:09 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	exec_tokens_cond(t_tokens *tkn)
 
 static t_tokens_f	*tkn_f_word(t_tokens_f **tkn)
 {
-	t_tokens_f	*tmp;
 	t_tokens_f	*head;
 
 	head = (*tkn);
@@ -85,7 +84,7 @@ static t_tokens_f	*tkn_f_pipe(t_tokens_f **tkn)
 	return ((*tkn));
 }
 
-t_tokens_f	**token_f_order(t_tokens_f **tkn)
+t_tokens_f	*token_f_order(t_tokens_f **tkn)
 {
 	t_tokens_f	*head;
 	t_tokens_f	*tmp;
@@ -100,18 +99,16 @@ t_tokens_f	**token_f_order(t_tokens_f **tkn)
 	{
 		if (tmp->type == PIPE)
 			pipe = 1;
-		if (pipe == 0 && tmp->type == WORD && tmp->prev)
+		if (pipe == 0 && tmp->type == WORD)
 			tmp = tkn_f_word(&tmp);
 		else if (pipe == 1 && tmp->type == WORD && tmp->prev->type != PIPE)
 			tmp = tkn_f_pipe(&tmp);
-		if (!tmp->next && tmp->type != WORD)
-			break;
 		tmp = tmp->next;
 	}
-	while (tmp && tmp->prev)
+	while (tmp)
 		tmp = tmp->prev;
 	head = tmp;
-	return (&head);
+	return (head);
 }
 
 /* t_tokens_f	*token_f_order(t_tokens_f **tkn) */

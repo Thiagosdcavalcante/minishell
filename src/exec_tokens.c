@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/05 21:56:01 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:27:04 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,24 +109,13 @@ static void	print_tknf(t_tokens_f *tkn)
 t_tokens_f	*exec_tokens(t_tokens *tkn)
 {
 	t_tokens_f	*token_f;
-	t_tokens_f	*temp;
 
 	token_f = init_tokens_f(tkn);
 	if (exec_tokens_cond(tkn) == 1)
 		tkn = tkn->next;
 	token_f = make_execve_token(&token_f, &tkn, 1);
 	print_tknf(token_f);
-	/* temp = token_f; */
-	/* while (temp->next) */
-	/* { */
-	/* 	if (temp->next->type == WORD) */
-	/* 		temp = token_f_order(&temp->next); */
-	/* 	temp = temp->next; */
-	/* } */
-	/* while (temp->prev) */
-	/* 	temp = temp->prev; */
-	/* print_tknf(temp); */
-	/* token_f = temp; */
-	/* print_tknf(token_f); */
+	token_f	= token_f_order(&token_f);
+	print_tknf(token_f);
 	return (token_f);
 }

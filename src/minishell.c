@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/04 17:40:09 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:27:14 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,34 +57,34 @@ static int	add_item(t_mini *mini)
 	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
 	// print_list_tokens(mini->tokens);
-	if (ft_check_heredoc(mini, mini->tokens) == 0)
-		return (0);
-	mini->tree = create_tree(mini->tokens);
+	/* if (ft_check_heredoc(mini, mini->tokens) == 0) */
+	/* 	return (0); */
+	/* mini->tree = create_tree(mini->tokens); */
 	// print_tree(mini->tree, 1);
 	return (1);
 }
 
-static int	check_if_only_spaces(t_mini *mini)
-{
-	int	flag;
-	int	i;
-
-	i = 0;
-	flag = 0;
-	while (mini->in_ms[i] != '\0')
-	{
-		if (ft_isspace(mini->in_ms[i]) == FALSE)
-		{
-			flag = 1;
-			break ;
-		}
-		i++;
-	}
-	if (flag == 0)
-		return (TRUE);
-	return (FALSE);
-}
-
+/* static int	check_if_only_spaces(t_mini *mini) */
+/* { */
+/* 	int	flag; */
+/* 	int	i; */
+/**/
+/* 	i = 0; */
+/* 	flag = 0; */
+/* 	while (mini->in_ms[i] != '\0') */
+/* 	{ */
+/* 		if (ft_isspace(mini->in_ms[i]) == FALSE) */
+/* 		{ */
+/* 			flag = 1; */
+/* 			break ; */
+/* 		} */
+/* 		i++; */
+/* 	} */
+/* 	if (flag == 0) */
+/* 		return (TRUE); */
+/* 	return (FALSE); */
+/* } */
+/**/
 static t_bool	check_quotes_and_double_quotes(char *str)
 {
 	int		i;

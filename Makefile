@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/04/08 20:31:12 by erpiana           #+#    #+#              #
-#    Updated: 2024/09/05 19:16:08 by tsantana         ###   ########.fr        #
+#    Created: 2024/09/07 16:18:10 by tsantana          #+#    #+#              #
+#    Updated: 2024/09/07 16:26:53 by tsantana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
