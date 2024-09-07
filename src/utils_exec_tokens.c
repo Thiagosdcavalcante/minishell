@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:09:45 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/05 21:55:59 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/07 15:09:03 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,84 @@ int	exec_tokens_cond(t_tokens *tkn)
 		|| tkn->type == MS_FILE)
 		return (1);
 	return (0);
+}
+
+static t_tokens_f	*tkn_f_word(t_tokens_f **tkn)
+{
+	t_tokens_f	*tmp;
+	t_tokens_f	*head;
+
+	head = (*tkn);
+	while (head->prev)
+		head = head->prev;
+	(*tkn)->next = head;
+	head->prev = (*tkn);
+	(*tkn)->prev = NULL;
+	return ((*tkn));
+}
+
+static t_tokens_f	*tkn_f_pipe(t_tokens_f **tkn)
+{
+	t_tokens_f	*tmp;
+	
+	while ((*tkn) && (*tkn)->type != WORD)
+		(*tkn) = (*tkn)->next;
+	if ((*tkn) && (*tkn)->type == WORD)
+	{
+		if ((*tkn)->next)
+		{
+			tmp = (*tkn)->next;
+			tmp->prev = (*tkn)->prev;
+			tmp->prev->next =  tmp->next;
+			tmp->next->prev = tmp->prev;
+			while (tmp->prev && tmp->prev->type != PIPE)
+				tmp = tmp->prev;
+			tmp = tmp->prev;
+			(*tkn)->prev = tmp;
+			(*tkn)->next = tmp->next;
+			tmp->next = (*tkn);
+		}
+		else
+		{
+			tmp = (*tkn)->prev;
+			while (tmp->prev && tmp->prev->type != PIPE)
+				tmp = tmp->prev;
+			tmp = tmp->prev;
+			(*tkn)->next = tmp->next;
+			(*tkn)->prev = tmp;
+			tmp->next = (*tkn);
+		}
+	}
+	return ((*tkn));
+}
+
+t_tokens_f	**token_f_order(t_tokens_f **tkn)
+{
+	t_tokens_f	*head;
+	t_tokens_f	*tmp;
+	int			pipe;
+
+	head = (*tkn);
+	tmp = (*tkn);
+	pipe = 0;
+	if (tmp->type == WORD && !tmp->prev && tmp->next)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		if (tmp->type == PIPE)
+			pipe = 1;
+		if (pipe == 0 && tmp->type == WORD && tmp->prev)
+			tmp = tkn_f_word(&tmp);
+		else if (pipe == 1 && tmp->type == WORD && tmp->prev->type != PIPE)
+			tmp = tkn_f_pipe(&tmp);
+		if (!tmp->next && tmp->type != WORD)
+			break;
+		tmp = tmp->next;
+	}
+	while (tmp && tmp->prev)
+		tmp = tmp->prev;
+	head = tmp;
+	return (&head);
 }
 
 /* t_tokens_f	*token_f_order(t_tokens_f **tkn) */
