@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 23:16:25 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/07 11:46:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:11:11 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	my_error(t_mini *data, int status, char *msg, char *command)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
+	final_free(data);
+	ffree(data);
 	exit(status);
 }
 

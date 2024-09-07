@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 17:08:42 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:14:14 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,10 @@ static int	minishell(t_mini *mini)
 	if (!mini->in_ms)
 		return (ft_exit(mini, NULL));
 	if (!check_quotes_and_double_quotes(mini->in_ms))
+	{
+		free(mini->in_ms);
 		return (EXIT_FAILURE);
+	}
 	if (mini->in_ms[0] != '\0')
 	{
 		if (add_item(mini) == 0)
@@ -151,7 +154,7 @@ int	main(void)
 		{
 			rl_clear_history();
 			close_fds((int)backup_fd);
-			ffree(&mini);
+			// ffree(&mini);
 			exit(ret);
 		}
 	}
