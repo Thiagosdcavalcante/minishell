@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/04 17:40:09 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:41:45 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ int	main(void)
 	t_termios	term;
 	const int	backup_fd = dup(STDIN_FILENO);
 
-	g_sig = 0;
 	mini = (t_mini){0};
 	get_envs(&mini);
 	tcgetattr(STDIN_FILENO, &term);

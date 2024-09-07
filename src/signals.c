@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:01:01 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/03 20:14:22 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:41:31 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	sigint_handler(int sig_num)
 
 void	init_sig(void)
 {
+	g_sig = 0;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
