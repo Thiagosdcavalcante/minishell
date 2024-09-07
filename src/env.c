@@ -6,13 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:28:08 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/08/27 20:17:30 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:04:07 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern char **environ; // revisar environ para linux
 
 void	ft_update_var(t_mini *data, char *key, char *value)
 {
@@ -55,7 +53,7 @@ int	ft_env(t_mini *data, char **cmd)
 void	get_envs(t_mini *data)
 {
 	char	*env;
-    char **envp = environ;
+	char	**envp = __environ;
 
 	while(*envp)
 	{

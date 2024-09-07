@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:50 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/04 20:23:34 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:08:28 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_paths(t_mini *data)
+void	get_paths(t_mini *data, char *command)
 {
 	int		i;
 	char	*temp;
@@ -20,6 +20,11 @@ void	get_paths(t_mini *data)
 
 	i = 0;
 	env = get_env(data, "PATH");
+	if (!env)
+	{
+		my_error(data, 127, "command not found", command);
+		return ;
+	}
 	data->paths = ft_split(env, ':');
 	temp = data->paths[0];
 	data->paths[0] = ft_substr(temp, 5, ft_strlen(temp));

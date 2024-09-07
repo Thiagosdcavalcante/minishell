@@ -1,0 +1,12 @@
+Makefile
+d
+e
+includes
+libs
+minishell
+minishell_tester
+minishell_tester2
+obj
+readline.sup
+src
+valfile.txt

@@ -6,21 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/04 21:28:02 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:49:28 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_status(pid_t pid)
-{
-	int	status;
-
-	waitpid (pid, &status, 0);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	return (status);
-}
 
 static int	exec_builtins(t_mini *data, t_root_f *root)
 {
@@ -66,28 +56,6 @@ static int	is_builtins(t_mini *data, t_root_f *root)
 		return (0);
 }
 
-void	free_tree2(t_root_f *root)
-{
-	t_root_f	*current;
-	t_root_f	*right;
-	if (!root)
-		return ;
-	if (root == NULL)
-		return ;
-	current = root;
-	while (current != NULL)
-	{
-		right = current->right;
-		if (current->left != NULL)
-			free_tree2(current->left);
-		// if (current->content)
-		// 	free(current->content);
-		free(current);
-		current = right;
-	}
-	root = NULL;
-}
-
 void free_dup(t_mini *data)
 {
 	free_tokens(&data->cmmds);
@@ -104,6 +72,7 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 	int	status;
 
 	status = 0;
+	// set_sig_func(); pra q seria isso? está quebrando um teste de pipe
 	if (is_left == 1)
 	{
 		dup2(fd[1], STDOUT_FILENO);
@@ -125,12 +94,13 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 	}
 }
 
-void ft_pipex(t_mini *data, t_root_f *root)
+void	ft_pipex(t_mini *data, t_root_f *root)
 {
 	pid_t	pid[2];
 	int		fd[2];
 	int		status;
 
+	set_sig_func(); //coloquei aqui e foi, é isso? lugar errado?
 	status = 0;
 	if (pipe(fd) < 0)
 		exit(EXIT_FAILURE);
@@ -162,11 +132,6 @@ int	ft_exec(t_mini *data, t_root_f *root)
 {
 	pid_t	pid;
 
-	// if (root->type < 2 )
-	// {
-	// 	root->new_args = (char **)malloc(sizeof(char *) * (count_args(root->args) + 1));
-	// 	init_expansion(data, root->args, root->new_args);
-	// }
 	if (root->type == PIPE)
 		ft_pipex(data, root);
 	else if (root->left != NULL && root->type > PIPE)
@@ -185,33 +150,6 @@ int	ft_exec(t_mini *data, t_root_f *root)
 	}
 	return (data->status);
 }
-
-
-// int	ft_exec(t_mini *data, t_root_f *root)
-// {
-// 	pid_t	pid;
-
-// 	if (root->args != NULL)
-// 		init_expansion(data, root->args);
-// 	if (root->type == PIPE)
-// 		ft_pipex(data, root);
-// 	else if (root->type > PIPE)
-// 		ft_init_redirect(data, root);
-// 	else if (is_builtins(data, root))
-// 		exec_builtins(data, root);
-// 	else
-// 	{
-// 		pid = fork();
-// 		if (pid == 0)
-// 		{
-// 			ft_execute(data, root->args);
-// 			// free_tree(data->tree);
-// 			exit(0);
-// 		}
-// 		data->status = ft_status(pid);
-// 	}
-// 	return (data->status);
-// }
 
 int	init_exec(t_mini *data, t_root_f *root)
 {

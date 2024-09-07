@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/04 13:43:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:06:24 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 # include <dirent.h>
 # include "libft.h"
 
-// # define EXPORT "export"
+typedef struct termios	t_termios;
+
+extern volatile int	g_sig;
 
 typedef enum e_bool
 {
@@ -94,6 +96,7 @@ typedef enum e_type
 	DOUBLELESSER,
 }	t_type;
 
+
 char		*put_space_ms(char *str);
 char		**ms_split(char const *s);
 char		**custom_split(char const *s, char c);
@@ -111,10 +114,13 @@ int			ft_exec(t_mini *data, t_root_f *root);
 int			init_exec(t_mini *data, t_root_f *root);
 int			ft_exit(t_mini *data, char **cmd);
 int			ft_echo(t_mini *data, char **cmd);
+int			get_return_value(int status);
 int			ft_create_env(t_mini *data, char *key, char *value);
+int			ft_status(pid_t pid);
 void		final_free(t_mini *mini);
+void		sig_hand_here(int signal);
 void		free_split(char **split);
-void		ft_check_heredoc(t_mini *data, t_tokens_f *tokens);
+int			ft_check_heredoc(t_mini *data, t_tokens_f *tokens);
 void		one_quote(char **arg, int *i, char **new_result, char **result);
 void		handle_var_expansion(t_mini *data, char *arg, int *i, char **result);
 void		handle_normal_char(char c, char **result);
@@ -129,7 +135,7 @@ void		ft_pipex(t_mini *data, t_root_f *root);
 void		sorted_insert(t_env_list **head, t_env_list *node);
 void		sort_export(t_env_list *envs);
 void		ft_lstadd_back_env(t_env_list **lst, t_env_list *new);
-void		get_paths(t_mini *data);
+void		get_paths(t_mini *data, char *command);
 void		ffree(t_mini *data);
 int			ft_export(t_mini *data, char **cmd);
 void		ft_init_redirect(t_mini *data, t_root_f *root);
@@ -147,6 +153,9 @@ int			ft_redirect(t_mini *data, t_root_f *root);
 char		*ft_quotes(char *word);
 void		free_tree(t_root_f *root);
 int			count_args(char **args);
+void		set_sig_func(void);
+int			exec_tokens_cond(t_tokens *tkn);
+t_tokens_f	*token_f_order(t_tokens_f **tkn);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);

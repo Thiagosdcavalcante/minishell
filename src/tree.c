@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/04 21:40:37 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:26:53 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,24 @@ static t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens)
 		tokens = tokens->next;
 	}
 	return (tokens);
+}
+char	**new_args(char **args)
+{
+	char	**result;
+	int		i;
+
+	i = 0;
+	result = (char **)malloc(sizeof(char *) * (1 + 1));
+	if (!args)
+		return (result = NULL);
+	while(args[i])
+	{
+		result[i] = ft_strdup(args[i]);
+		free(args[i]);
+		i++;
+	}
+	result[i] = NULL;
+	return (result);
 }
 
 static t_tokens_f *find_matching_token(t_tokens_f *tokens, int *types, int num_types)
@@ -95,6 +113,7 @@ static int	setup_branch(t_mini *mini, t_tokens_f *matching_token, t_tokens_f *to
 	root->right = create_tree(mini, rest);
 	return (1);
 }
+
 static int reverse_branch(t_mini *mini, t_tokens_f *tokens, t_root_f *root, int *types, int num_types)
 {
 	t_tokens_f *matching_token;
@@ -103,34 +122,42 @@ static int reverse_branch(t_mini *mini, t_tokens_f *tokens, t_root_f *root, int 
 	return (setup_branch(mini, matching_token, tokens, root));
 }
 
-char	**new_args(char **args)
-{
-	char	**result;
-	int		i;
 
-	i = 0;
-	result = (char **)malloc(sizeof(char *) * (1 + 1));
-	if (!args)
-		return (result = NULL);
-	while(args[i])
-	{
-		result[i] = ft_strdup(args[i]);
-		free(args[i]);
-		i++;
-	}
-	result[i] = NULL;
-	return (result);
+int *get_types(int type, int *num_types)
+{
+    static int redirection_types[4] = {GREATER, LESSER, DOUBLEGREATER, DOUBLELESSER};
+    static int pipe_types[1] = {PIPE};
+
+    if (type == 1) 
+    {
+        *num_types = 4;
+        return (redirection_types);
+    }
+    else 
+    {
+        *num_types = 1;
+        return (pipe_types);
+    }
 }
 
 static void create_branch(t_mini *mini, t_root_f *root, t_tokens_f *tokens)
 {
-	int redirection_types[4] = {GREATER, LESSER, DOUBLEGREATER, DOUBLELESSER};
-	int pipe_types[1] = {PIPE};
+	// int redirection_types[4] = {GREATER, LESSER, DOUBLEGREATER, DOUBLELESSER};
+	// int pipe_types[1] = {PIPE};
 
-	if (reverse_branch(mini, tokens, root, pipe_types, 1))
-		return ;
-	if (reverse_branch(mini, tokens, root, redirection_types, 4))
-		return ;
+	// if (reverse_branch(mini, tokens, root, pipe_types, 1))
+	// 	return ;
+	// if (reverse_branch(mini, tokens, root, redirection_types, 4))
+	// 	return ;
+	int num_types;
+    int *types;
+
+    types = get_types(0, &num_types);
+    if (reverse_branch(mini, tokens, root, types, num_types))
+        return;
+    types = get_types(1, &num_types);
+    if (reverse_branch(mini, tokens, root, types, num_types))
+        return;
 	root->left = NULL;
 	root->right = NULL;
 	root->word = ft_strdup(tokens->str);
