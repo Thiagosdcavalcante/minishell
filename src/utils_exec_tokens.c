@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:09:45 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 12:37:39 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:43:16 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	exec_tokens_cond(t_tokens *tkn)
 // 	return (tmp);
 // }
 
-int	count_args(char **args)
+int	n_args(char **args)
 {
 	int	count;
 
