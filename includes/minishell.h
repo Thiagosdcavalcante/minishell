@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 19:08:42 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:26:24 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,14 @@ int			change(t_mini *data, char *path);
 int			ft_env(t_mini *data, char **cmd);
 int			ft_export(t_mini *data, char **cmd);
 int			ft_execute(t_mini *data, char **cmd);
+int			is_file(int type);
+int			exec_tokens_cond(t_tokens *tkn);
+int			n_args(char **args);
+int			path_exists(char *path);
+int			is_directory(char *path);
+int			is_builtins(t_mini *data, t_root_f *root);
+int			exec_builtins(t_mini *data, t_root_f *root);
+void		free_dup(t_mini *data);
 void		final_free(t_mini *mini);
 void		free_split(char **split);
 void		one_quote(char **arg, int *i, char **new_result, char **result);
@@ -159,6 +167,7 @@ void		free_tree(t_root_f *root);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
+t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens);
 t_root_f	*create_tree(t_mini *mini, t_tokens_f *tokens);
 t_env_list	*ft_lstnew_env(char *content);
 

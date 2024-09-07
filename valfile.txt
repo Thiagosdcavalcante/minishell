@@ -1,23 +1,35 @@
-==46697== Memcheck, a memory error detector
-==46697== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==46697== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==46697== Command: ./minishell
-==46697== Parent PID: 42187
-==46697== 
-==46697== 
-==46697== HEAP SUMMARY:
-==46697==     in use at exit: 200,596 bytes in 214 blocks
-==46697==   total heap usage: 549 allocs, 335 frees, 225,953 bytes allocated
-==46697== 
-==46697== LEAK SUMMARY:
-==46697==    definitely lost: 0 bytes in 0 blocks
-==46697==    indirectly lost: 0 bytes in 0 blocks
-==46697==      possibly lost: 0 bytes in 0 blocks
-==46697==    still reachable: 0 bytes in 0 blocks
-==46697==         suppressed: 200,596 bytes in 214 blocks
-==46697== 
-==46697== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---46697-- 
---46697-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
-==46697== 
-==46697== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==52371== Memcheck, a memory error detector
+==52371== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==52371== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==52371== Command: ./minishell
+==52371== Parent PID: 42187
+==52371== 
+==52371== 
+==52371== HEAP SUMMARY:
+==52371==     in use at exit: 204,619 bytes in 216 blocks
+==52371==   total heap usage: 628 allocs, 412 frees, 230,957 bytes allocated
+==52371== 
+==52371== 7 bytes in 1 blocks are definitely lost in loss record 1 of 59
+==52371==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==52371==    by 0x4051D9: ft_calloc (in /nfs/homes/ajuliao-/Documents/cadete/ms-thiago-final/minishell)
+==52371==    by 0x4053C5: ft_strjoin (in /nfs/homes/ajuliao-/Documents/cadete/ms-thiago-final/minishell)
+==52371==    by 0x402922: path_name (heredoc.c:43)
+==52371==    by 0x402922: ft_heredoc (heredoc.c:64)
+==52371==    by 0x402922: ft_check_heredoc (heredoc.c:101)
+==52371==    by 0x4019F4: add_item (minishell.c:60)
+==52371==    by 0x4019F4: minishell (minishell.c:129)
+==52371==    by 0x4019F4: main (minishell.c:156)
+==52371== 
+==52371== LEAK SUMMARY:
+==52371==    definitely lost: 7 bytes in 1 blocks
+==52371==    indirectly lost: 0 bytes in 0 blocks
+==52371==      possibly lost: 0 bytes in 0 blocks
+==52371==    still reachable: 0 bytes in 0 blocks
+==52371==         suppressed: 204,612 bytes in 215 blocks
+==52371== 
+==52371== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+--52371-- 
+--52371-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--52371-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==52371== 
+==52371== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

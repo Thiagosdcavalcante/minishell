@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 19:20:10 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:29:13 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int	main(void)
 		{
 			rl_clear_history();
 			close_fds((int)backup_fd);
-			// ffree(&mini);
+			ffree(&mini);
 			exit(ret);
 		}
 	}
