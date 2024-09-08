@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/08 16:48:31 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:27:25 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ char		*full_expansion(t_mini *data, char *arg);
 char		*expansion(t_mini *data, char *arg);
 char		*get_env(t_mini *data, char *key);
 char		*ft_quotes(char *word);
+int			return_exit(char *str, int i);
 int			cond_minishell(t_mini **mini, int cond);
 int			ft_redirect(t_mini *data, t_root_f *root);
 int			aux_parse(char letter);

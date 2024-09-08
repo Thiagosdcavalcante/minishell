@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:41:47 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/08 17:16:31 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:29:57 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,18 @@ void	first_step(t_mini *mini)
 	add_history(mini->in_ms);
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms);
+}
+
+int	return_exit(char *str, int i)
+{
+	int	ret;
+
+	ret = 0;
+	if (str && i == 1)
+	{
+		ret = ft_atoi(str);
+		if (ret < 0 && ret > -256)
+			return (printf("exit\n"), (256 + ret));
+	}
+	return (printf("exit\n"), ret % 256);
 }
