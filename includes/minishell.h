@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 19:26:24 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:13:34 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ typedef struct s_root_f
 	int					fd;
 	char				**args;
 	char				**new_args;
-	// struct s_tokens_f	*left_token;
-	// struct s_tokens_f	*right_token;
 	struct s_root_f	*left;
 	struct s_root_f	*right;
 }			t_root_f;
