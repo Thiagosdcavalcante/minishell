@@ -1,35 +1,44 @@
-==58369== Memcheck, a memory error detector
-==58369== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==58369== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==58369== Command: ./minishell
-==58369== Parent PID: 42187
-==58369== 
-==58369== 
-==58369== HEAP SUMMARY:
-==58369==     in use at exit: 204,846 bytes in 226 blocks
-==58369==   total heap usage: 875 allocs, 649 frees, 233,804 bytes allocated
-==58369== 
-==58369== 14 bytes in 2 blocks are definitely lost in loss record 7 of 63
-==58369==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==58369==    by 0x4051D9: ft_calloc (in /nfs/homes/ajuliao-/Documents/cadete/ms-thiago-final/minishell)
-==58369==    by 0x4053C5: ft_strjoin (in /nfs/homes/ajuliao-/Documents/cadete/ms-thiago-final/minishell)
-==58369==    by 0x402922: path_name (heredoc.c:43)
-==58369==    by 0x402922: ft_heredoc (heredoc.c:64)
-==58369==    by 0x402922: ft_check_heredoc (heredoc.c:102)
-==58369==    by 0x4019F4: add_item (minishell.c:60)
-==58369==    by 0x4019F4: minishell (minishell.c:129)
-==58369==    by 0x4019F4: main (minishell.c:156)
-==58369== 
-==58369== LEAK SUMMARY:
-==58369==    definitely lost: 14 bytes in 2 blocks
-==58369==    indirectly lost: 0 bytes in 0 blocks
-==58369==      possibly lost: 0 bytes in 0 blocks
-==58369==    still reachable: 0 bytes in 0 blocks
-==58369==         suppressed: 204,832 bytes in 224 blocks
-==58369== 
-==58369== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
---58369-- 
---58369-- used_suppression:     60 ignore_libreadline_leaks readline.sup:2 suppressed: 204,952 bytes in 222 blocks
---58369-- used_suppression:      2 <Readline> readline.sup:16 suppressed: 16 bytes in 2 blocks
-==58369== 
-==58369== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+==135617== Memcheck, a memory error detector
+==135617== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==135617== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==135617== Command: ./minishell
+==135617== Parent PID: 94517
+==135617== 
+==135617== 
+==135617== HEAP SUMMARY:
+==135617==     in use at exit: 204,624 bytes in 217 blocks
+==135617==   total heap usage: 636 allocs, 419 frees, 232,020 bytes allocated
+==135617== 
+==135617== 5 bytes in 1 blocks are definitely lost in loss record 1 of 60
+==135617==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==135617==    by 0x405259: ft_strdup (in /nfs/homes/ajuliao-/Documents/cadete/ms-thiago-final/minishell)
+==135617==    by 0x402663: create_branch (tree.c:97)
+==135617==    by 0x402663: create_tree (tree.c:120)
+==135617==    by 0x401A15: add_item (minishell.c:62)
+==135617==    by 0x401A15: minishell (minishell.c:129)
+==135617==    by 0x401A15: main (minishell.c:156)
+==135617== 
+==135617== 7 bytes in 1 blocks are definitely lost in loss record 2 of 60
+==135617==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==135617==    by 0x4051E9: ft_calloc (in /nfs/homes/ajuliao-/Documents/cadete/ms-thiago-final/minishell)
+==135617==    by 0x4053D5: ft_strjoin (in /nfs/homes/ajuliao-/Documents/cadete/ms-thiago-final/minishell)
+==135617==    by 0x402932: path_name (heredoc.c:43)
+==135617==    by 0x402932: ft_heredoc (heredoc.c:64)
+==135617==    by 0x402932: ft_check_heredoc (heredoc.c:102)
+==135617==    by 0x401A04: add_item (minishell.c:60)
+==135617==    by 0x401A04: minishell (minishell.c:129)
+==135617==    by 0x401A04: main (minishell.c:156)
+==135617== 
+==135617== LEAK SUMMARY:
+==135617==    definitely lost: 12 bytes in 2 blocks
+==135617==    indirectly lost: 0 bytes in 0 blocks
+==135617==      possibly lost: 0 bytes in 0 blocks
+==135617==    still reachable: 0 bytes in 0 blocks
+==135617==         suppressed: 204,612 bytes in 215 blocks
+==135617== 
+==135617== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+--135617-- 
+--135617-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--135617-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==135617== 
+==135617== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
