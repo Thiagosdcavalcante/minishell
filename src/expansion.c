@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:56:40 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:53:28 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:59:05 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,27 +115,3 @@ void	init_expansion(t_mini *data, char **args, char **new_args)
 	}
 	new_args[i] = NULL;
 }
-
-
-// void init_expansion(t_mini *data, char **args)
-// {
-// 	int		i;
-// 	char	*temp;
-
-// 	i = 0;
-// 	// if (args[0] == NULL)
-// 	// 	return ;
-// 	if (args[0][0] == '$')
-// 		i = -1;
-// 	while (args[++i])
-// 	{
-// 		temp = full_expansion(data, args[i]);
-// 		if (temp != NULL)
-// 		{
-// 			if (args[i] != NULL)
-//     			free(args[i]);
-// 			args[i] = ft_strdup(temp);
-// 			free(temp);
-// 		}
-// 	}
-// }
