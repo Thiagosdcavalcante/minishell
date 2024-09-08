@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:09:45 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 12:43:16 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:29:27 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,43 +35,6 @@ int	exec_tokens_cond(t_tokens *tkn)
 		return (1);
 	return (0);
 }
-
-// t_tokens_f	*token_f_order(t_tokens_f **tkn)
-// {
-// 	t_tokens_f	*tmp;
-// 	t_tokens_f	*tmp2;
-
-// 	if (!(*tkn)->prev || (*tkn)->type == WORD)
-// 		return (*tkn);
-// 	// printf("%s\n", (*tkn)->str);
-// 	tmp = (*tkn)->prev;
-// 	// printf("%s\n", tmp->str);
-// 	if ((*tkn)->next && (*tkn)->prev)
-// 	{
-// 		(*tkn)->next->prev = (*tkn)->prev;
-// 		(*tkn)->prev->next = (*tkn)->next;
-// 	}
-// 	while (tmp && tmp->prev && tmp->prev->type != PIPE)
-// 		tmp = tmp->prev;
-// 	// printf("%s\n", tmp->str);
-// 	if (tmp && tmp->prev && tmp->prev->type == PIPE)
-// 	{
-// 		(*tkn)->prev = tmp->prev;
-// 		(*tkn)->prev->next = (*tkn);
-// 		(*tkn)->next = tmp;
-// 		tmp->prev = (*tkn);
-// 	}
-// 	else if (!tmp->prev)
-// 	{
-// 		(*tkn)->prev = NULL;
-// 		(*tkn)->next = tmp;
-// 		tmp->prev = (*tkn);
-// 	}
-// 	// printf("%s\n", tmp->str);
-// 	while (tmp && tmp->next->type != PIPE)
-// 		tmp = tmp->next;
-// 	return (tmp);
-// }
 
 int	n_args(char **args)
 {
