@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 19:29:13 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:16:33 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,10 @@ void print_list_tokens(t_tokens_f *cmd)
 
 static int	add_item(t_mini *mini)
 {
-	add_history(mini->in_ms);
-	mini->in_ms = put_space_ms(mini->in_ms);
-	mini->cmmds = parse_str(mini->in_ms);
 	mini->tokens = exec_tokens(mini->cmmds);
-	// print_list_tokens(mini->tokens);
 	if (ft_check_heredoc(mini, mini->tokens) == 0)
 		return (0);
 	mini->tree = create_tree(mini, mini->tokens);
-	// print_tree(mini->tree, 1);
 	return (1);
 }
 
@@ -114,18 +109,17 @@ static int	minishell(t_mini *mini)
 	status = 0;
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
-	{
-		ft_exit(mini, NULL);
-		ffree(mini);
-		exit(mini->status);
-	}
+		cond_minishell(&mini, 1);
+	if (check_if_only_spaces(mini) == TRUE)
+        return (cond_minishell(&mini, 2));
 	if (!check_quotes_and_double_quotes(mini->in_ms))
-	{
-		free(mini->in_ms);
-		return (EXIT_FAILURE);
-	}
+		return (cond_minishell(&mini, 3));
 	if (mini->in_ms[0] != '\0')
 	{
+		first_step(mini);
+		if (is_file(mini->cmmds->type) == TRUE)
+			if (verify_if_is_only_one_sinal(mini) != 0)
+				return (mini->status);
 		if (add_item(mini) == 0)
 			return (130);
 		status = init_exec(mini, mini->tree);

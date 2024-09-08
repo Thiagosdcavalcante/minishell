@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 19:16:55 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:28:05 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	check_for_alphaandsignal(char *str)
 	signal = 0;
 	while (str[i])
 	{
-		if (ft_isalpha(str[i]) > 0 && signal > 1)
+		if (ft_isalpha(str[i]) > 0 || signal > 1)
 			return (1);
 		if (str[i] == '-' || str[i] == '+')
 			signal++;
@@ -97,11 +97,5 @@ int	ft_exit(t_mini *data, char **cmd)
 		i++;
 	}
 	i--;
-	if (cmd[1] && i == 1)
-	{
-		ret = ft_atoi(cmd[1]);
-		if (ret < 0 && ret > -256)
-			return (printf("exit\n"), (256 + ret));
-	}
-	return (printf("exit\n"), ret % 256);
+	return (return_exit(cmd[i], i));
 }
