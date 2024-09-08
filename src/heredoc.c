@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 19:43:12 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:26:51 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,12 @@ static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 	int			file;
 	char		*line;
 	char		*path;
+	char		*eof;
 
 	cur = tokens;
 	path = path_name();
 	file = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	eof = ft_quotes(cur->next->str);
 	signal(SIGINT, sig_hand_here);
 	while (1)
 	{
@@ -73,9 +75,10 @@ static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 				ft_printf("warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", cur->next->str);
 			break ;
 		}
-		if (ft_strlen(line) == ft_strlen(cur->next->str)
-			&& ft_strncmp(line, cur->next->str, ft_strlen(cur->next->str)) == 0)
+		if (ft_strlen(line) == ft_strlen(eof)
+			&& ft_strncmp(line, eof, ft_strlen(eof)) == 0)
 		{
+			free(eof);
 			free(line);
 			break ;
 		}
