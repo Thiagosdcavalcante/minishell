@@ -5,6 +5,7 @@
         "type_traits": "c",
         "cstdlib": "c",
         "minishell.h": "c",
-        "termios.h": "c"
+        "termios.h": "c",
+        "stdio.h": "c"
     }
 }

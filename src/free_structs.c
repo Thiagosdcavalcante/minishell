@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/08 16:23:11 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:00:17 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	free_tree(t_root_f *root)
 		free_tree(root->right);
 	// if (root->word)
 	// 	free(root->word);
-	if (root->type != 0 && root->word)
+	if (root->word)
 		free(root->word);
 	// else
 	// 	free(root->redir);

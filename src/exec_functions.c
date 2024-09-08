@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 22:59:56 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/08 18:37:54 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:52:18 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_execute(t_mini *data, char **cmd)
 	char	**envs;
 	char	**new_cmd;
 
-	if (cmd[1] == NULL)
+	if (cmd[1] == NULL && ft_strchr(cmd[0], ' '))
 		new_cmd = ft_split(cmd[0], ' ');
 	else
 		new_cmd = cmd;

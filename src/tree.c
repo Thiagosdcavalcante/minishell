@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/08 18:00:35 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:55:19 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ static void	create_branch(t_mini *mini, t_root_f *root, t_tokens_f *tokens)
 	root->fd = -1;
 	root->args = tokens->args;
 	root->new_args = NULL;
-	// if (root->word[0] == '$')
-	// 	expansion(mini, root->word);
 	if (tokens->args && tokens->type < 2)
 	{
 		root->new_args = (char **)malloc(sizeof(char *) * (n_args(tokens->args) + 1));
