@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:29:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 17:17:42 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/09 20:31:36 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,12 +181,8 @@ static t_tokens_f	*init_tokens_f(t_tokens *tkn)
 	token->type = tkn->type;
 	token->next = NULL;
 	token->prev = NULL;
-	if (tkn->type == LESSER || tkn->type == GREATER
-			|| tkn->type == DOUBLELESSER || tkn->type == DOUBLEGREATER
-			|| tkn->type == MS_FILE)
-	{
+	if (exec_tokens_cond(tkn))
 		token->args = NULL;
-	}
 	else
 		token->args = make_word_exec(tkn, size);
 	return (token);
@@ -224,23 +220,15 @@ static t_tokens_f	*make_execve_token(t_tokens_f **tkn_f, t_tokens **tkn, int wor
 t_tokens_f	*exec_tokens(t_tokens *tkn)
 {
 	t_tokens_f	*token_f;
-	// t_tokens_f	*head;
+	int			cond;
 
 	token_f = init_tokens_f(tkn);
-	if (tkn->next && (tkn->type == LESSER || tkn->type == GREATER
-			|| tkn->type == DOUBLELESSER || tkn->type == DOUBLEGREATER
-			|| tkn->type == MS_FILE))
-	{
+	if (tkn->type == WORD)
+		cond = 1;
+	else
+		cond = 0;
+	if (exec_tokens_cond(tkn))
 		tkn = tkn->next;
-	}
-	token_f = make_execve_token(&token_f, &tkn, 1);
-	// head = token_f;
-	// while (token_f)
-	// {
-	// 	if (token_f->next)
-	// 		token_f = token_f->next;
-	// 	else
-	// 		break ;
-	// }
+	token_f = make_execve_token(&token_f, &tkn, cond);
 	return (token_f);
 }
