@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:41:47 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/08 17:29:57 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:39:58 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	first_step(t_mini *mini)
 {
 	add_history(mini->in_ms);
 	mini->in_ms = put_space_ms(mini->in_ms);
-	mini->cmmds = parse_str(mini->in_ms);
+	mini->cmmds = parse_str(mini->in_ms, mini);
 }
 
 int	return_exit(char *str, int i)

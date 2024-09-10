@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/08 18:26:51 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/09 22:04:35 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	unlink_here_doc(t_root_f *operator)
 	return (0);
 }
 
-static char	*path_name(void)
+char	*path_name(void)
 {
 	char	*eof;
 	char	*path;
@@ -45,9 +45,10 @@ static char	*path_name(void)
 	return (path);
 }
 
-static void heredoc_util(t_mini *data, char *line, int file)
+void heredoc_util(t_mini *data, char *line, int file)
 {
-	char *new_line = full_expansion(data, line);
+	char	*new_line;
+	new_line = full_expansion(data, line);
 	ft_putendl_fd(new_line, file);
 	free(line);
 	free(new_line);

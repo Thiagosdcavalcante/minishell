@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/09 17:06:37 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:44:26 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ char		*full_expansion(t_mini *data, char *arg);
 char		*expansion(t_mini *data, char *arg);
 char		*get_env(t_mini *data, char *key);
 char		*ft_quotes(char *word);
+char		*path_name(void);
 int			return_exit(char *str, int i);
 int			cond_minishell(t_mini **mini, int cond);
 int			ft_redirect(t_mini *data, t_root_f *root);
@@ -141,6 +142,7 @@ void		final_free(t_mini *mini);
 void		free_split(char **split);
 void		one_quote(char **arg, int *i, char **new_result, char **result);
 void		handle_var_expansion(t_mini *data, char *arg, int *i, char **result);
+void		 heredoc_util(t_mini *data, char *line, int file);
 void		handle_normal_char(char c, char **result);
 void		ft_pwd(t_mini *data, char **cmd);
 void		sig_exec(void);
@@ -167,7 +169,7 @@ void		init_sig(void);
 void		sig_handler(int sig_num);
 void		free_tree(t_root_f *root);
 t_tokens_f	*change_order(t_tokens_f *tkn);
-t_tokens	*parse_str(char *str);
+t_tokens	*parse_str(char *str, t_mini *mini);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
 t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens);

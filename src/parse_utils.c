@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:56:02 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 17:16:30 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/09 22:04:21 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,62 @@ static t_tokens	*create_mtx(char *str)
 	return (ms);
 }
 
-t_tokens	*parse_str(char *str)
+static char	*str_heredoc(char *str, t_mini *data)
+{
+	int			file;
+	char		*line;
+	char		*path;
+	char		*eof;
+
+	path = path_name();
+	file = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	eof = ft_quotes(str);
+	signal(SIGINT, sig_hand_here);
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL)
+		{
+			if (g_sig != SIGINT)
+			{
+				ft_printf("warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", eof);
+				free(eof);
+			}
+			break ;
+		}
+		if (ft_strlen(line) == ft_strlen(eof)
+			&& ft_strncmp(line, eof, ft_strlen(eof)) == 0)
+		{
+			free(eof);
+			free(line);
+			break ;
+		}
+		heredoc_util(data, line, file);
+	}
+	close(file);
+	if (g_sig == SIGINT)
+	{
+		free(path);
+		return (NULL);
+	}
+	return (path);
+}
+
+static t_tokens	*create_heredoc_file(char *str, t_mini *mini)
+{
+	t_tokens	*ms;
+
+	ms = malloc(sizeof(t_tokens));
+	if (!ms)
+		return (NULL);
+	ms->type = search_type(str);
+	ms->str = str_heredoc(str, mini);
+	ms->next = NULL;
+	ms->prev = NULL;
+	return (ms);
+}
+
+t_tokens	*parse_str(char *str, t_mini *mini)
 {
 	char		**parse_str;
 	t_tokens	*mtx;
@@ -79,7 +134,10 @@ t_tokens	*parse_str(char *str)
 	head = mtx;
 	while (parse_str[++i])
 	{
-		mtx->next = create_mtx(parse_str[i]);
+		if (mtx && mtx->type == DOUBLELESSER)
+			mtx->next = create_heredoc_file(parse_str[i], mini);
+		else
+			mtx->next = create_mtx(parse_str[i]);
 		mtx->next->prev = mtx;
 		mtx = mtx->next;
 	}
