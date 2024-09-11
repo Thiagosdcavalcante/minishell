@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:56:02 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/09 22:04:21 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:45:45 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,16 @@ static char	*str_heredoc(char *str, t_mini *data)
 	signal(SIGINT, sig_hand_here);
 	while (1)
 	{
-		line = readline("> ");
+		line = readline("heredoc> ");
 		if (line == NULL)
 		{
 			if (g_sig != SIGINT)
-			{
 				ft_printf("warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", eof);
-				free(eof);
-			}
 			break ;
 		}
 		if (ft_strlen(line) == ft_strlen(eof)
 			&& ft_strncmp(line, eof, ft_strlen(eof)) == 0)
 		{
-			free(eof);
 			free(line);
 			break ;
 		}
@@ -97,9 +93,9 @@ static char	*str_heredoc(char *str, t_mini *data)
 	if (g_sig == SIGINT)
 	{
 		free(path);
-		return (NULL);
+		return (free(eof), NULL);
 	}
-	return (path);
+	return (free(eof), path);
 }
 
 static t_tokens	*create_heredoc_file(char *str, t_mini *mini)

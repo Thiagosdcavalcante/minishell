@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/09 21:44:26 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:56:57 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void		free_tokens(t_tokens **head);
 void		print_list_export(t_env_list *node);
 void		init_sig(void);
 void		sig_handler(int sig_num);
-void		free_tree(t_root_f *root);
+void		free_tree(t_root_f **root);
 t_tokens_f	*change_order(t_tokens_f *tkn);
 t_tokens	*parse_str(char *str, t_mini *mini);
 t_tokens_f	*exec_tokens(t_tokens *tkn);

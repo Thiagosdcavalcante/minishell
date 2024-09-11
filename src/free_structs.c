@@ -6,37 +6,39 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/09 22:08:02 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:58:14 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tokens_f(t_tokens_f **head)
-{
-	t_tokens_f	*temp;
-	int			i;
-
-	i = 0;
-	while ((*head))
-	{
-		temp = (*head)->next;
-		if ((*head)->args)
-		{
-			if ((*head)->args)
-				free((*head)->args);
-		}
-		if ((*head))
-			free((*head));
-		(*head) = temp;
-	}
-	free ((*head));
-}
-
+/* void	free_tokens_f(t_tokens_f **head) */
+/* { */
+/* 	t_tokens_f	*temp; */
+/* 	int			i; */
+/**/
+/* 	i = 0; */
+/* 	while ((*head)) */
+/* 	{ */
+/* 		temp = (*head)->next; */
+/* 		if ((*head)->args) */
+/* 		{ */
+/* 			if ((*head)->args) */
+/* 				free((*head)->args); */
+/* 		} */
+/* 		if ((*head)) */
+/* 			free((*head)); */
+/* 		(*head) = temp; */
+/* 	} */
+/* 	free ((*head)); */
+/* } */
+/**/
 void	free_tokens(t_tokens **head)
 {
 	t_tokens	*temp;
 
+	if (!(*head))
+		return ;
 	while ((*head) != NULL)
 	{
 		temp = (*head)->next;
@@ -46,34 +48,45 @@ void	free_tokens(t_tokens **head)
 			(*head)->str = NULL;
 		}
 		if ((*head))
+		{
 			free((*head));
+			(*head) = NULL;
+		}
 		(*head) = temp;
 	}
-	if ((*head))
-		free((*head));
 }
 
 void	final_free(t_mini *mini)
 {
 	if (mini->in_ms)
+	{
 		free(mini->in_ms);
+		mini->in_ms = NULL;
+	}
 	if (mini->cmmds != NULL)
+	{
 		free_tokens(&mini->cmmds);
+		mini->cmmds = NULL;
+	}
 	if (mini->tree)
-		free_tree(mini->tree);
-	mini->in_ms = NULL;
+	{
+		free_tree(&mini->tree);
+		mini->tree = NULL;
+	}
 }
 
-void	free_tree(t_root_f *root)
+void	free_tree(t_root_f **root_free)
 {
-	int	i;
+	int			i;
+	t_root_f	*root;
 
-	if (!root)
+	if (!*root_free)
 		return;
+	root = *root_free;
 	if (root->left)
-		free_tree(root->left);
+		free_tree(&root->left);
 	if (root->right)
-		free_tree(root->right);
+		free_tree(&root->right);
 	// if (root->word)
 	// 	free(root->word);
 	if (root->word)
@@ -91,4 +104,5 @@ void	free_tree(t_root_f *root)
 		free(root->new_args);
 	}
 	free(root);
+	*root_free = NULL;
 }
