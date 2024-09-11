@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/10 18:37:09 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:32:01 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,7 @@ void	print_tree(t_root_f *root, int nivel)
 		print_tree(root->left, nivel + 1);
 	}
 }
-// void print_list(t_tokens *cmd)
-// {
-// 	while(cmd)
-// 	{
-// 		printf("TOKEN: %s", cmd->str);
-// 		cmd = cmd->next;
-// 	}
 
-// }
 void print_list_tokens(t_tokens_f *cmd)
 {
 	while (cmd)
@@ -53,10 +45,7 @@ void print_list_tokens(t_tokens_f *cmd)
 static int	add_item(t_mini *mini)
 {
 	if (g_sig != 0)
-	{
-		free_tokens(&mini->cmmds);
 		return (final_free(mini), 0);
-	}
 	mini->tokens = exec_tokens(mini->cmmds);
 	mini->tokens = change_order(mini->tokens);
 	mini->tree = create_tree(mini, mini->tokens);
@@ -124,7 +113,6 @@ static int	minishell(t_mini *mini)
 		if (is_file(mini->cmmds->type) == TRUE)
 			if (verify_if_is_only_one_sinal(mini) != 0)
 				return (mini->status);
-		/* if () */
 		if (add_item(mini) == 0)
 			return (130);
 		status = init_exec(mini, mini->tree);

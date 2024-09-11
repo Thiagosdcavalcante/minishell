@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:28:08 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:32:05 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:17:42 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	ft_env(t_mini *data, char **cmd)
 	t_env_list	*temp;
 	char		*teste;
 
-	(void)cmd;
+	if (cmd[1] != NULL)
+		return (printf("env: \"%s\": No such file or directory\n", cmd[1]), 1);
 	temp = data->envs;
 	while (temp)
 	{

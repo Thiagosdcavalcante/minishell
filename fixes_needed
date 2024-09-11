@@ -1,0 +1,4 @@
+exit com mulitplos argumentos numericos não sai. apenas mostra mensagem
+cat | cat - ctrl c + ctrl \ 
+Multi heredoc with pipe 
+env com mais de um argumento 

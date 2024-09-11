@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 23:16:25 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/08 17:57:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:35:24 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	my_error(t_mini *data, int status, char *msg, char *command)
 void	free_dup(t_mini *data)
 {
 	free_tokens(&data->cmmds);
-	free_tree(data->tree);
+	free_tree(&data->tree);
 	ffree(data);
 	if (data->in_ms)
 		free(data->in_ms);
