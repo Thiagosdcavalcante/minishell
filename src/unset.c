@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:26:23 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 12:37:15 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:17:57 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_remove_env(t_mini *data, char *cmd)
 	}
 }
 
-void	ft_unset(t_mini *data, char **cmd)
+int	ft_unset(t_mini *data, char **cmd)
 {
 	int	i;
 
@@ -49,5 +49,7 @@ void	ft_unset(t_mini *data, char **cmd)
 	while (cmd[++i] != NULL)
 	{
 		ft_remove_env(data, cmd[i]);
+		return (0);
 	}
+	return (0);
 }

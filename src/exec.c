@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/11 21:51:14 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:30:00 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 	status = 0;
 	if (is_left == 1)
 	{
+		// set_sig_func();
 		dup2(fd[1], STDOUT_FILENO);
 		close (fd[0]);
 		close (fd[1]);
@@ -44,8 +45,8 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 	int		fd[2];
 	int		status;
 
-	set_sig_func();
 	status = 0;
+	signal(SIGINT, sigint_handler_2);
 	if (pipe(fd) < 0)
 		exit(EXIT_FAILURE);
 	pid[0] = fork();
@@ -56,9 +57,9 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 		ft_pipe(data, root, fd, 0);
 	close(fd[0]);
 	close(fd[1]);
-	status = ft_status_whitout_global(pid[0]);
-	// status = ft_status(pid[0]);
+	status = ft_status(pid[0]);
 	status = ft_status(pid[1]);
+	signal(SIGINT, sigint_handler);
 	data->status = status;
 }
 
@@ -82,7 +83,9 @@ int	ft_exec(t_mini *data, t_root_f *root)
 			exit(0);
 		}
 		else
+		{
 			sig_exec();
+		}
 		data->status = ft_status(pid);
 	}
 	return (data->status);

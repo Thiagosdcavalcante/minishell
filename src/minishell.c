@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/11 21:51:34 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:59:35 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ static int	minishell(t_mini *mini)
 			unlink_here_doc(mini->tree);
 		final_free(mini);
 	}
+	if (term_signal(mini->status) == SIGQUIT)
+		ft_putendl_fd("QUIT (core dumped)", STDERR_FILENO);
 	return (mini->status);
 }
 

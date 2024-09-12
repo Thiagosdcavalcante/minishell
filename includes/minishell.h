@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/11 21:51:04 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:18:48 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,18 +113,13 @@ int			unlink_here_doc(t_root_f *operator);
 int			ft_has_n(char **cmd);
 int			ft_exec(t_mini *data, t_root_f *root);
 int			init_exec(t_mini *data, t_root_f *root);
+int			term_signal(int status);
 int			ft_exit(t_mini *data, char **cmd);
-<<<<<<< Updated upstream
-int			ft_echo(t_mini *data, char **cmd);
-=======
 int			ft_echo(t_mini *data, t_root_f *root);
 int			ft_create_env(t_mini *data, char *key, char *value);
->>>>>>> Stashed changes
 int			get_return_value(int status);
 int			ft_create_env(t_mini *data, char *key, char *value);
 int			ft_status(pid_t pid);
-<<<<<<< Updated upstream
-=======
 int			ft_status_whitout_global(pid_t pid);
 int			ft_cd(t_mini *data, char **cmd);
 int			change(t_mini *data, char *path);
@@ -142,7 +137,6 @@ int			verify_if_is_only_one_sinal(t_mini *mini);
 int			ft_unset(t_mini *data, char **cmd);
 void		first_step(t_mini *mini);
 void		free_dup(t_mini *data);
->>>>>>> Stashed changes
 void		final_free(t_mini *mini);
 void		sig_hand_here(int signal);
 void		free_split(char **split);
@@ -151,7 +145,6 @@ void		one_quote(char **arg, int *i, char **new_result, char **result);
 void		handle_var_expansion(t_mini *data, char *arg, int *i, char **result);
 void		handle_normal_char(char c, char **result);
 void		ft_pwd(t_mini *data, char **cmd);
-void		ft_unset(t_mini *data, char **cmd);
 int			ft_cd(t_mini *data, char **cmd);
 int			change(t_mini *data, char *path);
 void		ft_update_var(t_mini *data, char *key, char *value);
@@ -175,6 +168,8 @@ void		free_tokens(t_tokens **head);
 void		print_list_export(t_env_list *node);
 void		init_sig(void);
 void		sig_handler(int sig_num);
+void		sigint_handler_2(int sig_num);
+void	sigint_handler(int sig_num);
 int			ft_redirect(t_mini *data, t_root_f *root);
 char		*ft_quotes(char *word);
 void		free_tree(t_root_f *root);

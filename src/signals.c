@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:01:01 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 17:06:49 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:19:11 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ void	sigint_handler(int sig_num)
 		rl_redisplay();
 		g_sig = 0;
 	}
+}
+
+void	sigint_handler_2(int sig_num)
+{
+	g_sig = sig_num;
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_sig = 0;
 }
 
 void	init_sig(void)

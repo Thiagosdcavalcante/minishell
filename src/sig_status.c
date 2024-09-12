@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:36:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 17:13:16 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:00:25 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	exit_status(int status)
 	return ((status >> 8) & 0xFF);
 }
 
-static int	term_signal(int status)
+ int	term_signal(int status)
 {
 	return (status & 0x7F);
 }
@@ -36,8 +36,8 @@ int	get_return_value(int status)
 {
 	if (term_by_signal(status))
 	{
-		if (term_signal(status) == SIGQUIT)
-			ft_putendl_fd("QUIT (core dumped)", STDERR_FILENO);
+		// if (term_signal(status) == SIGQUIT)
+		// 	ft_putendl_fd("QUIT (core dumped)", STDERR_FILENO);
 		return (term_signal(status) + 128);
 	}
 	return (exit_status(status));

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/11 21:51:29 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:37:31 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,7 @@ static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 		free(path);
 		return (NULL);
 	}
-	char *teste = ft_calloc(1, ft_strlen(path) + 1);
-	ft_strcpy(teste, path);
-	free(path);
-	printf("%p\n\n", path);
-	printf("%p\n\n", teste);
-	return (teste);
+	return (path);
 }
 
 int	ft_check_heredoc(t_mini *data, t_tokens_f *tokens)
@@ -110,6 +105,7 @@ int	ft_check_heredoc(t_mini *data, t_tokens_f *tokens)
 	while (current)
 	{
 		if (current->type == DOUBLELESSER)
+		{
 			current->next->str = ft_heredoc(data, current);
 			// printf("1:%p\n\n", current->next->str);
 
