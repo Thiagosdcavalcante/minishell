@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ==321294== Memcheck, a memory error detector
 ==321294== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
 ==321294== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
@@ -22,3 +23,28 @@
 --321294-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
 ==321294== 
 ==321294== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+=======
+==141992== Memcheck, a memory error detector
+==141992== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==141992== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==141992== Command: ./minishell
+==141992== Parent PID: 135656
+==141992== 
+==141992== 
+==141992== HEAP SUMMARY:
+==141992==     in use at exit: 200,596 bytes in 214 blocks
+==141992==   total heap usage: 555 allocs, 341 frees, 226,246 bytes allocated
+==141992== 
+==141992== LEAK SUMMARY:
+==141992==    definitely lost: 0 bytes in 0 blocks
+==141992==    indirectly lost: 0 bytes in 0 blocks
+==141992==      possibly lost: 0 bytes in 0 blocks
+==141992==    still reachable: 0 bytes in 0 blocks
+==141992==         suppressed: 200,596 bytes in 214 blocks
+==141992== 
+==141992== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--141992-- 
+--141992-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+==141992== 
+==141992== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+>>>>>>> Stashed changes

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 16:56:05 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:51:04 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,35 @@ int			ft_has_n(char **cmd);
 int			ft_exec(t_mini *data, t_root_f *root);
 int			init_exec(t_mini *data, t_root_f *root);
 int			ft_exit(t_mini *data, char **cmd);
+<<<<<<< Updated upstream
 int			ft_echo(t_mini *data, char **cmd);
+=======
+int			ft_echo(t_mini *data, t_root_f *root);
+int			ft_create_env(t_mini *data, char *key, char *value);
+>>>>>>> Stashed changes
 int			get_return_value(int status);
 int			ft_create_env(t_mini *data, char *key, char *value);
 int			ft_status(pid_t pid);
+<<<<<<< Updated upstream
+=======
+int			ft_status_whitout_global(pid_t pid);
+int			ft_cd(t_mini *data, char **cmd);
+int			change(t_mini *data, char *path);
+int			ft_env(t_mini *data, char **cmd);
+int			ft_export(t_mini *data, char **cmd);
+int			ft_execute(t_mini *data, char **cmd);
+int			is_file(int type);
+int			exec_tokens_cond(t_tokens *tkn);
+int			n_args(char **args);
+int			path_exists(char *path);
+int			is_directory(char *path);
+int			is_builtins(t_mini *data, t_root_f *root);
+int			exec_builtins(t_mini *data, t_root_f *root);
+int			verify_if_is_only_one_sinal(t_mini *mini);
+int			ft_unset(t_mini *data, char **cmd);
+void		first_step(t_mini *mini);
+void		free_dup(t_mini *data);
+>>>>>>> Stashed changes
 void		final_free(t_mini *mini);
 void		sig_hand_here(int signal);
 void		free_split(char **split);
@@ -169,6 +194,7 @@ t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens);
 t_tokens_f	*token_f_order(t_tokens_f **tkn);
 t_tokens	*parse_str(char *str);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
+t_tokens_f    *change_order(t_tokens_f *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
 t_root_f	*create_tree(t_mini *mini, t_tokens_f *tokens);
 t_env_list	*ft_lstnew_env(char *content);

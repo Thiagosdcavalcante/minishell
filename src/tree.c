@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 17:03:36 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:51:42 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	branch(t_mini *mini, t_tokens_f *m_tkn, t_tokens_f *tokens, t_root_f *root)
 	if (rest)
 		rest->prev = NULL;
 	root->word = ft_strdup(m_tkn->str);
+	// m_tkn->str = NULL;
 	root->type = m_tkn->type;
 	root->args = tokens->args;
 	root->fd = -1;
@@ -94,7 +95,9 @@ static void	create_branch(t_mini *mini, t_root_f *root, t_tokens_f *tokens)
 		return ;
 	root->left = NULL;
 	root->right = NULL;
-	root->word = ft_strdup(tokens->str);
+	root->word = full_expansion(mini, tokens->str);
+	// free(tokens->str);
+	// tokens->str = NULL;
 	root->type = tokens->type;
 	root->fd = -1;
 	root->args = tokens->args;

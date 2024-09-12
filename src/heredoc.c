@@ -6,31 +6,37 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 17:12:19 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:51:29 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	unlink_here_doc(t_root_f *operator)
+int	unlink_here_doc(t_root_f *root)
 {
-	if (operator == NULL)
+	if (root == NULL)
 		return (0);
-	if (operator->type == DOUBLELESSER)
+	if (root->type == DOUBLELESSER)
 	{
-		if (operator->right && operator->right->word)
+		if (root->right && root->right->word)
 		{
-			if (unlink(operator->right->word) == -1)
+			if (unlink(root->right->word) == -1)
 			{
 				perror("Error unlinking file");
 				return (-1);
 			}
+			printf("Type: %d word: %s pont: %p\n\n", root->right->type, root->right->word, root->right->word);
+			if (root->right->type == 1)
+			{
+				free(root->right->word);
+				root->right->word = NULL;
+			}
 		}
 	}
-	if (operator->left)
-		unlink_here_doc(operator->left);
-	if (operator->right)
-		unlink_here_doc(operator->right);
+	if (root->left)
+		unlink_here_doc(root->left);
+	if (root->right)
+		unlink_here_doc(root->right);
 	return (0);
 }
 
@@ -41,6 +47,7 @@ static char	*path_name(void)
 
 	eof = ft_put_zero();
 	path = ft_strjoin("/tmp/", eof);
+	// printf("%p\n\n", path);
 	free(eof);
 	return (path);
 }
@@ -87,7 +94,12 @@ static char	*ft_heredoc(t_mini *data, t_tokens_f *tokens)
 		free(path);
 		return (NULL);
 	}
-	return (path);
+	char *teste = ft_calloc(1, ft_strlen(path) + 1);
+	ft_strcpy(teste, path);
+	free(path);
+	printf("%p\n\n", path);
+	printf("%p\n\n", teste);
+	return (teste);
 }
 
 int	ft_check_heredoc(t_mini *data, t_tokens_f *tokens)
@@ -99,6 +111,13 @@ int	ft_check_heredoc(t_mini *data, t_tokens_f *tokens)
 	{
 		if (current->type == DOUBLELESSER)
 			current->next->str = ft_heredoc(data, current);
+			// printf("1:%p\n\n", current->next->str);
+
+			// ft_memset(current->next->str, '\0',ft_strlen(current->next->str));
+			// ft_strcpy(current->next->str, ft_heredoc(data, current));
+			// printf("2:%p\n\n", current->next->str);
+
+		}
 		if (current && current->next && !current->next->str)
 			return (0);
 		current = current->next;

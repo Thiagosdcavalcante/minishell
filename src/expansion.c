@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:56:40 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:53:28 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:51:20 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ char	*full_expansion(t_mini *data, char *arg)
 
 	i = 0;
 	result = ft_strdup("");
+	// if(!arg)
+	// 	return(result);
 	while (arg[i])
 	{
 		if (arg[i] == '\'')

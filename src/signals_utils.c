@@ -37,6 +37,14 @@ int	ft_status(pid_t pid)
 	return (status);
 }
 
+int	ft_status_whitout_global(pid_t pid)
+{
+	int	status;
+
+	waitpid (pid, &status, 0);
+	return (status);
+}
+
 void	set_sig_func(void)
 {
 	close(3);

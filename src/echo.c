@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 11:02:22 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:33:53 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:47:55 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,25 @@ static void	print_echo(char **cmd, int start)
 	}
 }
 
-int	ft_echo(t_mini *data, char **cmd)
+int	ft_echo(t_mini *data, t_root_f *root)
 {
 	int	i;
 
 	(void)data;
-	if (cmd[1] == NULL)
+	i = 0;
+	if(root->word[4] != '\0')
+	{
+		printf("minishell: %s: command not found\n", root->word);
+		return (1);
+	}
+	if (root->new_args[1] == NULL)
 	{
 		ft_putchar_fd('\n', 1);
 		return (0);
 	}
-	i = ft_has_n(cmd);
-	print_echo(cmd, i);
-	if (ft_has_n(cmd) == 1)
+	i = ft_has_n(root->new_args);
+	print_echo(root->new_args, i);
+	if (ft_has_n(root->new_args) == 1)
 		ft_putchar_fd('\n', 1);
 	return (0);
 }

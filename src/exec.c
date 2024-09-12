@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 17:14:04 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:51:14 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 		ft_pipe(data, root, fd, 0);
 	close(fd[0]);
 	close(fd[1]);
-	status = ft_status(pid[0]);
+	status = ft_status_whitout_global(pid[0]);
+	// status = ft_status(pid[0]);
 	status = ft_status(pid[1]);
 	data->status = status;
 }

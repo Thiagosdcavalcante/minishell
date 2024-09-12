@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:41 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 14:07:30 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:51:08 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	exec_builtins(t_mini *data, t_root_f *root)
 	else if (ft_strncmp(root->new_args[0], "export", 7) == 0)
 		ret = ft_export(data, root->new_args);
 	else if (ft_strncmp(root->new_args[0], "unset", 6) == 0)
-		ft_unset(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "echo", 5) == 0)
-		ret = ft_echo(data, root->new_args);
+		ret = ft_unset(data, root->new_args);
+	else if (ft_strncmp(root->word, "echo", 4) == 0)
+		ret = ft_echo(data, root);
 	else if (ft_strncmp(root->new_args[0], "cd", 3) == 0)
 		ret = ft_cd(data, root->new_args);
 	else if (ft_strncmp(root->new_args[0], "pwd", 4) == 0)
@@ -44,7 +44,7 @@ int	is_builtins(t_mini *data, t_root_f *root)
 		return (1);
 	else if (ft_strncmp(root->word, "unset", 6) == 0)
 		return (1);
-	else if (ft_strncmp(root->word, "echo", 5) == 0)
+	else if (ft_strncmp(root->word, "echo", 4) == 0)
 		return (1);
 	else if (ft_strncmp(root->word, "cd", 3) == 0)
 		return (1);
