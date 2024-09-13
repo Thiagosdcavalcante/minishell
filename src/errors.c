@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 23:16:25 by codespace         #+#    #+#             */
-/*   Updated: 2024/09/12 21:25:01 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:11:03 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ void	my_error(t_mini *data, int status, char *msg, char *command)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
+	final_free(data);
+	ffree(data);
 	exit(status);
 }
 
 void	free_dup(t_mini *data)
 {
 	free_tokens(&data->cmmds);
+	free_tokens(&data->cmmds_order);
 	free_tree(&data->tree);
 	ffree(data);
 	if (data->in_ms)

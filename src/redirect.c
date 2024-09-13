@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:32:04 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 14:00:44 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:42:56 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_redirect_lesser(t_mini *mini, t_root_f *root)
 {
 	char	*file;
 
+	(void)mini;
 	if (root->right == NULL)
 		return (1);
 	file = ft_quotes(root->right->word);
@@ -42,6 +43,7 @@ int	ft_redirect_greater(t_mini *mini, t_root_f *root)
 {
 	char	*file;
 
+	(void)mini;
 	if (root->right == NULL)
 		return (1);
 	file = ft_quotes(root->right->word);
@@ -68,6 +70,7 @@ int	ft_redirect_doublegreater(t_mini *mini, t_root_f *root)
 {
 	char	*file;
 
+	(void)mini;
 	if (root->right == NULL)
 		return (1);
 	file = ft_quotes(root->right->word);

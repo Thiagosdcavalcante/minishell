@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:34:02 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:43:57 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	update_pwd_variables(t_mini *data, char *old_pwd)
 
 int	change_to_home_directory(t_mini *data, char *home, char *old_pwd)
 {
+	(void)data;
 	if (chdir(home) != 0)
 	{
 		free(old_pwd);

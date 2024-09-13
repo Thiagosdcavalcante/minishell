@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 22:33:26 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:07:16 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ char	*open_heredoc_file(char **eof, char *str)
 int	heredoc_loop(t_mini *data, char *eof, int file)
 {
 	char	*line;
+	int		i;
 
+	i = 0;
 	while (1)
 	{
 		line = readline("> ");
@@ -51,7 +53,7 @@ int	heredoc_loop(t_mini *data, char *eof, int file)
 		{
 			if (g_sig != SIGINT)
 			{
-				ft_printf("warning: here-document at line 1 ");
+				ft_printf("warning: here-document at line %d ", i);
 				ft_printf("delimited by end-of-file (wanted `%s')\n", eof);
 			}
 			break ;
@@ -63,6 +65,7 @@ int	heredoc_loop(t_mini *data, char *eof, int file)
 			break ;
 		}
 		heredoc_util(data, line, file);
+		i++;
 	}
 	return (g_sig);
 }

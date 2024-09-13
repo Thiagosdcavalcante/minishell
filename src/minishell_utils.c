@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:41:47 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 22:37:26 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:02:24 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	verify_if_is_only_one_sinal(t_mini *mini)
 		mini->status = 2;
 		free(mini->in_ms);
 		free_tokens(&mini->cmmds);
+		free_tokens(&mini->cmmds_order);
 		printf("bash: syntax error near unexpected token `newline'\n");
 		return (2);
 	}

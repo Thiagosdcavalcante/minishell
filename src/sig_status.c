@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:36:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 22:14:31 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:44:36 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int	term_by_signal(int status)
 	return (((signed char)((status & 0x7f) + 1) >> 1) > 0);
 }
 
-static int	term_normaly(int status)
-{
-	return (term_by_signal(status) == 0);
-}
+// static int	term_normaly(int status)
+// {
+// 	return (term_by_signal(status) == 0);
+// }
 
 static int	exit_status(int status)
 {

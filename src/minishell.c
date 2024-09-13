@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 22:37:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:47:05 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 volatile int	g_sig;
 
+void print_list(t_tokens *cmd)
+{
+	while(cmd)
+	{
+		printf("TOKEN: %s\n", cmd->str);
+		cmd = cmd->next;
+	}
+
+}
+
 static int	add_item(t_mini *mini)
 {
 	if (g_sig != 0)
 		return (final_free(mini), 0);
-	mini->tokens = exec_tokens(mini->cmmds);
-	mini->tokens = change_order(mini->tokens);
+	process_reorganization(mini);
+	mini->tokens = exec_tokens(mini->cmmds_order);
 	mini->tree = create_tree(mini, mini->tokens);
 	return (1);
 }

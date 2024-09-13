@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 22:59:56 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:33:25 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:54:42 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,48 @@ int	ft_execute(t_mini *data, char **cmd)
 {
 	char	*path;
 	char	**envs;
+	char	**new_cmd;
 
-	while (*cmd && strcmp(*cmd, "") == 0)
-		cmd++;
-	if (!cmd || !cmd[0])
+	if (cmd[1] == NULL && ft_strchr(cmd[0], ' '))
+		new_cmd = ft_split(cmd[0], ' ');
+	else
+		new_cmd = cmd;
+	while (*new_cmd && strcmp(*new_cmd, "") == 0)
+		new_cmd++;
+	if (!new_cmd || !new_cmd[0])
 		return (0);
-	path = get_command_path(data, cmd[0]);
+	path = get_command_path(data, new_cmd[0]);
 	if (path == NULL)
 		return (127);
 	if (path_exists(path) == 0)
-		my_error(data, 127, "No such file or directory", cmd[0]);
+		my_error(data, 127, "No such file or directory", new_cmd[0]);
 	if (is_directory(path))
-		my_error(data, 126, "Is a directory", cmd[0]);
+		my_error(data, 126, "Is a directory", new_cmd[0]);
 	if (access(path, X_OK) != 0)
-		my_error(data, 126, "Permission denied", cmd[0]);
+		my_error(data, 126, "Permission denied", new_cmd[0]);
 	envs = env_mtx(data->envs);
-	execve(path, cmd, envs);
-	my_error(data, 126, "Execution failed", cmd[0]);
+	execve(path, new_cmd, envs);
+	my_error(data, 126, "Execution failed", new_cmd[0]);
 	return (0);
+	
+	// char	*path;
+	// char	**envs;
+
+	// while (*cmd && strcmp(*cmd, "") == 0)
+	// 	cmd++;
+	// if (!cmd || !cmd[0])
+	// 	return (0);
+	// path = get_command_path(data, cmd[0]);
+	// if (path == NULL)
+	// 	return (127);
+	// if (path_exists(path) == 0)
+	// 	my_error(data, 127, "No such file or directory", cmd[0]);
+	// if (is_directory(path))
+	// 	my_error(data, 126, "Is a directory", cmd[0]);
+	// if (access(path, X_OK) != 0)
+	// 	my_error(data, 126, "Permission denied", cmd[0]);
+	// envs = env_mtx(data->envs);
+	// execve(path, cmd, envs);
+	// my_error(data, 126, "Execution failed", cmd[0]);
+	// return (0);
 }

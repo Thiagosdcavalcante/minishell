@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/12 22:19:07 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:43:30 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	ft_exit(t_mini *data, char **cmd)
 	int	i;
 	int	ret;
 
+	ret = 0;
 	if (cmd == NULL)
 		return (printf("exit\n"), ret % 256);
 	i = 1;

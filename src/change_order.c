@@ -6,35 +6,90 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:16:40 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 22:33:48 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:03:12 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens_f	*change_order(t_tokens_f *tkn)
+void	add_token_to_ordered_list(t_tokens **cmmds_order, t_tokens *token)
 {
-	t_tokens_f	*head;
+	t_tokens *new_token;
 
-	if (tkn->type == WORD)
-		return (tkn);
-	head = tkn;
-	while (tkn && tkn->next && tkn->type != WORD && tkn->type != PIPE)
-		tkn = tkn->next;
-	if (tkn->type == WORD)
+	new_token = malloc(sizeof(t_tokens));
+	if (!new_token)
+		return;
+	new_token->str = strdup(token->str);
+	new_token->type = token->type;
+	new_token->next = NULL;
+	new_token->prev = NULL;
+	if (!*cmmds_order)
+		*cmmds_order = new_token;
+	else
 	{
-		if (tkn->next)
-		{
-			tkn->next->prev = tkn->prev;
-			tkn->prev->next = tkn->next;
-		}
-		else
-			tkn->prev->next = NULL;
-		tkn->next = head;
-		head->prev = tkn;
-		tkn->prev = NULL;
+		t_tokens *temp = *cmmds_order;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new_token;
+		new_token->prev = temp;
 	}
-	return (tkn);
+}
+
+void	reorg_group(t_tokens *start, t_tokens *end, t_tokens **cmmds_order)
+{
+	t_tokens *current; 
+	t_tokens *first_word;
+	
+	first_word = NULL;
+	current = start;
+	while (current && current != end)
+	{
+		if (current->type == WORD)
+		{
+			first_word = current;
+			break ;
+		}
+		current = current->next;
+	}
+	if (first_word)
+		add_token_to_ordered_list(cmmds_order, first_word);
+	current = start;
+	while (current && current != end)
+	{
+		if (current != first_word && current->type != PIPE)
+			add_token_to_ordered_list(cmmds_order, current);
+		current = current->next;
+	}
+	if (end && end->type == PIPE)
+		add_token_to_ordered_list(cmmds_order, end);
+}
+
+void	reorganize(t_tokens *tokens, t_tokens **cmmds_order)
+{
+	t_tokens *current;
+	t_tokens *next_pipe;
+	t_tokens *start_of_group;
+	
+	next_pipe = NULL;
+	current = tokens;
+	while (current)
+	{
+	   	start_of_group = current;
+		next_pipe = current;
+		while (next_pipe && next_pipe->type != PIPE)
+			next_pipe = next_pipe->next;
+		reorg_group(start_of_group, next_pipe, cmmds_order);
+		if (next_pipe)
+			current = next_pipe->next;
+		else
+			current = NULL;
+	}
+}
+
+void	process_reorganization(t_mini *mini)
+{
+	mini->cmmds_order = NULL;
+	reorganize(mini->cmmds, &mini->cmmds_order);
 }
 
 int	unlink_here_doc(t_root_f *root)

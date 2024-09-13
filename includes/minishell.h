@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 22:26:30 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:57:22 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_mini
 	char		*in_ms;
 	t_env_list	*envs;
 	t_tokens	*cmmds;
+	t_tokens	*cmmds_order;
 	t_tokens_f	*tokens;
 	t_root_f	*tree;
 	int			fd[2];
@@ -146,7 +147,6 @@ void		handle_var_expansion(t_mini *data, char *arg, int *i, char **result);
 void		handle_normal_char(char c, char **result);
 void		ft_pwd(t_mini *data, char **cmd);
 int			ft_cd(t_mini *data, char **cmd);
-int			change(t_mini *data, char *path);
 void		ft_update_var(t_mini *data, char *key, char *value);
 int			ft_env(t_mini *data, char **cmd);
 void		get_envs(t_mini *data);
@@ -195,10 +195,12 @@ t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens);
 t_tokens_f	*token_f_order(t_tokens_f **tkn);
 t_tokens	*parse_str(char *str, t_mini *mini);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
-t_tokens_f	*change_order(t_tokens_f *tkn);
+t_tokens_f	*change_order(t_tokens_f **tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
 t_root_f	*create_tree(t_mini *mini, t_tokens_f *tokens);
 t_env_list	*ft_lstnew_env(char *content);
 t_tokens_f	*make_exec_token(t_tokens_f **tkn_f, t_tokens **tkn, int word);
+t_tokens_f	*rearrange_order(t_tokens_f *tkn);
+void		process_reorganization(t_mini *mini);
 
 #endif

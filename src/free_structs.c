@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 22:25:03 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:45:24 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void	final_free(t_mini *mini)
 	if (mini->cmmds != NULL)
 	{
 		free_tokens(&mini->cmmds);
+		mini->cmmds = NULL;
+	}
+	if (mini->cmmds_order != NULL)
+	{
+		free_tokens(&mini->cmmds_order);
 		mini->cmmds = NULL;
 	}
 	if (mini->tree)
