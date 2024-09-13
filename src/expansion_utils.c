@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 13:52:03 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:54:40 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:41:39 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@ void	ft_strcpy(char *dst, const char *src)
 	}
 }
 
+char	*f_expannsion(t_mini *data, char *arg)
+{
+	char	*teste;
+	char	*res_copy;
+
+	res_copy = ft_itoa(data->status);
+	teste = ft_strjoin(res_copy, arg);
+	free(res_copy);
+	return (teste);
+}
+
 char	*expansion(t_mini *data, char *arg)
 {
 	int		j;
@@ -33,7 +44,7 @@ char	*expansion(t_mini *data, char *arg)
 	if (!arg || !*arg)
 		return (ft_strdup(""));
 	if (arg[0] == '$' && arg[1] == '?')
-		return (ft_strjoin(ft_itoa(data->status), &arg[2]));
+		return (f_expannsion(data, &arg[2]));
 	if (arg[0] == '$' && arg[1] == '\0')
 		return (ft_strdup("$"));
 	while (arg[j + 1] != ' ' && arg[j + 1] != '"' && arg[j + 1] != '\0' )
