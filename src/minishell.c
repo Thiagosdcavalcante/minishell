@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/13 12:47:05 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:17:37 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 	char	finded_quote;
 
 	i = 0;
+	if (str[0] == '|' || str[ft_strlen(str) - 1] == '|')
+		return (printf("bash: syntax error near unexpected token `|'\n"), 0);
+	if (str[ft_strlen(str) - 1] == '<' || str[ft_strlen(str) - 1] == '>')
+		return (printf("bash: syntax error near unexpected token `newline'\n"), 0);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
