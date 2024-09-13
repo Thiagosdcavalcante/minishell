@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/12 20:30:00 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:23:27 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 	status = 0;
 	if (is_left == 1)
 	{
-		// set_sig_func();
 		dup2(fd[1], STDOUT_FILENO);
 		close (fd[0]);
 		close (fd[1]);
@@ -46,7 +45,7 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 	int		status;
 
 	status = 0;
-	signal(SIGINT, sigint_handler_2);
+	signal(SIGINT, sigint_handler_exec);
 	if (pipe(fd) < 0)
 		exit(EXIT_FAILURE);
 	pid[0] = fork();
@@ -73,19 +72,17 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		ft_init_redirect(data, root);
 	else if (is_builtins(data, root))
 		exec_builtins(data, root);
-	else if (root->new_args)
+	else if (root->n_args)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
 			set_sig_func();
-			ft_execute(data, root->new_args);
+			ft_execute(data, root->n_args);
 			exit(0);
 		}
 		else
-		{
 			sig_exec();
-		}
 		data->status = ft_status(pid);
 	}
 	return (data->status);

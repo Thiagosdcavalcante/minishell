@@ -6,7 +6,7 @@
 #    By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/07 19:31:25 by ajuliao-          #+#    #+#              #
-#    Updated: 2024/09/11 21:51:47 by ajuliao-         ###   ########.fr        #
+#    Updated: 2024/09/12 21:33:09 by ajuliao-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ CPPFLAGS         := $(addprefix -I, $(INCS)) #-MP
 #                                  FILES                                       #
 #******************************************************************************#
 
-SRCS     += $(addprefix $(SRC_P), exec_utils.c free_structs.c main_utils.c minishell.c custom_split.c parse_utils.c put_space.c exec_tokens.c utils_exec_tokens.c tree.c heredoc.c expansion.c expansion_utils.c unset.c redirect.c pwd.c export_utils.c export.c exit.c exec.c exec_functions.c errors.c env.c echo.c cd.c utils.c list_functions_env.c signals.c signals_utils.c sig_status.c )
+SRCS     += $(addprefix $(SRC_P), exec_utils.c free_structs.c main_utils.c minishell.c custom_split.c parse_utils.c put_space.c exec_tokens.c utils_exec_tokens.c tree.c heredoc.c expansion.c expansion_utils.c unset.c redirect.c pwd.c export_utils.c export.c exit.c exec.c exec_functions.c errors.c env.c echo.c cd.c utils.c list_functions_env.c signals.c signals_utils.c sig_status.c minishell_utils.c change_order.c)
+
+# SRCS     += $(addprefix $(SRC_P), exec_utils.c free_structs.c main_utils.c minishell.c custom_split.c parse_utils.c put_space.c exec_tokens.c utils_exec_tokens.c tree.c heredoc.c expansion.c expansion_utils.c unset.c redirect.c pwd.c export_utils.c export.c exit.c exec.c exec_functions.c errors.c env.c echo.c cd.c utils.c list_functions_env.c signals.c signals_utils.c sig_status.c change_order.c)
 OBJS     += $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
 NAME     := minishell
 LIBFT    := $(addprefix $(LIB_P), libft.a)

@@ -6,31 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:29:24 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/11 21:51:42 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:23:27 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static t_tokens_f	*find_token(t_tokens_f *tokens, int *types, int num_types)
-// {
-// 	t_tokens_f	*temp;
-// 	int			i;
-
-// 	temp = ft_lstlast_token_f(tokens);
-// 	while (temp)
-// 	{
-// 		i = 0;
-// 		while (i < num_types)
-// 		{
-// 			if (temp->type == types[i])
-// 				return (temp);
-// 			i++;
-// 		}
-// 		temp = temp->prev;
-// 	}
-// 	return (NULL);
-// }
 
 static t_tokens_f	*find_token(t_tokens_f *tokens, int t)
 {
@@ -60,7 +40,6 @@ int	branch(t_mini *mini, t_tokens_f *m_tkn, t_tokens_f *tokens, t_root_f *root)
 	if (rest)
 		rest->prev = NULL;
 	root->word = ft_strdup(m_tkn->str);
-	// m_tkn->str = NULL;
 	root->type = m_tkn->type;
 	root->args = tokens->args;
 	root->fd = -1;
@@ -87,30 +66,26 @@ int	r_branch(t_mini *mini, t_tokens_f *tkn, t_root_f *root, int t)
 	return (branch(mini, matching_token, tkn, root));
 }
 
-static void	create_branch(t_mini *mini, t_root_f *root, t_tokens_f *tokens)
+static void	create_branch(t_mini *mini, t_root_f *root, t_tokens_f *t)
 {
-	if (r_branch(mini, tokens, root, PIPE))
+	if (r_branch(mini, t, root, PIPE))
 		return ;
-	if (r_branch(mini, tokens, root, 3))
+	if (r_branch(mini, t, root, 3))
 		return ;
 	root->left = NULL;
 	root->right = NULL;
-	root->word = full_expansion(mini, tokens->str);
-	// free(tokens->str);
-	// tokens->str = NULL;
-	root->type = tokens->type;
+	root->word = full_expansion(mini, t->str);
+	root->type = t->type;
 	root->fd = -1;
-	root->args = tokens->args;
-	root->new_args = NULL;
-	// if (root->word[0] == '$')
-	// 	expansion(mini, root->word);
-	if (tokens->args && tokens->type < 2)
+	root->args = t->args;
+	root->n_args = NULL;
+	if (t->args && t->type < 2)
 	{
-		root->new_args = (char **)malloc(sizeof(char *) * (n_args(tokens->args) + 1));
-		init_expansion(mini, tokens->args, root->new_args);
+		root->n_args = (char **)malloc(sizeof(char *) * (n_args(t->args) + 1));
+		init_expansion(mini, t->args, root->n_args);
 	}
-	free(tokens->args);
-	free(tokens);
+	free(t->args);
+	free(t);
 }
 
 t_root_f	*create_tree(t_mini *mini, t_tokens_f *tokens)

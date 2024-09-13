@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:41 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/11 21:51:08 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:23:27 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ int	exec_builtins(t_mini *data, t_root_f *root)
 	int	ret;
 
 	ret = 0;
-	if (ft_strncmp(root->new_args[0], "env", 4) == 0)
-		ret = ft_env(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "export", 7) == 0)
-		ret = ft_export(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "unset", 6) == 0)
-		ret = ft_unset(data, root->new_args);
+	if (ft_strncmp(root->n_args[0], "env", 4) == 0)
+		ret = ft_env(data, root->n_args);
+	else if (ft_strncmp(root->n_args[0], "export", 7) == 0)
+		ret = ft_export(data, root->n_args);
+	else if (ft_strncmp(root->n_args[0], "unset", 6) == 0)
+		ret = ft_unset(data, root->n_args);
 	else if (ft_strncmp(root->word, "echo", 4) == 0)
 		ret = ft_echo(data, root);
-	else if (ft_strncmp(root->new_args[0], "cd", 3) == 0)
-		ret = ft_cd(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "pwd", 4) == 0)
-		ft_pwd(data, root->new_args);
-	else if (ft_strncmp(root->new_args[0], "exit", 5) == 0)
-		ret = ft_exit(data, root->new_args);
+	else if (ft_strncmp(root->n_args[0], "cd", 3) == 0)
+		ret = ft_cd(data, root->n_args);
+	else if (ft_strncmp(root->n_args[0], "pwd", 4) == 0)
+		ft_pwd(data, root->n_args);
+	else if (ft_strncmp(root->n_args[0], "exit", 5) == 0)
+		ret = ft_exit(data, root->n_args);
 	data->status = ret;
 	return (ret);
 }
@@ -81,6 +81,7 @@ char	*ft_quotes(char *word)
 	file[j] = '\0';
 	return (file);
 }
+
 t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens)
 {
 	if (!tokens)

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:52:41 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:19:07 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ static int	size_check(char *str)
 	i = 0;
 	result = 0;
 	while (str[i])
-	{
-		result += str[i] - '0';
-		i++;
-	}
+		result += str[i++] - '0';
 	if (str[0] == '-')
 	{
 		if (result > define_limits("-9223372036854775808"))
@@ -66,7 +63,7 @@ static int	check_for_alphaandsignal(char *str)
 	signal = 0;
 	while (str[i])
 	{
-		if (ft_isalpha(str[i]) > 0 && signal > 1)
+		if (ft_isalpha(str[i]) > 0 || signal > 1)
 			return (1);
 		if (str[i] == '-' || str[i] == '+')
 			signal++;
@@ -80,26 +77,22 @@ int	ft_exit(t_mini *data, char **cmd)
 	int	i;
 	int	ret;
 
+	if (cmd == NULL)
+		return (printf("exit\n"), ret % 256);
 	i = 1;
 	ret = 0;
-	data->exit = 1;
 	while (cmd[i])
 	{
 		if (i > 1)
 		{
-			my_error(data, 1, "too many arguments", "exit");
-			return (0);
+			ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
+			return (1);
 		}
-		if (check_for_alphaandsignal(cmd[i]) == 1 || (size_check(cmd[i]) == 1))
-			my_error(data, 2, "numeric argument required", "exit");
+		if (check_for_alphaandsignal(cmd[i]) == 1 || size_check(cmd[i]) == 1)
+			return (my_error(data, 2, "numeric argument required", "exit"), 1);
 		i++;
 	}
+	data->exit = 1;
 	i--;
-	if (cmd[1] && i == 1)
-	{
-		ret = ft_atoi(cmd[1]);
-		if (ret < 0 && ret > -256)
-			return (printf("exit\n"), (256 + ret));
-	}
-	return (printf("exit\n"), ret % 256);
+	return (return_exit(cmd[i], i));
 }

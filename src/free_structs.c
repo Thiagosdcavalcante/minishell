@@ -6,37 +6,18 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 12:28:08 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:25:03 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tokens_f(t_tokens_f **head)
-{
-	t_tokens_f	*temp;
-	int			i;
-
-	i = 0;
-	while ((*head))
-	{
-		temp = (*head)->next;
-		if ((*head)->args)
-		{
-			if ((*head)->args)
-				free((*head)->args);
-		}
-		if ((*head))
-			free((*head));
-		(*head) = temp;
-	}
-	free ((*head));
-}
-
 void	free_tokens(t_tokens **head)
 {
 	t_tokens	*temp;
 
+	if (!(*head))
+		return ;
 	while ((*head) != NULL)
 	{
 		temp = (*head)->next;
@@ -46,45 +27,57 @@ void	free_tokens(t_tokens **head)
 			(*head)->str = NULL;
 		}
 		if ((*head))
+		{
 			free((*head));
+			(*head) = NULL;
+		}
 		(*head) = temp;
 	}
-	if ((*head))
-		free((*head));
 }
 
 void	final_free(t_mini *mini)
 {
 	if (mini->in_ms)
+	{
 		free(mini->in_ms);
+		mini->in_ms = NULL;
+	}
 	if (mini->cmmds != NULL)
+	{
 		free_tokens(&mini->cmmds);
+		mini->cmmds = NULL;
+	}
 	if (mini->tree)
-		free_tree(mini->tree);
-	mini->in_ms = NULL;
+	{
+		free_tree(&mini->tree);
+		mini->tree = NULL;
+	}
 }
 
-void	free_tree(t_root_f *root)
+void	free_tree(t_root_f **root_free)
 {
-	int	i;
+	int			i;
+	t_root_f	*root;
 
-	if (!root)
-		return;
+	if (!*root_free)
+		return ;
+	root = *root_free;
 	if (root->left)
-		free_tree(root->left);
+		free_tree(&root->left);
 	if (root->right)
-		free_tree(root->right);
+		free_tree(&root->right);
 	if (root->word)
 		free(root->word);
-	if (root->new_args)
+	if (root->n_args)
 	{
 		i = 0;
-		while (root->new_args[i] != NULL)
+		while (root->n_args[i] != NULL)
 		{
-			free(root->new_args[i]);
+			free(root->n_args[i]);
 			i++;
 		}
-		free(root->new_args);
+		free(root->n_args);
 	}
 	free(root);
+	*root_free = NULL;
 }

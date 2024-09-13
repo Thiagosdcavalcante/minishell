@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:41:47 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/09 20:09:38 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:37:26 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	cond_minishell(t_mini **mini, int cond)
 	}
 	else if (cond == 2)
 	{
-        add_history((*mini)->in_ms);
-        free((*mini)->in_ms);
+		add_history((*mini)->in_ms);
+		free((*mini)->in_ms);
 	}
 	else if (cond == 3)
 	{
@@ -43,7 +43,8 @@ int	verify_if_is_only_one_sinal(t_mini *mini)
 		mini->status = 2;
 		free(mini->in_ms);
 		free_tokens(&mini->cmmds);
-		return (printf("bash: syntax error near unexpected token `newline'\n"), 2);
+		printf("bash: syntax error near unexpected token `newline'\n");
+		return (2);
 	}
 	return (0);
 }
@@ -52,7 +53,7 @@ void	first_step(t_mini *mini)
 {
 	add_history(mini->in_ms);
 	mini->in_ms = put_space_ms(mini->in_ms);
-	mini->cmmds = parse_str(mini->in_ms);
+	mini->cmmds = parse_str(mini->in_ms, mini);
 }
 
 int	return_exit(char *str, int i)

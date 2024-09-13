@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 18:59:35 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:37:47 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,13 @@
 
 volatile int	g_sig;
 
-void	print_tree(t_root_f *root, int nivel)
-{
-	int	i;
-
-	if (root)
-	{
-		print_tree(root->right, nivel + 1);
-		printf("\n\n");
-		for(i = 0; i < nivel; i++)
-			printf("\t");
-		printf("%s - %d", root->word, root->type);
-		print_tree(root->left, nivel + 1);
-	}
-}
-// void print_list(t_tokens *cmd)
-// {
-// 	while(cmd)
-// 	{
-// 		printf("TOKEN: %s", cmd->str);
-// 		cmd = cmd->next;
-// 	}
-
-// }
-void print_list_tokens(t_tokens_f *cmd)
-{
-	while (cmd)
-	{
-		if (cmd->str)
-			printf("TOKEN: %s - TYPE: %d\n", cmd->str, cmd->type);
-		else
-			printf("TOKEN: (null) - TYPE: %d\n", cmd->type);
-
-		cmd = cmd->next;
-	}
-}
-
 static int	add_item(t_mini *mini)
 {
-	add_history(mini->in_ms);
-	mini->in_ms = put_space_ms(mini->in_ms);
-	mini->cmmds = parse_str(mini->in_ms);
+	if (g_sig != 0)
+		return (final_free(mini), 0);
 	mini->tokens = exec_tokens(mini->cmmds);
-	// print_list_tokens(mini->tokens);
-	if (ft_check_heredoc(mini, mini->tokens) == 0)
-		return (0);
+	mini->tokens = change_order(mini->tokens);
 	mini->tree = create_tree(mini, mini->tokens);
-	// print_tree(mini->tree, 1);
 	return (1);
 }
 
@@ -114,11 +74,17 @@ static int	minishell(t_mini *mini)
 	status = 0;
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
-		return (ft_exit(mini, NULL));
+		cond_minishell(&mini, 1);
+	if (check_if_only_spaces(mini) == TRUE)
+		return (cond_minishell(&mini, 2));
 	if (!check_quotes_and_double_quotes(mini->in_ms))
-		return (EXIT_FAILURE);
+		return (cond_minishell(&mini, 3));
 	if (mini->in_ms[0] != '\0')
 	{
+		first_step(mini);
+		if (is_file(mini->cmmds->type) == TRUE)
+			if (verify_if_is_only_one_sinal(mini) != 0)
+				return (mini->status);
 		if (add_item(mini) == 0)
 			return (130);
 		status = init_exec(mini, mini->tree);

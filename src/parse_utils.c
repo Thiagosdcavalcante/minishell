@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:56:02 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/07 17:16:30 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:26:03 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,21 @@ static t_tokens	*create_mtx(char *str)
 	return (ms);
 }
 
-t_tokens	*parse_str(char *str)
+static t_tokens	*create_heredoc_file(char *str, t_mini *mini)
+{
+	t_tokens	*ms;
+
+	ms = malloc(sizeof(t_tokens));
+	if (!ms)
+		return (NULL);
+	ms->type = search_type(str);
+	ms->str = str_heredoc(str, mini);
+	ms->next = NULL;
+	ms->prev = NULL;
+	return (ms);
+}
+
+t_tokens	*parse_str(char *str, t_mini *mini)
 {
 	char		**parse_str;
 	t_tokens	*mtx;
@@ -79,7 +93,10 @@ t_tokens	*parse_str(char *str)
 	head = mtx;
 	while (parse_str[++i])
 	{
-		mtx->next = create_mtx(parse_str[i]);
+		if (mtx && mtx->type == DOUBLELESSER)
+			mtx->next = create_heredoc_file(parse_str[i], mini);
+		else
+			mtx->next = create_mtx(parse_str[i]);
 		mtx->next->prev = mtx;
 		mtx = mtx->next;
 	}

@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:01:01 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 19:19:11 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:44:35 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern volatile	int	g_sig;
+extern volatile int	g_sig;
 
 void	sig_handler(int sig_num)
 {
@@ -24,15 +24,6 @@ void	sig_exec(void)
 {
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-}
-
-int	sig_heredoc(int sig_heredoc)
-{
-	static int	hered;
-
-	if (sig_heredoc != -1)
-		hered = sig_heredoc;
-	return (hered);
 }
 
 void	sigint_handler(int sig_num)
@@ -53,7 +44,7 @@ void	sigint_handler(int sig_num)
 	}
 }
 
-void	sigint_handler_2(int sig_num)
+void	sigint_handler_exec(int sig_num)
 {
 	g_sig = sig_num;
 	rl_on_new_line();

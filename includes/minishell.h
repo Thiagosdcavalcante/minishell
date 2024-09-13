@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 19:18:48 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:26:30 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_root_f
 	int					type;
 	int					fd;
 	char				**args;
-	char				**new_args;
+	char				**n_args;
 	// struct s_tokens_f	*left_token;
 	// struct s_tokens_f	*right_token;
 	struct s_root_f	*left;
@@ -160,19 +160,23 @@ int			ft_export(t_mini *data, char **cmd);
 void		ft_init_redirect(t_mini *data, t_root_f *root);
 int			ft_execute(t_mini *data, char **cmd);
 void		my_error(t_mini *data, int status, char *msg, char *command);
-void		init_expansion(t_mini *data, char **args, char **new_args);
+void		init_expansion(t_mini *data, char **args, char **n_args);
 void		utils_expansion(t_mini *data, char **arg);
 void		ft_strcpy(char *dst, const char *src);
 void		free_tokens_f(t_tokens_f **head);
 void		free_tokens(t_tokens **head);
+int			return_exit(char *str, int i);
 void		print_list_export(t_env_list *node);
 void		init_sig(void);
 void		sig_handler(int sig_num);
-void		sigint_handler_2(int sig_num);
-void	sigint_handler(int sig_num);
+void		sigint_handler_exec(int sig_num);
+void		sigint_handler(int sig_num);
+int			cond_minishell(t_mini **mini, int cond);
 int			ft_redirect(t_mini *data, t_root_f *root);
 char		*ft_quotes(char *word);
-void		free_tree(t_root_f *root);
+void		free_tree(t_root_f **root);
+void		 heredoc_util(t_mini *data, char *line, int file);
+char		*path_name(void);
 int			n_args(char **args);
 void		set_sig_func(void);
 void		free_paths(t_mini *data);
@@ -184,14 +188,17 @@ int			is_builtins(t_mini *data, t_root_f *root);
 int			exec_builtins(t_mini *data, t_root_f *root);
 int			is_file(int type);
 void		close_fds(int bckp_fd);
-void	sig_exec(void);
+void		sig_exec(void);
+int			sig_heredoc(int sig_heredoc);
+char		*str_heredoc(char *str, t_mini *data);
 t_tokens_f	*ft_lstlast_token_f(t_tokens_f *tokens);
 t_tokens_f	*token_f_order(t_tokens_f **tkn);
-t_tokens	*parse_str(char *str);
+t_tokens	*parse_str(char *str, t_mini *mini);
 t_tokens_f	*exec_tokens(t_tokens *tkn);
-t_tokens_f    *change_order(t_tokens_f *tkn);
+t_tokens_f	*change_order(t_tokens_f *tkn);
 t_tokens_f	*add_special_character(t_tokens **tkn);
 t_root_f	*create_tree(t_mini *mini, t_tokens_f *tokens);
 t_env_list	*ft_lstnew_env(char *content);
+t_tokens_f	*make_exec_token(t_tokens_f **tkn_f, t_tokens **tkn, int word);
 
 #endif

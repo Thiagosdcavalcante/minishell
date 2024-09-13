@@ -1,60 +1,96 @@
-==147022== Memcheck, a memory error detector
-==147022== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==147022== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==147022== Command: ./minishell
-==147022== Parent PID: 114056
-==147022== 
-==147022== Invalid read of size 8
-==147022==    at 0x405140: ft_exit (exit.c:86)
-==147022==    by 0x401E58: minishell (minishell.c:117)
-==147022==    by 0x401DD3: main (minishell.c:151)
-==147022==  Address 0x8 is not stack'd, malloc'd or (recently) free'd
-==147022== 
-==147022== 
-==147022== Process terminating with default action of signal 11 (SIGSEGV)
-==147022==  Access not within mapped region at address 0x8
-==147022==    at 0x405140: ft_exit (exit.c:86)
-==147022==    by 0x401E58: minishell (minishell.c:117)
-==147022==    by 0x401DD3: main (minishell.c:151)
-==147022==  If you believe this happened as a result of a stack
-==147022==  overflow in your program's main thread (unlikely but
-==147022==  possible), you can try to increase the size of the
-==147022==  main thread stack using the --main-stacksize= flag.
-==147022==  The main thread stack size used in this run was 8388608.
-==147022== 
-==147022== HEAP SUMMARY:
-==147022==     in use at exit: 205,770 bytes in 348 blocks
-==147022==   total heap usage: 555 allocs, 207 frees, 226,259 bytes allocated
-==147022== 
-==147022== 1,072 bytes in 67 blocks are still reachable in loss record 30 of 59
-==147022==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==147022==    by 0x406AB5: ft_lstnew_env (list_functions_env.c:36)
-==147022==    by 0x405EF3: get_envs (env.c:62)
-==147022==    by 0x401D9A: main (minishell.c:144)
-==147022== 
-==147022== 4,102 bytes in 67 blocks are still reachable in loss record 38 of 59
-==147022==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==147022==    by 0x407399: ft_substr (in /nfs/homes/ajuliao-/Documents/cadete/ms-thiago-final/minishell)
-==147022==    by 0x405EDA: get_envs (env.c:61)
-==147022==    by 0x401D9A: main (minishell.c:144)
-==147022== 
-==147022== LEAK SUMMARY:
-==147022==    definitely lost: 0 bytes in 0 blocks
-==147022==    indirectly lost: 0 bytes in 0 blocks
-==147022==      possibly lost: 0 bytes in 0 blocks
-==147022==    still reachable: 5,174 bytes in 134 blocks
-==147022==         suppressed: 200,596 bytes in 214 blocks
-==147022== 
-==147022== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-==147022== 
-==147022== 1 errors in context 1 of 1:
-==147022== Invalid read of size 8
-==147022==    at 0x405140: ft_exit (exit.c:86)
-==147022==    by 0x401E58: minishell (minishell.c:117)
-==147022==    by 0x401DD3: main (minishell.c:151)
-==147022==  Address 0x8 is not stack'd, malloc'd or (recently) free'd
-==147022== 
---147022-- 
---147022-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
-==147022== 
-==147022== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==318501== Memcheck, a memory error detector
+==318501== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==318501== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==318501== Command: ./minishell
+==318501== Parent PID: 195453
+==318501== 
+==318542== 
+==318542== HEAP SUMMARY:
+==318542==     in use at exit: 204,612 bytes in 215 blocks
+==318542==   total heap usage: 614 allocs, 399 frees, 230,941 bytes allocated
+==318542== 
+==318543== 
+==318543== HEAP SUMMARY:
+==318543==     in use at exit: 204,658 bytes in 218 blocks
+==318543==   total heap usage: 614 allocs, 396 frees, 230,941 bytes allocated
+==318543== 
+==318542== LEAK SUMMARY:
+==318542==    definitely lost: 0 bytes in 0 blocks
+==318542==    indirectly lost: 0 bytes in 0 blocks
+==318542==      possibly lost: 0 bytes in 0 blocks
+==318542==    still reachable: 0 bytes in 0 blocks
+==318542==         suppressed: 204,612 bytes in 215 blocks
+==318542== 
+==318542== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--318542-- 
+--318542-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--318542-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==318542== 
+==318542== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==318543== LEAK SUMMARY:
+==318543==    definitely lost: 0 bytes in 0 blocks
+==318543==    indirectly lost: 0 bytes in 0 blocks
+==318543==      possibly lost: 0 bytes in 0 blocks
+==318543==    still reachable: 0 bytes in 0 blocks
+==318543==         suppressed: 204,658 bytes in 218 blocks
+==318543== 
+==318543== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--318543-- 
+--318543-- used_suppression:     59 ignore_libreadline_leaks readline.sup:2 suppressed: 204,642 bytes in 216 blocks
+--318543-- used_suppression:      2 <Readline> readline.sup:16 suppressed: 16 bytes in 2 blocks
+==318543== 
+==318543== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==318569== 
+==318569== HEAP SUMMARY:
+==318569==     in use at exit: 204,637 bytes in 217 blocks
+==318569==   total heap usage: 674 allocs, 457 frees, 231,602 bytes allocated
+==318569== 
+==318569== LEAK SUMMARY:
+==318569==    definitely lost: 0 bytes in 0 blocks
+==318569==    indirectly lost: 0 bytes in 0 blocks
+==318569==      possibly lost: 0 bytes in 0 blocks
+==318569==    still reachable: 0 bytes in 0 blocks
+==318569==         suppressed: 204,637 bytes in 217 blocks
+==318569== 
+==318569== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--318569-- 
+--318569-- used_suppression:     59 <Readline> readline.sup:16 suppressed: 200,621 bytes in 216 blocks
+--318569-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==318569== 
+==318569== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==318570== 
+==318570== HEAP SUMMARY:
+==318570==     in use at exit: 204,729 bytes in 223 blocks
+==318570==   total heap usage: 674 allocs, 451 frees, 231,602 bytes allocated
+==318570== 
+==318570== LEAK SUMMARY:
+==318570==    definitely lost: 0 bytes in 0 blocks
+==318570==    indirectly lost: 0 bytes in 0 blocks
+==318570==      possibly lost: 0 bytes in 0 blocks
+==318570==    still reachable: 0 bytes in 0 blocks
+==318570==         suppressed: 204,729 bytes in 223 blocks
+==318570== 
+==318570== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--318570-- 
+--318570-- used_suppression:     52 ignore_libreadline_leaks readline.sup:2 suppressed: 204,588 bytes in 212 blocks
+--318570-- used_suppression:     11 <Readline> readline.sup:16 suppressed: 141 bytes in 11 blocks
+==318570== 
+==318570== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==318501== 
+==318501== HEAP SUMMARY:
+==318501==     in use at exit: 204,612 bytes in 215 blocks
+==318501==   total heap usage: 712 allocs, 497 frees, 231,980 bytes allocated
+==318501== 
+==318501== LEAK SUMMARY:
+==318501==    definitely lost: 0 bytes in 0 blocks
+==318501==    indirectly lost: 0 bytes in 0 blocks
+==318501==      possibly lost: 0 bytes in 0 blocks
+==318501==    still reachable: 0 bytes in 0 blocks
+==318501==         suppressed: 204,612 bytes in 215 blocks
+==318501== 
+==318501== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--318501-- 
+--318501-- used_suppression:     57 <Readline> readline.sup:16 suppressed: 200,596 bytes in 214 blocks
+--318501-- used_suppression:      1 <AddHistory> readline.sup:39 suppressed: 4,016 bytes in 1 blocks
+==318501== 
+==318501== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
