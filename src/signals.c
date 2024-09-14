@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:01:01 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/12 22:44:35 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:38:49 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ extern volatile int	g_sig;
 void	sig_handler(int sig_num)
 {
 	g_sig = sig_num;
-	ft_printf("\n");
+	printf("\n");
 }
 
 void	sig_exec(void)
@@ -31,12 +31,12 @@ void	sigint_handler(int sig_num)
 	g_sig = sig_num;
 	if (sig_heredoc(-1))
 	{
-		ft_printf("\n");
+		printf("\n");
 		close (STDIN_FILENO);
 	}
 	else
 	{
-		ft_printf("\n");
+		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();

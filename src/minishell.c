@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/14 13:33:03 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:31:40 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,6 @@ static int	minishell(t_mini *mini)
 		first_step(mini);
 		if (tokens_checker(mini) == 1)
 				return (mini->status);
-		// if (is_file(mini->cmmds->type) == TRUE) // colocar em loop
-		// 	if (verify_if_is_only_one_sinal(mini) != 0)
-		// 		return (mini->status);
 		if (add_item(mini) == 0)
 			return (130);
 		mini->status = init_exec(mini, mini->tree);

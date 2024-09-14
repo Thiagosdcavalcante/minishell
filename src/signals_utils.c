@@ -23,7 +23,7 @@ void	close_fds(int bckp_fd)
 void	sig_hand_here(int signal)
 {
 	(void)signal;
-	ft_printf("\n");
+	printf("\n");
 	close(STDIN_FILENO);
 	g_sig = SIGINT;
 }
