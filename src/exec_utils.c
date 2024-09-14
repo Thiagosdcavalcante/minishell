@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:48:41 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/13 12:57:56 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:38:09 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_builtins(t_mini *data, t_root_f *root)
 		return (1);
 	else if (ft_strncmp(root->word, "unset", 6) == 0)
 		return (1);
-	else if (ft_strncmp(root->word, "echo", 4) == 0)
+	else if (ft_strncmp(root->word, "echo", 5) == 0)
 		return (1);
 	else if (ft_strncmp(root->word, "cd", 3) == 0)
 		return (1);

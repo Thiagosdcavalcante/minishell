@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/14 13:19:19 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:54:43 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ void	ft_pipex(t_mini *data, t_root_f *root)
 	close(fd[1]);
 	status = ft_status(pid[0]);
 	status = ft_status(pid[1]);
+	if(data->tree)
+		free_tree(&data->tree);
+	if (data->cmmds)
+		free_tokens(&data->cmmds);
+	if (data->cmmds_order)
+		free_tokens(&data->cmmds_order);
 	signal(SIGINT, sigint_handler);
 	data->status = status;
 }
@@ -89,6 +95,12 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		else
 			sig_exec();
 		data->status = ft_status(pid);
+		if(data->tree)
+			free_tree(&data->tree);
+		if (data->cmmds)
+			free_tokens(&data->cmmds);
+		if (data->cmmds_order)
+			free_tokens(&data->cmmds_order);
 	}
 	return (data->status);
 }

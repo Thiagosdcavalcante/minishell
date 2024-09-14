@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/14 13:19:49 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:33:03 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ volatile int	g_sig;
 static int	add_item(t_mini *mini)
 {
 	if (g_sig != 0)
-		return (final_free(mini), 0);
+	{
+		final_free(mini);
+		return (0);
+	}
 	process_reorganization(mini);
 	mini->tokens = exec_tokens(mini->cmmds_order);
 	mini->tree = create_tree(mini, mini->tokens);
@@ -51,10 +54,6 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 	char	finded_quote;
 
 	i = 0;
-	// if (str[0] == '|' || str[ft_strlen(str) - 1] == '|')
-	// 	return (printf("syntax error near unexpected token `|'\n"), 0);
-	// if (str[ft_strlen(str) - 1] == '<' || str[ft_strlen(str) - 1] == '>')
-	// 	return (printf("syntax error near unexpected token `newline'\n"), 0);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
@@ -86,7 +85,8 @@ int	tokens_checker(t_mini *mini)
 			cond_minishell(&mini, 4);
 			return (1);
 		}
-		if (is_file(check->type) == TRUE && check->next->type == PIPE)
+		if ((is_file(check->type) == TRUE && check->next->type == PIPE)
+			|| (check->type == PIPE && !check->next))
 		{
 			cond_minishell(&mini, 4);
 			return (1);
