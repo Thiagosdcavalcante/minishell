@@ -1,0 +1,4 @@
+NAME     := minishell
+all: $(LIBFT) $(NAME)
+$(NAME): obj $(OBJS)
+	$(RM) $(NAME)

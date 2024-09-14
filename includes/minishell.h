@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:53:29 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/14 12:37:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:58:56 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 typedef struct termios	t_termios;
 
-extern volatile int	g_sig;
+extern volatile int		g_sig;
 
 typedef enum e_bool
 {
@@ -107,6 +107,9 @@ char		*get_env(t_mini *data, char *key);
 char		*str_heredoc(char *str, t_mini *data);
 char		*ft_quotes(char *word);
 char		*path_name(void);
+char		*get_command_path(t_mini *data, char *cmd);
+char		**env_mtx(t_env_list *envs);
+int			tokens_checker(t_mini *mini);
 int			aux_parse(char letter);
 int			size_str(char *str);
 int			cond_minishell(t_mini **mini, int cond);
@@ -128,7 +131,6 @@ int			ft_cd(t_mini *data, char **cmd);
 int			change(t_mini *data, char *path);
 int			ft_env(t_mini *data, char **cmd);
 int			ft_export(t_mini *data, char **cmd);
-int			ft_execute(t_mini *data, char **cmd);
 int			is_file(int type);
 int			exec_tokens_cond(t_tokens *tkn);
 int			n_args(char **args);
@@ -184,7 +186,7 @@ void		final_free(t_mini *mini);
 void		sig_hand_here(int signal);
 void		free_split(char **split);
 void		free_tree(t_root_f **root);
-void		heredoc_util(t_mini *data, char *line, int file);
+void		heredoc_util(t_mini *data, char *line, int file, int f);
 void		set_sig_func(void);
 void		free_paths(t_mini *data);
 void		free_dup(t_mini *data);

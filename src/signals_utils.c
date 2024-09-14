@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*                                      :+:      :+:    :+:   */
+/*   signals_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:38:36 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/06 16:33:48 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:33:36 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	close_fds(int bckp_fd)
 void	sig_hand_here(int signal)
 {
 	(void)signal;
-	printf("\n");
+	ft_printf("\n");
 	close(STDIN_FILENO);
 	g_sig = SIGINT;
 }
@@ -34,14 +34,6 @@ int	ft_status(pid_t pid)
 
 	waitpid (pid, &status, 0);
 	status = get_return_value(status);
-	return (status);
-}
-
-int	ft_status_whitout_global(pid_t pid)
-{
-	int	status;
-
-	waitpid (pid, &status, 0);
 	return (status);
 }
 

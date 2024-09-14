@@ -6,51 +6,55 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/13 15:43:30 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:33:30 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	define_limits(char *str)
+static int	is_numb(char a)
+{
+	if (a >= '0' && a <= '9')
+		return (1);
+	return (0);
+}
+
+int	char_comp(char *str, char *str2)
 {
 	int	i;
-	int	result;
 
 	i = 0;
-	result = 0;
-	while (str[i])
+	while (str[i] && str2[i])
 	{
-		result += str[i] - '0';
+		if (str[i] > str2[i])
+			return (1);
+		if (str[i] < str2[i])
+			return (2);
 		i++;
 	}
-	return (result);
+	return (0);
 }
 
 static int	size_check(char *str)
 {
-	int	i;
-	int	result;
+	int		i;
+	size_t	len;
 
 	i = 0;
-	result = 0;
-	while (str[i])
-		result += str[i++] - '0';
-	if (str[0] == '-')
-	{
-		if (result > define_limits("-9223372036854775808"))
+	len = ft_strlen(str);
+	if ((len > (ft_strlen("-9223372036854775808")))
+		|| (len > (ft_strlen("+9223372036854775807")))
+		|| (len > (ft_strlen("+9223372036854775807"))))
+		return (1);
+	if (str[0] == '-' && (len >= ft_strlen("-9223372036854775808")))
+		if (ft_strncmp(str, "-9223372036854775808", 21) == 1)
 			return (1);
-	}
-	else if (str[0] == '+')
-	{
-		if (result > define_limits("+9223372036854775807"))
+	if (str[0] == '+' && (len >= ft_strlen("+9223372036854775807")))
+		if (ft_strncmp(str, "+9223372036854775807", 21) == 1)
 			return (1);
-	}
-	else
-	{
-		if (result > define_limits("9223372036854775807"))
+	if (is_numb(str[0]) && (len >= ft_strlen("9223372036854775807")))
+		if (ft_strncmp(str, "9223372036854775807", 20) == 1)
 			return (1);
-	}
 	return (0);
 }
 

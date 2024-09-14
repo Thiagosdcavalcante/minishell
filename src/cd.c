@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:32:36 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/13 15:43:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:54:22 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_env(t_mini *data, char *key)
 	k = ft_strlen(key);
 	while (cur)
 	{
-		if (ft_strncmp(cur->content, key, k) == 0)
+		if (ft_strncmp(cur->content, key, k) == 0 && cur->content[k] == '=')
 		{
 			s = k + 1;
 			return (ft_substr(cur->content, s, ft_strlen(cur->content) - s));

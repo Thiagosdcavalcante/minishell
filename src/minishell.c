@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/14 14:31:40 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:54:30 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,31 +70,6 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 	return (TRUE);
 }
 
-int	tokens_checker(t_mini *mini)
-{
-	t_tokens	*check;
-
-	if (is_file(mini->cmmds->type) == TRUE)
-		if (verify_if_is_only_one_sinal(mini) != 0)
-			return (1);
-	check = mini->cmmds;
-	while (check)
-	{
-		if (is_file(check->type) == TRUE && is_file(check->next->type) == TRUE)
-		{
-			cond_minishell(&mini, 4);
-			return (1);
-		}
-		if ((is_file(check->type) == TRUE && check->next->type == PIPE)
-			|| (check->type == PIPE && !check->next))
-		{
-			cond_minishell(&mini, 4);
-			return (1);
-		}
-		check = check->next;
-	}
-	return (0);
-}
 static int	minishell(t_mini *mini)
 {
 	mini->in_ms = readline("minishell>$ ");
@@ -108,7 +83,7 @@ static int	minishell(t_mini *mini)
 	{
 		first_step(mini);
 		if (tokens_checker(mini) == 1)
-				return (mini->status);
+			return (mini->status);
 		if (add_item(mini) == 0)
 			return (130);
 		mini->status = init_exec(mini, mini->tree);

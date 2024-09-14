@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:10:50 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/07 11:28:59 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:59:10 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_paths(t_mini *data, char *command)
 	}
 	data->paths = ft_split(env, ':');
 	temp = data->paths[0];
-	data->paths[0] = ft_substr(temp, 5, ft_strlen(temp));
+	data->paths[0] = ft_substr(temp, 0, ft_strlen(temp));
 	free(temp);
 	while (data->paths[i] != NULL)
 	{

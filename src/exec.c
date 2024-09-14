@@ -6,11 +6,24 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/14 14:34:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:33:46 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	sup_ft_pipe(int *fd, t_mini *data, t_root_f *root, int status)
+{
+	dup2(fd[1], STDOUT_FILENO);
+	close (fd[0]);
+	close (fd[1]);
+	rl_clear_history();
+	status = ft_exec(data, root->left);
+	free_dup(data);
+	if (status == 1)
+		exit (EXIT_FAILURE);
+	exit (status);
+}
 
 static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 {
@@ -18,17 +31,7 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 
 	status = 0;
 	if (is_left == 1)
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		close (fd[0]);
-		close (fd[1]);
-		rl_clear_history();
-		status = ft_exec(data, root->left);
-		free_dup(data);
-		if (status == 1)
-			exit (EXIT_FAILURE);
-		exit (status);
-	}
+		sup_ft_pipe(fd, data, root, status);
 	else
 	{
 		dup2(fd[0], STDIN_FILENO);
@@ -95,10 +98,5 @@ int	ft_exec(t_mini *data, t_root_f *root)
 
 int	init_exec(t_mini *data, t_root_f *root)
 {
-	// int	status;
-
-	// status = ft_exec(data, root);
-	// if(status = )
-	// return (status);
 	return (ft_exec(data, root));
 }

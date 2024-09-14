@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tsantana <tsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:41:47 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/14 13:30:37 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:33:23 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	cond_minishell(t_mini **mini, int cond)
 	}
 	else if (cond == 2)
 	{
-		add_history((*mini)->in_ms);
+		if ((*mini)->in_ms[0] != '\0')
+			add_history((*mini)->in_ms);
 		free((*mini)->in_ms);
 	}
 	else if (cond == 3)
@@ -58,7 +59,8 @@ int	verify_if_is_only_one_sinal(t_mini *mini)
 
 void	first_step(t_mini *mini)
 {
-	add_history(mini->in_ms);
+	if (mini->in_ms[0] != '\0')
+		add_history(mini->in_ms);
 	mini->in_ms = put_space_ms(mini->in_ms);
 	mini->cmmds = parse_str(mini->in_ms, mini);
 }
@@ -75,4 +77,21 @@ int	return_exit(char *str, int i)
 			return (printf("exit\n"), (256 + ret));
 	}
 	return (printf("exit\n"), ret % 256);
+}
+
+void	my_error(t_mini *data, int status, char *msg, char *command)
+{
+	if (status == EACCES)
+		status = 126;
+	ft_putstr_fd(command, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(msg, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+	if (data)
+		final_free(data);
+	ffree(data);
+	exit(status);
 }
