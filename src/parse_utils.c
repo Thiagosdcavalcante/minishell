@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:56:02 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/13 11:04:39 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:19:11 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ t_tokens	*parse_str(char *str, t_mini *mini)
 	i = 0;
 	mtx = NULL;
 	parse_str = custom_split(str, ' ');
-	mtx = create_mtx(parse_str[i++]);
+	mtx = create_mtx(parse_str[i]);
 	if (!mtx)
 		return (NULL);
 	head = mtx;
-	while (parse_str[i])
+	while (parse_str[++i] != NULL)
 	{
 		if (mtx && mtx->type == DOUBLELESSER)
 			mtx->next = create_heredoc_file(parse_str[i], mini);
@@ -99,7 +99,6 @@ t_tokens	*parse_str(char *str, t_mini *mini)
 			mtx->next = create_mtx(parse_str[i]);
 		mtx->next->prev = mtx;
 		mtx = mtx->next;
-		i++;
 	}
 	free_split(parse_str);
 	return (define_word(head));

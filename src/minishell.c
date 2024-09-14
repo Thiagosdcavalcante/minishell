@@ -6,23 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:56:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/13 16:17:37 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:19:49 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 volatile int	g_sig;
-
-void print_list(t_tokens *cmd)
-{
-	while(cmd)
-	{
-		printf("TOKEN: %s\n", cmd->str);
-		cmd = cmd->next;
-	}
-
-}
 
 static int	add_item(t_mini *mini)
 {
@@ -34,16 +24,16 @@ static int	add_item(t_mini *mini)
 	return (1);
 }
 
-static int	check_if_only_spaces(t_mini *mini)
+int	check_if_only_spaces(char *str)
 {
 	int	flag;
 	int	i;
 
 	i = 0;
 	flag = 0;
-	while (mini->in_ms[i] != '\0')
+	while (str[i] != '\0')
 	{
-		if (ft_isspace(mini->in_ms[i]) == FALSE)
+		if (ft_isspace(str[i]) == FALSE)
 		{
 			flag = 1;
 			break ;
@@ -61,10 +51,10 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 	char	finded_quote;
 
 	i = 0;
-	if (str[0] == '|' || str[ft_strlen(str) - 1] == '|')
-		return (printf("bash: syntax error near unexpected token `|'\n"), 0);
-	if (str[ft_strlen(str) - 1] == '<' || str[ft_strlen(str) - 1] == '>')
-		return (printf("bash: syntax error near unexpected token `newline'\n"), 0);
+	// if (str[0] == '|' || str[ft_strlen(str) - 1] == '|')
+	// 	return (printf("syntax error near unexpected token `|'\n"), 0);
+	// if (str[ft_strlen(str) - 1] == '<' || str[ft_strlen(str) - 1] == '>')
+	// 	return (printf("syntax error near unexpected token `newline'\n"), 0);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
@@ -81,28 +71,50 @@ static t_bool	check_quotes_and_double_quotes(char *str)
 	return (TRUE);
 }
 
+int	tokens_checker(t_mini *mini)
+{
+	t_tokens	*check;
+
+	if (is_file(mini->cmmds->type) == TRUE)
+		if (verify_if_is_only_one_sinal(mini) != 0)
+			return (1);
+	check = mini->cmmds;
+	while (check)
+	{
+		if (is_file(check->type) == TRUE && is_file(check->next->type) == TRUE)
+		{
+			cond_minishell(&mini, 4);
+			return (1);
+		}
+		if (is_file(check->type) == TRUE && check->next->type == PIPE)
+		{
+			cond_minishell(&mini, 4);
+			return (1);
+		}
+		check = check->next;
+	}
+	return (0);
+}
 static int	minishell(t_mini *mini)
 {
-	int	status;
-
-	status = 0;
 	mini->in_ms = readline("minishell>$ ");
 	if (!mini->in_ms)
 		cond_minishell(&mini, 1);
-	if (check_if_only_spaces(mini) == TRUE)
+	if (check_if_only_spaces(mini->in_ms) == TRUE)
 		return (cond_minishell(&mini, 2));
 	if (!check_quotes_and_double_quotes(mini->in_ms))
 		return (cond_minishell(&mini, 3));
 	if (mini->in_ms[0] != '\0')
 	{
 		first_step(mini);
-		if (is_file(mini->cmmds->type) == TRUE)
-			if (verify_if_is_only_one_sinal(mini) != 0)
+		if (tokens_checker(mini) == 1)
 				return (mini->status);
+		// if (is_file(mini->cmmds->type) == TRUE) // colocar em loop
+		// 	if (verify_if_is_only_one_sinal(mini) != 0)
+		// 		return (mini->status);
 		if (add_item(mini) == 0)
 			return (130);
-		status = init_exec(mini, mini->tree);
-		mini->status = status;
+		mini->status = init_exec(mini, mini->tree);
 		if (mini->tree != NULL)
 			unlink_here_doc(mini->tree);
 		final_free(mini);

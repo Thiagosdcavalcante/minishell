@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:42:37 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/12 22:23:27 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:19:19 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 		rl_clear_history();
 		status = ft_exec(data, root->left);
 		free_dup(data);
+		if (status == 1)
+			exit (EXIT_FAILURE);
 		exit (status);
 	}
 	else
@@ -34,6 +36,8 @@ static void	ft_pipe(t_mini *data, t_root_f *root, int *fd, int is_left)
 		close (fd[1]);
 		status = ft_exec(data, root->right);
 		free_dup(data);
+		if (status == 1)
+			exit (EXIT_FAILURE);
 		exit (status);
 	}
 }
@@ -79,6 +83,7 @@ int	ft_exec(t_mini *data, t_root_f *root)
 		{
 			set_sig_func();
 			ft_execute(data, root->n_args);
+			free(data->in_ms);
 			exit(0);
 		}
 		else
@@ -90,5 +95,10 @@ int	ft_exec(t_mini *data, t_root_f *root)
 
 int	init_exec(t_mini *data, t_root_f *root)
 {
+	// int	status;
+
+	// status = ft_exec(data, root);
+	// if(status = )
+	// return (status);
 	return (ft_exec(data, root));
 }

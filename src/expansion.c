@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:56:40 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/12 22:23:27 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:04:32 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	double_quote_expansion(t_mini *data, char *arg, int *i, char **result)
 	{
 		if (arg[*i] == '$')
 		{
-			handle_var_expansion(data, arg, i, result);
+			handle_var_exp(data, arg, i, result);
 			if (!*result)
 				return ;
 		}
@@ -101,6 +101,12 @@ void	init_expansion(t_mini *data, char **args, char **n_args)
 	char	*temp;
 
 	i = 0;
+	if (args[0][0] == '"' && args[0][1] == '"')
+	{
+		n_args[0] = ft_strdup(" ");
+		n_args[1] = NULL;
+		return ;
+	}
 	while (args[i])
 	{
 		temp = full_expansion(data, args[i]);

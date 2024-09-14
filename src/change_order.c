@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:16:40 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/13 15:03:12 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:56:55 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	add_token_to_ordered_list(t_tokens **cmmds_order, t_tokens *token)
 {
-	t_tokens *new_token;
+	t_tokens	*new_token;
+	t_tokens	*temp;
 
 	new_token = malloc(sizeof(t_tokens));
 	if (!new_token)
-		return;
+		return ;
 	new_token->str = strdup(token->str);
 	new_token->type = token->type;
 	new_token->next = NULL;
@@ -27,7 +28,7 @@ void	add_token_to_ordered_list(t_tokens **cmmds_order, t_tokens *token)
 		*cmmds_order = new_token;
 	else
 	{
-		t_tokens *temp = *cmmds_order;
+		temp = *cmmds_order;
 		while (temp->next)
 			temp = temp->next;
 		temp->next = new_token;
@@ -37,9 +38,9 @@ void	add_token_to_ordered_list(t_tokens **cmmds_order, t_tokens *token)
 
 void	reorg_group(t_tokens *start, t_tokens *end, t_tokens **cmmds_order)
 {
-	t_tokens *current; 
-	t_tokens *first_word;
-	
+	t_tokens	*current;
+	t_tokens	*first_word;
+
 	first_word = NULL;
 	current = start;
 	while (current && current != end)
@@ -66,15 +67,15 @@ void	reorg_group(t_tokens *start, t_tokens *end, t_tokens **cmmds_order)
 
 void	reorganize(t_tokens *tokens, t_tokens **cmmds_order)
 {
-	t_tokens *current;
-	t_tokens *next_pipe;
-	t_tokens *start_of_group;
-	
+	t_tokens	*current;
+	t_tokens	*next_pipe;
+	t_tokens	*start_of_group;
+
 	next_pipe = NULL;
 	current = tokens;
 	while (current)
 	{
-	   	start_of_group = current;
+		start_of_group = current;
 		next_pipe = current;
 		while (next_pipe && next_pipe->type != PIPE)
 			next_pipe = next_pipe->next;
@@ -112,15 +113,4 @@ int	unlink_here_doc(t_root_f *root)
 	if (root->right)
 		unlink_here_doc(root->right);
 	return (0);
-}
-
-char	*path_name(void)
-{
-	char	*eof;
-	char	*path;
-
-	eof = ft_put_zero();
-	path = ft_strjoin("/tmp/", eof);
-	free(eof);
-	return (path);
 }

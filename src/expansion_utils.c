@@ -6,21 +6,11 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 13:52:03 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/13 16:41:39 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:57:31 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_strcpy(char *dst, const char *src)
-{
-	if (src && dst)
-	{
-		while (*src)
-			*dst++ = *src++;
-		*dst = '\0';
-	}
-}
 
 char	*f_expannsion(t_mini *data, char *arg)
 {
@@ -76,7 +66,7 @@ void	one_quote(char **arg, int *i, char **new_result, char **result)
 	*result = *new_result;
 }
 
-void	handle_var_expansion(t_mini *data, char *arg, int *i, char **result)
+void	handle_var_exp(t_mini *data, char *arg, int *i, char **result)
 {
 	char	*temp;
 	char	*expanded_var;

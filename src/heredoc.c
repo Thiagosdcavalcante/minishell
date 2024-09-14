@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:24:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/13 13:07:16 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:00:21 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ int	heredoc_loop(t_mini *data, char *eof, int file)
 		if (line == NULL)
 		{
 			if (g_sig != SIGINT)
-			{
-				ft_printf("warning: here-document at line %d ", i);
-				ft_printf("delimited by end-of-file (wanted `%s')\n", eof);
-			}
+				print_eof(i, eof);
 			break ;
 		}
 		if (ft_strlen(line) == ft_strlen(eof)

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:41:47 by tsantana          #+#    #+#             */
-/*   Updated: 2024/09/13 16:01:51 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:03:59 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ int	cond_minishell(t_mini **mini, int cond)
 		free((*mini)->in_ms);
 		return (EXIT_FAILURE);
 	}
+	else if (cond == 4)
+	{
+		add_history((*mini)->in_ms);
+		printf("bash: syntax error near unexpected token `newline'\n");
+		final_free((*mini));
+		return (1);
+	}
 	return (0);
 }
 
@@ -49,6 +56,29 @@ int	verify_if_is_only_one_sinal(t_mini *mini)
 	}
 	return (0);
 }
+// int	verify_if_is_only_one_sinal(t_mini *mini)
+// {
+// 	t_tokens	*tmp;
+
+// 	tmp = mini->cmmds;
+// 	while(tmp)
+// 	{
+// 		if ((is_file(tmp->type) == TRUE && !tmp->next) || (is_file(tmp->type) == TRUE && tmp->next->type > 1))
+// 		{
+// 			mini->status = 2;
+// 			free(mini->in_ms);
+// 			free_tokens(&mini->cmmds);
+// 			free_tokens(&mini->cmmds_order);
+// 			if (tmp->next->type == PIPE)
+// 				printf("bash: syntax error near unexpected token `|'\n");
+// 			else
+// 				printf("bash: syntax error near unexpected token `newline'\n");
+// 			return (2);
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// 	return (0);
+// }
 
 void	first_step(t_mini *mini)
 {

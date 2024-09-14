@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:26:23 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/13 15:36:03 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:01:36 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,15 @@ int	ft_unset(t_mini *data, char **cmd)
 	i = 0;
 	while (cmd[++i] != NULL)
 	{
-	if (cmd[i][0] != '_')
+		if (cmd[i][0] != '_')
 		{
 			if (ft_isalpha(cmd[i][0]) == 0)
 				printf("unset: \"%s\": not a valid identifier\n", cmd[i]);
 			else if (ft_isalnum(cmd[i][ft_strlen(cmd[i]) - 1]) == 0)
-				return(printf("unset: \"%s\": not a valid identifier\n", cmd[i]), 1);
+			{
+				printf("unset: \"%s\": not a valid identifier\n", cmd[i]);
+				return (1);
+			}
 		}
 		ft_remove_env(data, cmd[i]);
 	}

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 22:59:56 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/13 12:54:42 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:43:00 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,27 @@ char	*get_command_path(t_mini *data, char *cmd)
 {
 	char	*path;
 
-	if (cmd[strlen(cmd) - 1] == '/')
+	if (cmd[ft_strlen(cmd) - 1] == '/')
 		my_error(data, 126, "Is a directory", cmd);
-	if (strncmp(cmd, "./", 2) == 0 || strncmp(cmd, "/", 1) == 0)
+	if (ft_strncmp(cmd, "./", 2) == 0 || ft_strncmp(cmd, "/", 1) == 0)
 		path = cmd;
 	else
 		path = path_check(data, cmd);
 	if (path == NULL)
 		my_error(data, 127, "command not found", cmd);
 	return (path);
+}
+int	has_alpha(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		ft_isspace(str[i]);
+		i++;
+	}
+	return (1);
 }
 
 int	ft_execute(t_mini *data, char **cmd)
@@ -93,11 +105,11 @@ int	ft_execute(t_mini *data, char **cmd)
 	char	**envs;
 	char	**new_cmd;
 
-	if (cmd[1] == NULL && ft_strchr(cmd[0], ' '))
+	if (cmd[1] == NULL && ft_strchr(cmd[0], ' ') && check_if_only_spaces(cmd[0]) == FALSE)
 		new_cmd = ft_split(cmd[0], ' ');
 	else
 		new_cmd = cmd;
-	while (*new_cmd && strcmp(*new_cmd, "") == 0)
+	while (*new_cmd && ft_strcmp(*new_cmd, "") == 0)
 		new_cmd++;
 	if (!new_cmd || !new_cmd[0])
 		return (0);
@@ -114,25 +126,4 @@ int	ft_execute(t_mini *data, char **cmd)
 	execve(path, new_cmd, envs);
 	my_error(data, 126, "Execution failed", new_cmd[0]);
 	return (0);
-	
-	// char	*path;
-	// char	**envs;
-
-	// while (*cmd && strcmp(*cmd, "") == 0)
-	// 	cmd++;
-	// if (!cmd || !cmd[0])
-	// 	return (0);
-	// path = get_command_path(data, cmd[0]);
-	// if (path == NULL)
-	// 	return (127);
-	// if (path_exists(path) == 0)
-	// 	my_error(data, 127, "No such file or directory", cmd[0]);
-	// if (is_directory(path))
-	// 	my_error(data, 126, "Is a directory", cmd[0]);
-	// if (access(path, X_OK) != 0)
-	// 	my_error(data, 126, "Permission denied", cmd[0]);
-	// envs = env_mtx(data->envs);
-	// execve(path, cmd, envs);
-	// my_error(data, 126, "Execution failed", cmd[0]);
-	// return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 11:02:22 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/09/12 22:23:27 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:43:55 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_echo(t_mini *data, t_root_f *root)
 	i = 0;
 	if (root->word[4] != '\0')
 	{
-		printf("minishell: %s: command not found\n", root->word);
+		printf("%s: command not found\n", root->word);
 		return (1);
 	}
 	if (root->n_args[1] == NULL)
